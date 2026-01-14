@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import { Trick } from '@/data/mockData';
-import { useCart } from '@/context/CartContext';
 
 interface TrickCardProps {
   trick: Trick;
@@ -10,9 +9,6 @@ interface TrickCardProps {
 }
 
 export default function TrickCard({ trick, index }: TrickCardProps) {
-  const { addToCart, isInCart } = useCart();
-  const inCart = isInCart(trick.id);
-
   const getDifficultyClass = (difficulty: string) => {
     switch (difficulty) {
       case 'Beginner':
@@ -41,11 +37,6 @@ export default function TrickCard({ trick, index }: TrickCardProps) {
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1F] via-transparent to-transparent" />
-        
-        {/* Price Badge */}
-        <div className="absolute top-4 right-4 bg-[#0A0A0B]/80 backdrop-blur px-3 py-1 rounded">
-          <span className="text-[#C9A227] font-semibold">${trick.price}</span>
-        </div>
       </div>
 
       {/* Content */}
@@ -64,31 +55,9 @@ export default function TrickCard({ trick, index }: TrickCardProps) {
         </h3>
 
         {/* Description */}
-        <p className="text-[#8A8A8E] text-sm mb-4 line-clamp-2">
+        <p className="text-[#8A8A8E] text-sm line-clamp-2">
           {trick.description}
         </p>
-
-        {/* Add to Cart Button */}
-        <button
-          onClick={() => addToCart(trick)}
-          disabled={inCart}
-          className={`w-full py-3 text-sm uppercase tracking-wider font-medium transition-all ${
-            inCart
-              ? 'bg-[#2D1B4E] text-[#8A8A8E] cursor-not-allowed border border-[#4A1D6A]'
-              : 'btn-gold'
-          }`}
-        >
-          {inCart ? (
-            <span className="flex items-center justify-center gap-2">
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-              In Cart
-            </span>
-          ) : (
-            'Add to Cart'
-          )}
-        </button>
       </div>
 
       {/* Hover Glow Effect */}
