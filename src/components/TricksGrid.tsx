@@ -23,8 +23,7 @@ export default function TricksGrid() {
             Master the Impossible
           </h2>
           <p className="text-[#8A8A8E] max-w-2xl mx-auto">
-            Each trick comes with detailed video tutorials, performance tips, and insider secrets 
-            from professional magicians.
+            Each trick comes with detailed video tutorials, performance tips, and live footages.
           </p>
           <div className="section-divider mt-8" />
         </div>
