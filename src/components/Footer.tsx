@@ -11,9 +11,12 @@ export default function Footer() {
             >
               CHARMASTERY
             </h2>
-            <p className="text-[#8A8A8E] text-sm leading-relaxed max-w-md">
-              Enter a world where the impossible becomes possible. Master the art of illusion 
-              with premium tutorials from world-renowned magicians.
+            <p className="text-[#8A8A8E] text-sm leading-relaxed max-w-md mb-3">
+              Master the art of human connection. We teach high-performers the social skills that 
+              transform strangers into friends and every interaction into an opportunity.
+            </p>
+            <p className="text-[#C9A227] text-sm italic">
+              &quot;Get hugs from strangers.&quot;
             </p>
             
             {/* Social Icons */}
@@ -114,7 +117,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-[#5A5A5E] text-sm">
           <p>© 2025 Charmastery. All secrets protected.</p>
           <p className="text-xs italic">
-            &quot;The real secret is there is no secret — only practice.&quot;
+            &quot;Connection is the ultimate currency.&quot;
           </p>
         </div>
       </div>

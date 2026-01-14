@@ -14,16 +14,16 @@ export default function TricksGrid() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <span className="inline-block text-[#C9A227] uppercase tracking-[0.3em] text-sm mb-4">
-            Our Collection
+            Your Social Toolkit
           </span>
           <h2
             className="text-4xl md:text-5xl font-serif text-[#F5F5F5] mb-4"
             style={{ fontFamily: 'var(--font-serif)' }}
           >
-            Master the Impossible
+            Break the Ice Instantly
           </h2>
           <p className="text-[#8A8A8E] max-w-2xl mx-auto">
-            Each trick comes with detailed video tutorials, performance tips, and live footages.
+            Each technique comes with detailed video tutorials, real-world performance tips, and live footages of genuine reactions.
           </p>
           <div className="section-divider mt-8" />
         </div>
@@ -43,33 +43,32 @@ export default function TricksGrid() {
             
             <div className="relative">
               <span className="inline-block text-[#C9A227] uppercase tracking-[0.3em] text-sm mb-3">
-                Unlock Everything
+                Invest in Yourself
               </span>
               <h3
                 className="text-3xl md:text-4xl font-serif text-[#F5F5F5] mb-4"
                 style={{ fontFamily: 'var(--font-serif)' }}
               >
-                Full Access Pass
+                Complete Mastery Program
               </h3>
               <p className="text-[#8A8A8E] max-w-lg mx-auto mb-6">
-                Get instant access to all {tricks.length} tricks, video tutorials, performance tips, and live footages with a single purchase.
+                Gain lifetime access to all {tricks.length} connection techniques, video tutorials, live footages, and the social frameworks that transform how people respond to you.
               </p>
               
               <div className="flex items-center justify-center gap-2 mb-6">
-                <span className="text-[#8A8A8E] line-through text-lg">$90</span>
-                <span className="text-4xl font-bold text-[#C9A227]">$49</span>
-                <span className="text-[#8A8A8E] text-sm">one-time</span>
+                <span className="text-4xl font-bold text-[#C9A227]">$497</span>
+                <span className="text-[#8A8A8E] text-sm">one-time investment</span>
               </div>
               
               <button className="btn-gold inline-flex items-center gap-3 px-8 py-4 text-lg">
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
-                Get Full Access Now
+                Begin Your Transformation
               </button>
               
               <p className="text-[#8A8A8E] text-sm mt-4">
-                ✓ Lifetime access &nbsp;•&nbsp; ✓ All future updates &nbsp;•&nbsp; ✓ 30-day money back
+                ✓ Lifetime access &nbsp;•&nbsp; ✓ All future updates &nbsp;•&nbsp; ✓ 30-day money back guarantee
               </p>
             </div>
           </div>

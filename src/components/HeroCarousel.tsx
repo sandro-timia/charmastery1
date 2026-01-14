@@ -40,14 +40,17 @@ export default function HeroCarousel() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
         {/* Hero Text */}
         <div className="text-center mb-12 animate-fade-in">
+          <p className="text-[#C9A227] uppercase tracking-[0.3em] text-sm mb-4">
+            The Art of Human Connection
+          </p>
           <h1
             className="text-4xl md:text-6xl lg:text-7xl font-serif text-[#F5F5F5] mb-4"
             style={{ fontFamily: 'var(--font-serif)' }}
           >
-            Master the <span className="text-[#C9A227]">Impossible</span>
+            Get Hugs from <span className="text-[#C9A227]">Strangers</span>
           </h1>
           <p className="text-lg md:text-xl text-[#8A8A8E] max-w-2xl mx-auto">
-            Learn professional magic from world-class performers. Each trick, perfected.
+            Transform every interaction into a memorable connection. Master the social skills that turn strangers into friends—magic is just the icebreaker.
           </p>
         </div>
 

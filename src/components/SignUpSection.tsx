@@ -57,13 +57,13 @@ export default function SignUpSection() {
               className="text-3xl md:text-4xl lg:text-5xl font-serif text-[#F5F5F5] mb-4"
               style={{ fontFamily: 'var(--font-serif)' }}
             >
-              Enter the Hidden Circle
+              Join the Inner Circle
             </h2>
 
             {/* Subtext */}
             <p className="text-[#8A8A8E] mb-8 max-w-lg mx-auto">
-              Get early access to new tricks, exclusive discounts, and tour announcements 
-              before anyone else.
+              Receive exclusive insights on social dynamics, new techniques, and private event invitations 
+              reserved for serious practitioners only.
             </p>
 
             {/* Form */}

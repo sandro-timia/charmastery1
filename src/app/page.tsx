@@ -18,27 +18,28 @@ export default function Home() {
       {/* Sign Up / Newsletter Section */}
       <SignUpSection />
 
-      {/* About Section (Placeholder) */}
+      {/* About Section */}
       <section id="about" className="py-24 bg-[#121214]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <span className="inline-block text-[#C9A227] uppercase tracking-[0.3em] text-sm mb-4">
-            The Art of Wonder
+            Why This Investment
           </span>
           <h2
             className="text-4xl md:text-5xl font-serif text-[#F5F5F5] mb-6"
             style={{ fontFamily: 'var(--font-serif)' }}
           >
-            About Charmastery
+            The Charmastery Difference
           </h2>
           <p className="text-[#8A8A8E] text-lg leading-relaxed mb-8">
-            Founded by world-renowned illusionists, Charmastery is dedicated to preserving 
-            and sharing the ancient art of magic. Our carefully curated collection of tricks 
-            ranges from classic sleight of hand to modern mentalism, each taught with the 
-            precision and passion that only true masters can provide.
+            This isn&apos;t a magic course—it&apos;s a complete system for mastering human connection. 
+            We use the art of wonder as a vehicle to teach you the social skills that open doors, 
+            create instant rapport, and leave lasting impressions. Every technique is designed 
+            to make you unforgettable.
           </p>
           <p className="text-[#8A8A8E] leading-relaxed">
-            Whether you&apos;re a curious beginner or a seasoned performer, our tutorials 
-            will elevate your craft and unlock secrets that have captivated audiences for centuries.
+            Our clients are executives, entrepreneurs, and high-performers who understand that 
+            the ability to connect authentically is the most valuable skill in business and life. 
+            This is your competitive edge.
           </p>
           
           {/* Stats */}
@@ -47,19 +48,19 @@ export default function Home() {
               <p className="text-4xl md:text-5xl font-serif text-[#C9A227]" style={{ fontFamily: 'var(--font-serif)' }}>
                 50+
               </p>
-              <p className="text-[#8A8A8E] text-sm mt-2">Premium Tutorials</p>
+              <p className="text-[#8A8A8E] text-sm mt-2">Connection Techniques</p>
             </div>
             <div>
               <p className="text-4xl md:text-5xl font-serif text-[#C9A227]" style={{ fontFamily: 'var(--font-serif)' }}>
-                10K+
+                2K+
               </p>
-              <p className="text-[#8A8A8E] text-sm mt-2">Students Worldwide</p>
+              <p className="text-[#8A8A8E] text-sm mt-2">Elite Members</p>
             </div>
             <div>
               <p className="text-4xl md:text-5xl font-serif text-[#C9A227]" style={{ fontFamily: 'var(--font-serif)' }}>
                 25
               </p>
-              <p className="text-[#8A8A8E] text-sm mt-2">Countries Visited</p>
+              <p className="text-[#8A8A8E] text-sm mt-2">Countries Reached</p>
             </div>
           </div>
         </div>
