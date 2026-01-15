@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
+import { AuthProvider } from "@/context/AuthContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Cart from "@/components/Cart";
@@ -65,12 +66,14 @@ export default function RootLayout({
         className={`${cormorantGaramond.variable} ${dmSans.variable} antialiased bg-[#0A0A0B] text-[#F5F5F5]`}
         style={{ fontFamily: "var(--font-sans)" }}
       >
-        <CartProvider>
-          <Header />
-          {children}
-          <Footer />
-          <Cart />
-        </CartProvider>
+        <AuthProvider>
+          <CartProvider>
+            <Header />
+            {children}
+            <Footer />
+            <Cart />
+          </CartProvider>
+        </AuthProvider>
       </body>
     </html>
   );

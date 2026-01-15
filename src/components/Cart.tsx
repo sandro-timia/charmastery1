@@ -1,11 +1,33 @@
 'use client';
 
 import { useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { masteryProgram } from '@/data/mockData';
+import { useAuth } from '@/context/AuthContext';
 import { useCart } from '@/context/CartContext';
 import CartItem from './CartItem';
 
 export default function Cart() {
-  const { items, subtotal, isCartOpen, closeCart, clearCart } = useCart();
+  const { items, subtotal, isCartOpen, addToCart, openCart, closeCart, clearCart } = useCart();
+  const { user, isLoading } = useAuth();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Allow redirect flows (e.g. /?openCart=1) to open cart automatically
+  useEffect(() => {
+    const shouldOpen = searchParams.get('openCart') === '1';
+    const add = searchParams.get('add');
+    if (!shouldOpen && !add) return;
+
+    if (add === 'mastery') {
+      addToCart(masteryProgram);
+    }
+    if (shouldOpen) {
+      openCart();
+    }
+
+    router.replace('/');
+  }, [searchParams, addToCart, openCart, router]);
 
   // Close cart on escape key
   useEffect(() => {
@@ -82,9 +104,26 @@ export default function Cart() {
                 <p className="text-[#8A8A8E] text-sm mb-6">
                   Discover amazing tricks to master
                 </p>
-                <button onClick={closeCart} className="btn-gold">
-                  Browse Tricks
-                </button>
+                <div className="w-full max-w-xs space-y-3">
+                  <button
+                    type="button"
+                    onClick={() => addToCart(masteryProgram)}
+                    className="btn-gold-filled w-full"
+                  >
+                    Add All Access (${masteryProgram.price})
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      closeCart();
+                      const el = document.getElementById('tricks');
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="btn-gold w-full"
+                  >
+                    Browse Tricks
+                  </button>
+                </div>
               </div>
             ) : (
               <div className="space-y-4">
@@ -108,7 +147,19 @@ export default function Cart() {
 
               {/* Actions */}
               <div className="space-y-3">
-                <button className="btn-gold-filled w-full">
+                <button
+                  type="button"
+                  className="btn-gold-filled w-full"
+                  onClick={() => {
+                    // Gate checkout behind auth
+                    closeCart();
+                    if (!isLoading && user) {
+                      router.push('/checkout');
+                    } else {
+                      router.push('/auth?next=checkout');
+                    }
+                  }}
+                >
                   Proceed to Checkout
                 </button>
                 <button

@@ -72,11 +72,6 @@ export default function Footer() {
                   Join Inner Circle
                 </a>
               </li>
-              <li>
-                <a href="#" className="text-[#8A8A8E] hover:text-[#C9A227] transition-colors text-sm">
-                  Gift Cards
-                </a>
-              </li>
             </ul>
           </div>
 
@@ -101,11 +96,6 @@ export default function Footer() {
                   Refund Policy
                 </a>
               </li>
-              <li>
-                <a href="#" className="text-[#8A8A8E] hover:text-[#C9A227] transition-colors text-sm">
-                  Contact Us
-                </a>
-              </li>
             </ul>
           </div>
         </div>
@@ -115,7 +105,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-[#5A5A5E] text-sm">
-          <p>© 2025 Charmastery. All secrets protected.</p>
+          <p>© 2026 Charmastery. All secrets protected.</p>
           <p className="text-xs italic">
             &quot;Connection is the ultimate currency.&quot;
           </p>

@@ -1,135 +1,115 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { HeroVideo } from '@/data/mockData';
 
 interface VideoCardProps {
   video: HeroVideo;
   isActive: boolean;
+  onWatchFullPerformance?: () => void;
 }
 
-export default function VideoCard({ video, isActive }: VideoCardProps) {
-  const [videoEnded, setVideoEnded] = useState(false);
+export default function VideoCard({ video, isActive, onWatchFullPerformance }: VideoCardProps) {
   const [isLoaded, setIsLoaded] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const [gifKey, setGifKey] = useState(0);
+  const [hasError, setHasError] = useState(false);
+  const imgRef = useRef<HTMLImageElement | null>(null);
 
+  // Reset GIF when card becomes active
   useEffect(() => {
-    if (videoRef.current) {
-      if (isActive) {
-        videoRef.current.currentTime = 0;
-        videoRef.current.play().catch(() => {
-          // Autoplay might be blocked
-        });
-        setVideoEnded(false);
-      } else {
-        videoRef.current.pause();
-      }
+    if (isActive) {
+      // Reset GIF by changing key (forces reload)
+      setGifKey((prev) => prev + 1);
     }
   }, [isActive]);
 
-  const handleVideoEnd = () => {
-    setVideoEnded(true);
-  };
+  // Ensure loading state resolves even if image is already cached
+  useEffect(() => {
+    // when the src changes, show loader until we confirm it's complete
+    setIsLoaded(false);
 
-  const handleReplay = () => {
-    if (videoRef.current) {
-      videoRef.current.currentTime = 0;
-      videoRef.current.play();
-      setVideoEnded(false);
+    const img = imgRef.current;
+    if (img && img.complete) {
+      setIsLoaded(true);
     }
-  };
+  }, [gifKey, hasError, video.gifUrl, video.posterUrl]);
 
   return (
-    <div className="relative w-full aspect-[4/5] sm:aspect-[3/4] rounded-lg overflow-hidden gold-border gold-glow-hover card-lift group">
-      {/* Video */}
-      <video
-        ref={videoRef}
-        src={video.videoUrl}
-        poster={video.posterUrl}
-        muted
-        playsInline
-        onEnded={handleVideoEnd}
-        onLoadedData={() => setIsLoaded(true)}
-        className="absolute inset-0 w-full h-full object-cover"
-      />
+    <div className="relative w-full">
+      {/* Media Frame */}
+      <div className="relative w-full aspect-[4/5] sm:aspect-[3/4] rounded-lg overflow-hidden gold-border gold-glow-hover card-lift group">
+        {/* GIF */}
+        <img
+          ref={imgRef}
+          key={gifKey}
+          src={hasError ? video.posterUrl : video.gifUrl}
+          alt={video.title}
+          onLoad={() => setIsLoaded(true)}
+          onError={() => {
+            // Avoid infinite spinner if a 3rd-party GIF host blocks requests
+            setHasError(true);
+            setIsLoaded(true);
+          }}
+          loading="eager"
+          decoding="async"
+          className={[
+            'absolute inset-0 w-full h-full object-cover',
+            // Subtle dim for side cards without CSS filters (keeps GIF animation reliable)
+            isActive ? '' : 'opacity-80',
+          ].join(' ')}
+        />
 
-      {/* Loading State */}
-      {!isLoaded && (
-        <div className="absolute inset-0 bg-[#1A1A1F] flex items-center justify-center">
-          <div className="w-8 h-8 border-2 border-[#C9A227] border-t-transparent rounded-full animate-spin" />
-        </div>
-      )}
+        {/* Loading State */}
+        {!isLoaded && (
+          <div className="absolute inset-0 bg-[#1A1A1F] flex items-center justify-center">
+            <div className="w-8 h-8 border-2 border-[#C9A227] border-t-transparent rounded-full animate-spin" />
+          </div>
+        )}
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 video-overlay" />
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 video-overlay" />
 
-      {/* Title (always visible) */}
-      <div className="absolute bottom-0 left-0 right-0 p-6">
-        <h3
-          className="text-xl md:text-2xl font-serif text-[#F5F5F5] mb-2"
-          style={{ fontFamily: 'var(--font-serif)' }}
-        >
-          {video.title}
-        </h3>
-        {!videoEnded && (
-          <div className="flex items-center gap-2 text-[#8A8A8E] text-sm">
-            <span className="w-2 h-2 bg-[#C9A227] rounded-full animate-pulse" />
-            <span>Now Playing</span>
+        {/* Extra dim overlay for side cards */}
+        {!isActive && <div className="absolute inset-0 bg-black/20" />}
+
+        {/* Active Title (inside the frame) */}
+        {isActive && (
+          <div className="absolute bottom-0 left-0 right-0 p-6">
+            <h3
+              className="text-xl md:text-2xl font-serif text-[#F5F5F5] mb-2"
+              style={{ fontFamily: 'var(--font-serif)' }}
+            >
+              {video.title}
+            </h3>
+            {onWatchFullPerformance && (
+              <button
+                type="button"
+                onClick={onWatchFullPerformance}
+                className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-md bg-[#C9A227] px-5 py-3 text-sm font-semibold text-[#0A0A0B] transition-all hover:bg-[#D4AF37] hover:shadow-[0_0_24px_rgba(201,162,39,0.35)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C9A227]"
+                aria-label={`Watch full performance: ${video.title}`}
+              >
+                <span className="uppercase tracking-wider">Watch full performance</span>
+                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M8 5v14l11-7L8 5z" />
+                </svg>
+              </button>
+            )}
           </div>
         )}
       </div>
 
-      {/* CTA Overlay (when video ends) */}
-      <div
-        className={`absolute inset-0 bg-[#0A0A0B]/90 backdrop-blur-sm flex flex-col items-center justify-center p-6 transition-opacity duration-500 ${
-          videoEnded ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        }`}
-      >
-        <div className="text-center">
-          <div className="w-16 h-16 mx-auto mb-6 rounded-full border border-[#C9A227] flex items-center justify-center">
-            <svg
-              className="w-8 h-8 text-[#C9A227]"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-              />
-            </svg>
-          </div>
-          <h4
-            className="text-2xl font-serif text-[#F5F5F5] mb-2"
+      {/* Side Cards: keep the box, move text outside */}
+      {!isActive && (
+        <div className="absolute left-0 right-0 top-full mt-3 px-2">
+          <p
+            className="text-base md:text-lg leading-snug font-serif text-[#F5F5F5] text-center whitespace-normal break-words"
             style={{ fontFamily: 'var(--font-serif)' }}
+            title={video.title}
           >
-            Want to learn this?
-          </h4>
-          <p className="text-[#8A8A8E] mb-6 text-sm">
-            Unlock the complete tutorial and master this illusion
+            {video.title}
           </p>
-          <button className="btn-gold-filled w-full max-w-xs">
-            See Full Explanation — ${video.price}
-          </button>
-          <button
-            onClick={handleReplay}
-            className="mt-4 text-[#8A8A8E] hover:text-[#C9A227] text-sm transition-colors flex items-center justify-center gap-2 mx-auto"
-          >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-              />
-            </svg>
-            Replay Video
-          </button>
         </div>
-      </div>
+      )}
     </div>
   );
 }
-

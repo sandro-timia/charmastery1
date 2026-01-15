@@ -20,9 +20,10 @@ export interface Tour {
 export interface HeroVideo {
   id: number;
   title: string;
-  videoUrl: string;
-  price: number;
+  gifUrl: string;
+  duration: number; // duration in milliseconds
   posterUrl: string;
+  youtubeId: string;
 }
 
 // Mock Tricks Data
@@ -101,6 +102,18 @@ export const tricks: Trick[] = [
   }
 ];
 
+// Mastery Program (used by "Begin Your Transformation" CTA)
+export const masteryProgram: Trick = {
+  id: 1000,
+  name: 'Complete Mastery Program',
+  description:
+    'Lifetime access to all connection techniques, video tutorials, and social frameworks.',
+  difficulty: 'Advanced',
+  price: 497,
+  thumbnail:
+    'https://images.unsplash.com/photo-1520975693411-6a7b017ed5c3?w=400&h=300&fit=crop&q=80',
+};
+
 // Mock Tour Dates
 export const tours: Tour[] = [
   {
@@ -153,42 +166,48 @@ export const tours: Tour[] = [
   }
 ];
 
-// Mock Hero Videos (using placeholder videos)
+// Hero GIFs for carousel
 export const heroVideos: HeroVideo[] = [
   {
     id: 1,
-    title: "The Impossible Card",
-    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-hands-holding-a-card-deck-and-pulling-out-cards-18637-large.mp4",
-    posterUrl: "https://images.unsplash.com/photo-1606167668584-78701c57f13d?w=800&h=600&fit=crop&q=80",
-    price: 5
+    title: "Instant Connection",
+    gifUrl: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZzQzcWtsZ205dmE4dGNwNzg0MmE2dG9ycXBnMmljeWw5YWk0dGZ1OSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/POFJCzW5GXtWFRMJ1C/giphy.gif",
+    posterUrl: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZzQzcWtsZ205dmE4dGNwNzg0MmE2dG9ycXBnMmljeWw5YWk0dGZ1OSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/POFJCzW5GXtWFRMJ1C/giphy.gif",
+    duration: 1000,
+    // TODO: replace with your real full-performance YouTube video ID
+    youtubeId: "dQw4w9WgXcQ"
   },
   {
     id: 2,
-    title: "Floating Ring",
-    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-magician-doing-a-trick-with-cards-18634-large.mp4",
-    posterUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop&q=80",
-    price: 5
+    title: "Break the Ice",
+    gifUrl: "https://chumley.barstoolsports.com/union/2026/01/11/hot-girl-gif-819.35b52617.gif",
+    posterUrl: "https://chumley.barstoolsports.com/union/2026/01/11/hot-girl-gif-819.35b52617.gif",
+    duration: 1000,
+    youtubeId: "dQw4w9WgXcQ"
   },
   {
     id: 3,
-    title: "Signed Card to Wallet",
-    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-skilled-hands-performing-magic-tricks-with-cards-18636-large.mp4",
-    posterUrl: "https://images.unsplash.com/photo-1529480780361-e08c4d67a141?w=800&h=600&fit=crop&q=80",
-    price: 5
+    title: "Create Wonder",
+    gifUrl: "https://chumley.barstoolsports.com/union/2026/01/11/hot-girl-gif-825.785bafb6.gif",
+    posterUrl: "https://chumley.barstoolsports.com/union/2026/01/11/hot-girl-gif-825.785bafb6.gif",
+    duration: 1000,
+    youtubeId: "dQw4w9WgXcQ"
   },
   {
     id: 4,
-    title: "The Vanishing Queen",
-    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-hands-playing-with-poker-cards-1174-large.mp4",
-    posterUrl: "https://images.unsplash.com/photo-1541278107931-e006523892df?w=800&h=600&fit=crop&q=80",
-    price: 5
+    title: "Unforgettable Moments",
+    gifUrl: "https://media1.tenor.com/m/iFVXlWJ-sPoAAAAd/pose-mini-dress.gif",
+    posterUrl: "https://media1.tenor.com/m/iFVXlWJ-sPoAAAAd/pose-mini-dress.gif",
+    duration: 1000,
+    youtubeId: "dQw4w9WgXcQ"
   },
   {
     id: 5,
-    title: "Mind Control",
-    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-magician-making-a-coin-disappear-20378-large.mp4",
-    posterUrl: "https://images.unsplash.com/photo-1515405295579-ba7b45403062?w=800&h=600&fit=crop&q=80",
-    price: 5
+    title: "Social Mastery",
+    gifUrl: "https://chumley.barstoolsports.com/union/2024/01/01/hot-girl-gif-46.5e54689e.jpg?fit=bounds&format=pjpg&auto=webp&quality=85%2C75&width=1200",
+    posterUrl: "https://chumley.barstoolsports.com/union/2024/01/01/hot-girl-gif-46.5e54689e.jpg?fit=bounds&format=pjpg&auto=webp&quality=85%2C75&width=1200",
+    duration: 1000,
+    youtubeId: "dQw4w9WgXcQ"
   }
 ];
 

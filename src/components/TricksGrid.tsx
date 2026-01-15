@@ -1,9 +1,24 @@
 'use client';
 
-import { tricks } from '@/data/mockData';
+import { useRouter } from 'next/navigation';
+import { masteryProgram, tricks } from '@/data/mockData';
+import { useAuth } from '@/context/AuthContext';
+import { useCart } from '@/context/CartContext';
 import TrickCard from './TrickCard';
 
 export default function TricksGrid() {
+  const router = useRouter();
+  const { user, isLoading } = useAuth();
+  const { addToCart } = useCart();
+
+  const handleBeginTransformation = () => {
+    if (!isLoading && user) {
+      addToCart(masteryProgram);
+      return;
+    }
+    router.push('/auth?next=cart&add=mastery');
+  };
+
   return (
     <section id="tricks" className="py-24 bg-[#0A0A0B] relative overflow-hidden">
       {/* Background Accent */}
@@ -60,7 +75,11 @@ export default function TricksGrid() {
                 <span className="text-[#8A8A8E] text-sm">one-time investment</span>
               </div>
               
-              <button className="btn-gold inline-flex items-center gap-3 px-8 py-4 text-lg">
+              <button
+                type="button"
+                onClick={handleBeginTransformation}
+                className="btn-gold inline-flex items-center gap-3 px-8 py-4 text-lg"
+              >
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>

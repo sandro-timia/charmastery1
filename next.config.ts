@@ -11,6 +11,18 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'assets.mixkit.co',
       },
+      {
+        protocol: 'https',
+        hostname: 'media.giphy.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'chumley.barstoolsports.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'media1.tenor.com',
+      },
     ],
   },
 };

@@ -1,11 +1,17 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
+import { useAuth } from '@/context/AuthContext';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const { itemCount, toggleCart } = useCart();
+  const { user, isLoading, signOut } = useAuth();
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,10 +23,13 @@ export default function Header() {
   }, []);
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (pathname !== '/') {
+      router.push(`/#${sectionId}`);
+      return;
     }
+
+    const element = document.getElementById(sectionId);
+    if (element) element.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -34,13 +43,13 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a
-            href="#"
+          <Link
+            href="/"
             className="text-2xl md:text-3xl font-serif tracking-[0.2em] text-[#C9A227] hover:text-[#D4AF37] transition-colors"
             style={{ fontFamily: 'var(--font-serif)' }}
           >
             CHARMASTERY
-          </a>
+          </Link>
 
           {/* Navigation */}
           <nav className="hidden md:flex items-center gap-8">
@@ -66,10 +75,31 @@ export default function Header() {
 
           {/* Right Side Actions */}
           <div className="flex items-center gap-6">
-            {/* Sign In */}
-            <button className="hidden sm:block text-sm uppercase tracking-[0.15em] text-[#8A8A8E] hover:text-[#F5F5F5] transition-colors">
-              Sign In
-            </button>
+            {/* Auth */}
+            {!isLoading && user ? (
+              <div className="hidden sm:flex items-center gap-3">
+                <Link
+                  href="/account"
+                  className="inline-flex items-center justify-center rounded-full bg-[#1A1A1F] px-4 py-2 text-xs uppercase tracking-[0.18em] text-[#F5F5F5] border border-[rgba(201,162,39,0.18)] hover:border-[rgba(201,162,39,0.35)] hover:shadow-[0_0_18px_rgba(201,162,39,0.12)] transition"
+                >
+                  My Account
+                </Link>
+                <button
+                  type="button"
+                  onClick={signOut}
+                  className="inline-flex items-center justify-center rounded-full bg-[#C9A227] px-4 py-2 text-xs uppercase tracking-[0.18em] text-[#0A0A0B] font-semibold hover:bg-[#D4AF37] hover:shadow-[0_0_22px_rgba(201,162,39,0.22)] transition"
+                >
+                  Sign Out
+                </button>
+              </div>
+            ) : (
+              <Link
+                href="/auth"
+                className="hidden sm:block text-sm uppercase tracking-[0.15em] text-[#8A8A8E] hover:text-[#F5F5F5] transition-colors"
+              >
+                Sign In
+              </Link>
+            )}
 
             {/* Cart Button */}
             <button

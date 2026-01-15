@@ -1,33 +1,85 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { heroVideos } from '@/data/mockData';
 import VideoCard from './VideoCard';
 
 export default function HeroCarousel() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
+  const totalSlides = heroVideos.length;
+  const [youtubeModalId, setYoutubeModalId] = useState<string | null>(null);
+
+  const autoAdvanceRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const startAutoAdvance = useCallback(() => {
+    if (autoAdvanceRef.current) {
+      clearInterval(autoAdvanceRef.current);
+    }
+
+    autoAdvanceRef.current = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % totalSlides);
+    }, 5000);
+  }, [totalSlides]);
+
+  useEffect(() => {
+    startAutoAdvance();
+
+    return () => {
+      if (autoAdvanceRef.current) {
+        clearInterval(autoAdvanceRef.current);
+      }
+    };
+  }, [startAutoAdvance]);
+
+  // Preload hero GIFs so side cards animate immediately
+  useEffect(() => {
+    heroVideos.forEach((v) => {
+      const img = new Image();
+      img.src = v.gifUrl;
+      const poster = new Image();
+      poster.src = v.posterUrl;
+    });
+  }, []);
 
   const nextSlide = useCallback(() => {
-    setActiveIndex((prev) => (prev + 1) % heroVideos.length);
-  }, []);
+    setActiveIndex((prev) => (prev + 1) % totalSlides);
+    startAutoAdvance();
+  }, [startAutoAdvance, totalSlides]);
 
   const prevSlide = useCallback(() => {
-    setActiveIndex((prev) => (prev - 1 + heroVideos.length) % heroVideos.length);
-  }, []);
+    setActiveIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
+    startAutoAdvance();
+  }, [startAutoAdvance, totalSlides]);
 
   const goToSlide = (index: number) => {
     setActiveIndex(index);
+    startAutoAdvance();
   };
 
-  // Auto-advance carousel
+  const openYoutubeModal = useCallback((id: string) => {
+    setYoutubeModalId(id);
+  }, []);
+
+  const closeYoutubeModal = useCallback(() => {
+    setYoutubeModalId(null);
+  }, []);
+
   useEffect(() => {
-    if (isPaused) return;
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 15000); // 15 seconds per slide
-    return () => clearInterval(interval);
-  }, [isPaused, nextSlide]);
+    if (!youtubeModalId) return;
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeYoutubeModal();
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [youtubeModalId, closeYoutubeModal]);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden purple-gradient pt-20">
@@ -55,32 +107,67 @@ export default function HeroCarousel() {
         </div>
 
         {/* Carousel Container */}
-        <div
-          className="relative"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
-          {/* Cards Wrapper */}
-          <div className="flex items-center justify-center gap-4 md:gap-8">
-            {/* Previous Card (Hidden on Mobile) */}
-            <div className="hidden lg:block w-64 opacity-40 scale-90 transition-all duration-500">
+        <div className="relative lg:pb-24">
+          {/* Mobile / Tablet: single card */}
+          <div className="lg:hidden flex items-center justify-center">
+            <div className="w-full max-w-xs md:max-w-sm transition-all duration-500 animate-fade-in-up">
               <VideoCard
-                video={heroVideos[(activeIndex - 1 + heroVideos.length) % heroVideos.length]}
-                isActive={false}
+                video={heroVideos[activeIndex]}
+                isActive={true}
+                onWatchFullPerformance={() => openYoutubeModal(heroVideos[activeIndex].youtubeId)}
               />
             </div>
+          </div>
 
-            {/* Active Card */}
-            <div className="w-full max-w-sm md:max-w-md transition-all duration-500 animate-fade-in-up">
-              <VideoCard video={heroVideos[activeIndex]} isActive={true} />
-            </div>
+          {/* Desktop: 3D perspective carousel */}
+          <div className="hidden lg:block relative mx-auto w-full max-w-6xl h-[470px] [perspective:1400px]">
+            <div className="relative w-full h-full [transform-style:preserve-3d]">
+              {heroVideos.map((video, index) => {
+                const rawOffset = (index - activeIndex + totalSlides) % totalSlides;
+                const offset =
+                  rawOffset === totalSlides - 1 ? -1 : rawOffset === 1 ? 1 : rawOffset === 0 ? 0 : 999;
 
-            {/* Next Card (Hidden on Mobile) */}
-            <div className="hidden lg:block w-64 opacity-40 scale-90 transition-all duration-500">
-              <VideoCard
-                video={heroVideos[(activeIndex + 1) % heroVideos.length]}
-                isActive={false}
-              />
+                const isCenter = offset === 0;
+                const isLeft = offset === -1;
+                const isRight = offset === 1;
+                const isVisible = isCenter || isLeft || isRight;
+
+                const transform =
+                  offset === 0
+                    ? 'translate3d(0px, 0px, 105px) scale(1) rotateY(0deg)'
+                    : offset === -1
+                      ? 'translate3d(-275px, 10px, 0px) scale(0.82) rotateY(40deg)'
+                      : offset === 1
+                        ? 'translate3d(275px, 10px, 0px) scale(0.82) rotateY(-40deg)'
+                        : 'translate3d(0px, 0px, -600px) scale(0.7) rotateY(0deg)';
+
+                return (
+                  <div
+                    key={video.id}
+                    className={[
+                      'absolute left-1/2 top-1/2',
+                      'transition-[transform,opacity] duration-700',
+                      'ease-[cubic-bezier(0.2,0.8,0.2,1)]',
+                      'will-change-[transform]',
+                      isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none',
+                      isCenter ? 'z-30' : 'z-20',
+                    ].join(' ')}
+                    style={{
+                      transform: `translate(-50%, -50%) ${transform}`,
+                    }}
+                  >
+                    <div className={isCenter ? 'w-[360px]' : 'w-[300px]'}>
+                      <VideoCard
+                        video={video}
+                        isActive={isCenter}
+                        onWatchFullPerformance={
+                          isCenter ? () => openYoutubeModal(video.youtubeId) : undefined
+                        }
+                      />
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
@@ -141,6 +228,43 @@ export default function HeroCarousel() {
           </div>
         </div>
       </div>
+
+      {/* YouTube Modal */}
+      {youtubeModalId && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Full performance video"
+          onMouseDown={(e) => {
+            if (e.target === e.currentTarget) closeYoutubeModal();
+          }}
+        >
+          <div className="relative w-full max-w-4xl overflow-hidden rounded-2xl border border-[rgba(201,162,39,0.25)] bg-[#0A0A0B] shadow-2xl">
+            <button
+              type="button"
+              onClick={closeYoutubeModal}
+              className="absolute right-3 top-3 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white transition hover:bg-black/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C9A227]"
+              aria-label="Close video"
+            >
+              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            <div className="aspect-video w-full">
+              <iframe
+                className="h-full w-full"
+                src={`https://www.youtube.com/embed/${youtubeModalId}?autoplay=1&rel=0&modestbranding=1`}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
