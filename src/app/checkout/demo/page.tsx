@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function DemoCheckoutPage() {
+function DemoCheckoutContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const amount = searchParams.get('amount') || '0';
@@ -197,5 +197,32 @@ export default function DemoCheckoutPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+// Loading fallback for Suspense
+function DemoCheckoutLoading() {
+  return (
+    <main className="min-h-screen bg-[#0A0A0B] flex items-center justify-center px-4 pt-24 pb-8">
+      <div className="w-full max-w-md">
+        <div className="bg-[#1A1A1F] rounded-2xl p-6 border border-[rgba(201,162,39,0.2)] shadow-2xl">
+          <div className="flex items-center justify-center gap-3">
+            <svg className="animate-spin h-6 w-6 text-[#C9A227]" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+            </svg>
+            <span className="text-[#8A8A8E]">Cargando checkout...</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  );
+}
+
+export default function DemoCheckoutPage() {
+  return (
+    <Suspense fallback={<DemoCheckoutLoading />}>
+      <DemoCheckoutContent />
+    </Suspense>
   );
 }
