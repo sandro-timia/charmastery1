@@ -21,3 +21,6 @@ export { default as SignUpSection } from './SignUpSection';
 export { default as Cart } from './Cart';
 export { default as CartItem } from './CartItem';
 
+// Media
+export { default as VideoModal } from './VideoModal';
+

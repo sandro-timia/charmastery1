@@ -39,8 +39,11 @@ export default function AuthClient() {
         router.push(`/?${qs.toString()}`);
       } else if (next === 'checkout') {
         router.push('/checkout');
+      } else if (next === 'media') {
+        router.push('/media');
       } else {
-        router.push('/');
+        // Default redirect to media library after login
+        router.push('/media');
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong.');

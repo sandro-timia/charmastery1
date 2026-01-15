@@ -93,7 +93,7 @@ export default function Footer() {
               </li>
               <li>
                 <a href="#" className="text-[#8A8A8E] hover:text-[#C9A227] transition-colors text-sm">
-                  Refund Policy
+                  Contact Us
                 </a>
               </li>
             </ul>

@@ -9,6 +9,7 @@ import { useAuth } from '@/context/AuthContext';
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
   const { itemCount, toggleCart } = useCart();
   const { user, isLoading, signOut } = useAuth();
   const pathname = usePathname();
@@ -17,11 +18,30 @@ export default function Header() {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+
+      // Track active section on homepage
+      if (pathname === '/') {
+        const sections = ['tricks', 'tours', 'about'];
+        let currentSection: string | null = null;
+
+        for (const sectionId of sections) {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            // Check if section is in viewport (with some offset for header)
+            if (rect.top <= 150 && rect.bottom >= 150) {
+              currentSection = sectionId;
+              break;
+            }
+          }
+        }
+        setActiveSection(currentSection);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [pathname]);
 
   // Close mobile menu when route changes
   useEffect(() => {
@@ -66,19 +86,31 @@ export default function Header() {
           <nav className="hidden md:flex items-center gap-8">
             <button
               onClick={() => scrollToSection('tricks')}
-              className="text-sm uppercase tracking-[0.15em] text-[#8A8A8E] hover:text-[#F5F5F5] transition-colors"
+              className={`text-sm uppercase tracking-[0.15em] transition-colors ${
+                activeSection === 'tricks'
+                  ? 'text-[#C9A227]'
+                  : 'text-[#8A8A8E] hover:text-[#F5F5F5]'
+              }`}
             >
               Tricks
             </button>
             <button
               onClick={() => scrollToSection('tours')}
-              className="text-sm uppercase tracking-[0.15em] text-[#8A8A8E] hover:text-[#F5F5F5] transition-colors"
+              className={`text-sm uppercase tracking-[0.15em] transition-colors ${
+                activeSection === 'tours'
+                  ? 'text-[#C9A227]'
+                  : 'text-[#8A8A8E] hover:text-[#F5F5F5]'
+              }`}
             >
               Tours
             </button>
             <button
               onClick={() => scrollToSection('about')}
-              className="text-sm uppercase tracking-[0.15em] text-[#8A8A8E] hover:text-[#F5F5F5] transition-colors"
+              className={`text-sm uppercase tracking-[0.15em] transition-colors ${
+                activeSection === 'about'
+                  ? 'text-[#C9A227]'
+                  : 'text-[#8A8A8E] hover:text-[#F5F5F5]'
+              }`}
             >
               About
             </button>
@@ -95,10 +127,20 @@ export default function Header() {
                 >
                   My Account
                 </Link>
+                <Link
+                  href="/media"
+                  className={`inline-flex items-center justify-center rounded-full px-4 py-2 text-xs uppercase tracking-[0.18em] font-semibold transition-all ${
+                    pathname === '/media'
+                      ? 'bg-[#C9A227] text-[#0A0A0B]'
+                      : 'bg-[#C9A227] text-[#0A0A0B] hover:bg-[#D4AF37] hover:shadow-[0_0_22px_rgba(201,162,39,0.22)]'
+                  }`}
+                >
+                  Start Learning
+                </Link>
                 <button
                   type="button"
                   onClick={signOut}
-                  className="inline-flex items-center justify-center rounded-full bg-[#C9A227] px-4 py-2 text-xs uppercase tracking-[0.18em] text-[#0A0A0B] font-semibold hover:bg-[#D4AF37] hover:shadow-[0_0_22px_rgba(201,162,39,0.22)] transition"
+                  className="inline-flex items-center justify-center rounded-full bg-[#1A1A1F] px-4 py-2 text-xs uppercase tracking-[0.18em] text-[#F5F5F5] border border-[rgba(201,162,39,0.18)] hover:border-[rgba(201,162,39,0.35)] hover:shadow-[0_0_18px_rgba(201,162,39,0.12)] transition"
                 >
                   Sign Out
                 </button>
@@ -106,7 +148,7 @@ export default function Header() {
             ) : (
               <Link
                 href="/auth"
-                className="hidden sm:block text-sm uppercase tracking-[0.15em] text-[#8A8A8E] hover:text-[#F5F5F5] transition-colors"
+                className="hidden sm:inline-flex items-center justify-center rounded-full bg-[#C9A227] px-4 py-2 text-xs uppercase tracking-[0.18em] text-[#0A0A0B] font-semibold hover:bg-[#D4AF37] hover:shadow-[0_0_22px_rgba(201,162,39,0.22)] transition"
               >
                 Sign In
               </Link>
@@ -189,19 +231,31 @@ export default function Header() {
           <nav className="flex flex-col gap-1 px-4 pb-6 bg-[#0A0A0B]/95 backdrop-blur-md">
             <button
               onClick={() => scrollToSection('tricks')}
-              className="w-full text-left py-3 text-sm uppercase tracking-[0.15em] text-[#8A8A8E] hover:text-[#F5F5F5] hover:bg-[#1A1A1F] rounded-lg px-3 transition-colors"
+              className={`w-full text-left py-3 text-sm uppercase tracking-[0.15em] hover:bg-[#1A1A1F] rounded-lg px-3 transition-colors ${
+                activeSection === 'tricks'
+                  ? 'text-[#C9A227]'
+                  : 'text-[#8A8A8E] hover:text-[#F5F5F5]'
+              }`}
             >
               Tricks
             </button>
             <button
               onClick={() => scrollToSection('tours')}
-              className="w-full text-left py-3 text-sm uppercase tracking-[0.15em] text-[#8A8A8E] hover:text-[#F5F5F5] hover:bg-[#1A1A1F] rounded-lg px-3 transition-colors"
+              className={`w-full text-left py-3 text-sm uppercase tracking-[0.15em] hover:bg-[#1A1A1F] rounded-lg px-3 transition-colors ${
+                activeSection === 'tours'
+                  ? 'text-[#C9A227]'
+                  : 'text-[#8A8A8E] hover:text-[#F5F5F5]'
+              }`}
             >
               Tours
             </button>
             <button
               onClick={() => scrollToSection('about')}
-              className="w-full text-left py-3 text-sm uppercase tracking-[0.15em] text-[#8A8A8E] hover:text-[#F5F5F5] hover:bg-[#1A1A1F] rounded-lg px-3 transition-colors"
+              className={`w-full text-left py-3 text-sm uppercase tracking-[0.15em] hover:bg-[#1A1A1F] rounded-lg px-3 transition-colors ${
+                activeSection === 'about'
+                  ? 'text-[#C9A227]'
+                  : 'text-[#8A8A8E] hover:text-[#F5F5F5]'
+              }`}
             >
               About
             </button>
@@ -219,13 +273,24 @@ export default function Header() {
                 >
                   My Account
                 </Link>
+                <Link
+                  href="/media"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`w-full text-center py-3 text-sm uppercase tracking-[0.15em] rounded-lg px-3 font-semibold transition-all ${
+                    pathname === '/media'
+                      ? 'bg-[#C9A227] text-[#0A0A0B]'
+                      : 'bg-[#C9A227] text-[#0A0A0B] hover:bg-[#D4AF37]'
+                  }`}
+                >
+                  Start Learning
+                </Link>
                 <button
                   type="button"
                   onClick={() => {
                     signOut();
                     setIsMobileMenuOpen(false);
                   }}
-                  className="w-full text-left py-3 text-sm uppercase tracking-[0.15em] text-[#C9A227] hover:text-[#D4AF37] hover:bg-[#1A1A1F] rounded-lg px-3 transition-colors"
+                  className="w-full text-left py-3 text-sm uppercase tracking-[0.15em] text-[#8A8A8E] hover:text-[#F5F5F5] hover:bg-[#1A1A1F] rounded-lg px-3 transition-colors"
                 >
                   Sign Out
                 </button>
@@ -234,7 +299,7 @@ export default function Header() {
               <Link
                 href="/auth"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full text-left py-3 text-sm uppercase tracking-[0.15em] text-[#C9A227] hover:text-[#D4AF37] hover:bg-[#1A1A1F] rounded-lg px-3 transition-colors"
+                className="w-full text-center py-3 text-sm uppercase tracking-[0.15em] bg-[#C9A227] text-[#0A0A0B] font-semibold hover:bg-[#D4AF37] rounded-lg px-3 transition-colors mt-2"
               >
                 Sign In
               </Link>
