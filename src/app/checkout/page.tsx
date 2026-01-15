@@ -70,7 +70,7 @@ export default function CheckoutPage() {
                 className="btn-gold-filled mt-6"
                 onClick={() => {
                   openCart();
-                  router.push('/?openCart=1');
+                  router.push('/');
                 }}
               >
                 Open cart

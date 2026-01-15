@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
+import { Suspense } from "react";
 import { CartProvider } from "@/context/CartContext";
 import { AuthProvider } from "@/context/AuthContext";
 import Header from "@/components/Header";
@@ -71,7 +72,9 @@ export default function RootLayout({
             <Header />
             {children}
             <Footer />
-            <Cart />
+            <Suspense fallback={null}>
+              <Cart />
+            </Suspense>
           </CartProvider>
         </AuthProvider>
       </body>
