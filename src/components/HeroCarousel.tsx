@@ -102,7 +102,7 @@ export default function HeroCarousel() {
             Consigue Abrazos de <span className="text-[#C9A227]">Desconocidos</span>
           </h1>
           <p className="text-lg md:text-xl text-[#8A8A8E] max-w-2xl mx-auto">
-            Transforma cada interacción en una conexión memorable. Domina las habilidades sociales que convierten desconocidos en amigos—la magia es solo el rompehielos.
+            Aprende los mejores trucos de magia y mentalismo para transformar cada interacción en una conexión memorable y domina las habilidades sociales que convierten desconocidos en amigos.
           </p>
         </div>
 

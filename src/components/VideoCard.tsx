@@ -86,9 +86,9 @@ export default function VideoCard({ video, isActive, onWatchFullPerformance }: V
                 type="button"
                 onClick={onWatchFullPerformance}
                 className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-md bg-[#C9A227] px-5 py-3 text-sm font-semibold text-[#0A0A0B] transition-all hover:bg-[#D4AF37] hover:shadow-[0_0_24px_rgba(201,162,39,0.35)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C9A227]"
-                aria-label={`Ver actuación completa: ${video.title}`}
+                aria-label={`Ver video: ${video.title}`}
               >
-                <span className="uppercase tracking-wider">Ver actuación completa</span>
+                <span className="uppercase tracking-wider">Ver video</span>
                 <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M8 5v14l11-7L8 5z" />
                 </svg>
