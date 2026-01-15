@@ -218,14 +218,26 @@ export default function HeroCarousel() {
           ))}
         </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-float">
-          <div className="flex flex-col items-center gap-2 text-[#8A8A8E]">
-            <span className="text-xs uppercase tracking-widest">Scroll to explore</span>
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        {/* Scroll Cue (anchored, not floating) */}
+        <div className="absolute inset-x-0 bottom-0 pb-6 flex justify-center pointer-events-none">
+          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0A0A0B]/55 to-transparent pointer-events-none" />
+          <button
+            type="button"
+            onClick={() => {
+              const el = document.getElementById('tricks');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="pointer-events-auto inline-flex items-center gap-3 rounded-full border border-[rgba(201,162,39,0.22)] bg-[#0A0A0B]/60 backdrop-blur px-5 py-3 text-xs uppercase tracking-widest text-[#8A8A8E] hover:text-[#F5F5F5] hover:border-[rgba(201,162,39,0.35)] transition"
+            aria-label="Scroll to explore"
+          >
+            <span className="relative inline-flex h-6 w-4 items-start justify-center rounded-full border border-[rgba(201,162,39,0.25)]">
+              <span className="mt-1.5 h-1 w-1 rounded-full bg-[#C9A227]" />
+            </span>
+            <span>Scroll to explore</span>
+            <svg className="w-4 h-4 text-[#C9A227]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
-          </div>
+          </button>
         </div>
       </div>
 

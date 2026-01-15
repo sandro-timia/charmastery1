@@ -5,7 +5,7 @@ import TourCard from './TourCard';
 
 export default function ToursSection() {
   return (
-    <section id="tours" className="py-24 bg-[#121214] relative overflow-hidden">
+    <section id="tours" className="py-16 bg-[#121214] relative overflow-hidden">
       {/* World Map Background */}
       <div className="absolute inset-0 world-map-bg opacity-30" />
       
@@ -14,7 +14,7 @@ export default function ToursSection() {
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <span className="inline-block text-[#C9A227] uppercase tracking-[0.3em] text-sm mb-4">
             Live Events
           </span>
@@ -39,7 +39,7 @@ export default function ToursSection() {
         </div>
 
         {/* Newsletter CTA */}
-        <div className="mt-16 text-center">
+        <div className="mt-12 text-center">
           <p className="text-[#8A8A8E] mb-4">
             Want to know when we&apos;re coming to your city?
           </p>

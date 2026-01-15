@@ -20,14 +20,14 @@ export default function TricksGrid() {
   };
 
   return (
-    <section id="tricks" className="py-24 bg-[#0A0A0B] relative overflow-hidden">
+    <section id="tricks" className="py-16 bg-[#0A0A0B] relative overflow-hidden">
       {/* Background Accent */}
       <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-[#2D1B4E]/10 to-transparent pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-gradient-to-tr from-[#2D1B4E]/10 to-transparent pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <span className="inline-block text-[#C9A227] uppercase tracking-[0.3em] text-sm mb-4">
             Your Social Toolkit
           </span>
@@ -51,7 +51,7 @@ export default function TricksGrid() {
         </div>
 
         {/* Full Pass CTA */}
-        <div className="mt-16 text-center">
+        <div className="mt-12 text-center">
           <div className="inline-block bg-gradient-to-br from-[#1A1A1F] to-[#2D1B4E]/30 rounded-2xl p-8 md:p-12 gold-border relative overflow-hidden">
             {/* Background accent */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#C9A227]/5 via-transparent to-[#C9A227]/5 pointer-events-none" />
