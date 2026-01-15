@@ -89,7 +89,7 @@ export default function MediaPage() {
             className="text-3xl md:text-5xl font-serif text-[#F5F5F5] mb-4"
             style={{ fontFamily: 'var(--font-serif)' }}
           >
-            Biblioteca de Medios
+            Biblioteca de recursos
           </h1>
           <p className="text-[#8A8A8E] max-w-2xl mx-auto">
             ¡Bienvenido de nuevo! Explora nuestra colección de tutoriales, tips de encanto y grabaciones exclusivas.

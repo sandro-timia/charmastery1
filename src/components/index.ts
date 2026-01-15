@@ -24,3 +24,6 @@ export { default as CartItem } from './CartItem';
 // Media
 export { default as VideoModal } from './VideoModal';
 
+// Cookie Consent
+export { default as CookieConsent } from './CookieConsent';
+

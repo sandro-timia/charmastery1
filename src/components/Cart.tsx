@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { masteryProgram } from '@/data/mockData';
 import { useAuth } from '@/context/AuthContext';
@@ -12,6 +12,17 @@ export default function Cart() {
   const { user, isLoading } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
+  
+  // Local mounted state to prevent hydration mismatch
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Only show cart items after component has mounted on client
+  const displayItems = mounted ? items : [];
+  const displaySubtotal = mounted ? subtotal : 0;
 
   // Allow redirect flows (e.g. /?openCart=1) to open cart automatically
   useEffect(() => {
@@ -88,7 +99,7 @@ export default function Cart() {
 
           {/* Cart Items */}
           <div className="flex-1 overflow-y-auto p-6">
-            {items.length === 0 ? (
+            {displayItems.length === 0 ? (
               <div className="h-full flex flex-col items-center justify-center text-center">
                 <div className="w-20 h-20 mb-6 rounded-full bg-[#1A1A1F] border border-[rgba(201,162,39,0.2)] flex items-center justify-center">
                   <svg className="w-10 h-10 text-[#8A8A8E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -127,7 +138,7 @@ export default function Cart() {
               </div>
             ) : (
               <div className="space-y-4">
-                {items.map((item) => (
+                {displayItems.map((item) => (
                   <CartItem key={item.id} item={item} />
                 ))}
               </div>
@@ -135,13 +146,13 @@ export default function Cart() {
           </div>
 
           {/* Footer */}
-          {items.length > 0 && (
+          {displayItems.length > 0 && (
             <div className="p-6 border-t border-[rgba(201,162,39,0.1)] bg-[#121214]">
               {/* Subtotal */}
               <div className="flex items-center justify-between mb-6">
                 <span className="text-[#8A8A8E]">Subtotal</span>
                 <span className="text-2xl font-serif text-[#C9A227]" style={{ fontFamily: 'var(--font-serif)' }}>
-                  ${subtotal}
+                  ${displaySubtotal}
                 </span>
               </div>
 

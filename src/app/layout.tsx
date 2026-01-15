@@ -4,9 +4,11 @@ import "./globals.css";
 import { Suspense } from "react";
 import { CartProvider } from "@/context/CartContext";
 import { AuthProvider } from "@/context/AuthContext";
+import { CookieProvider } from "@/context/CookieContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Cart from "@/components/Cart";
+import CookieConsent from "@/components/CookieConsent";
 
 const cormorantGaramond = Cormorant_Garamond({
   variable: "--font-serif",
@@ -68,14 +70,17 @@ export default function RootLayout({
         style={{ fontFamily: "var(--font-sans)" }}
       >
         <AuthProvider>
-          <CartProvider>
-            <Header />
-            {children}
-            <Footer />
-            <Suspense fallback={null}>
-              <Cart />
-            </Suspense>
-          </CartProvider>
+          <CookieProvider>
+            <CartProvider>
+              <Header />
+              {children}
+              <Footer />
+              <Suspense fallback={null}>
+                <Cart />
+              </Suspense>
+              <CookieConsent />
+            </CartProvider>
+          </CookieProvider>
         </AuthProvider>
       </body>
     </html>
