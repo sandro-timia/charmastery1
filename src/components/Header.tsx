@@ -76,7 +76,7 @@ export default function Header() {
           {/* Logo */}
           <Link
             href="/"
-            className="text-2xl md:text-3xl font-serif tracking-[0.2em] text-[#C9A227] hover:text-[#D4AF37] transition-colors"
+            className="px-4 py-2 border-2 border-[#C9A227] rounded-sm text-2xl md:text-3xl font-serif tracking-[0.2em] text-[#C9A227] hover:text-[#D4AF37] hover:border-[#D4AF37] hover:shadow-[0_0_15px_rgba(201,162,39,0.3)] transition-all"
             style={{ fontFamily: 'var(--font-serif)' }}
           >
             CHARMASTERY
@@ -135,7 +135,7 @@ export default function Header() {
                       : 'bg-[#C9A227] text-[#0A0A0B] hover:bg-[#D4AF37] hover:shadow-[0_0_22px_rgba(201,162,39,0.22)]'
                   }`}
                 >
-                  Empezar a Aprender
+                  Aprender
                 </Link>
                 <button
                   type="button"
@@ -286,7 +286,7 @@ export default function Header() {
                       : 'text-[#8A8A8E] hover:text-[#F5F5F5]'
                   }`}
                 >
-                  Empezar a Aprender
+                  Aprender
                 </Link>
                 <button
                   type="button"
