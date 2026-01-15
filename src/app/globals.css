@@ -370,21 +370,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .badge-beginner {
-  background: rgba(34, 197, 94, 0.15);
-  color: #22c55e;
-  border: 1px solid rgba(34, 197, 94, 0.3);
+  background: var(--accent-gold);
+  color: #0A0A0B;
+  border: 1px solid var(--accent-gold-light);
 }
 
 .badge-intermediate {
-  background: rgba(201, 162, 39, 0.15);
-  color: var(--accent-gold-light);
-  border: 1px solid rgba(201, 162, 39, 0.3);
+  background: #2D1B4E;
+  color: #E0D0F0;
+  border: 1px solid #3D2B5E;
 }
 
 .badge-advanced {
-  background: rgba(239, 68, 68, 0.15);
-  color: #ef4444;
-  border: 1px solid rgba(239, 68, 68, 0.3);
+  background: #2A2A2E;
+  color: #B8B8B8;
+  border: 1px solid #3A3A3E;
 }
 
 /* Video Overlay */

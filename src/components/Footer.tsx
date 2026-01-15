@@ -162,7 +162,7 @@ export default function Footer() {
 
           {/* Copyright */}
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-[#5A5A5E] text-sm">
-            <p>© 2026 Charmastery. Todos los secretos protegidos.</p>
+            <p>© 2026 Charmastery. Lima, Perú. Todos los secretos protegidos.</p>
             <p className="text-xs italic">
               &quot;La conexión es la moneda definitiva.&quot;
             </p>

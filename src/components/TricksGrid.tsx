@@ -51,7 +51,7 @@ export default function TricksGrid() {
         </div>
 
         {/* Full Pass CTA */}
-        <div className="mt-12 text-center">
+        <div id="mastery-program" className="mt-12 text-center">
           <div className="inline-block bg-gradient-to-br from-[#1A1A1F] to-[#2D1B4E]/30 rounded-2xl p-8 md:p-12 gold-border relative overflow-hidden">
             {/* Background accent */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#C9A227]/5 via-transparent to-[#C9A227]/5 pointer-events-none" />
@@ -67,7 +67,7 @@ export default function TricksGrid() {
                 Programa de Maestría Completo
               </h3>
               <p className="text-[#8A8A8E] max-w-lg mx-auto mb-6">
-                Obtén acceso de por vida a todas las técnicas de conexión, tutoriales en video, grabaciones en vivo y los frameworks sociales que transforman cómo la gente responde a ti.
+                Obtén acceso de por vida a todos los tutoriales en video, grabaciones de reacciones genuinas y los mejores recursos que transformarán tu capacidad de interacción social.
               </p>
               
               <div className="flex items-center justify-center gap-2 mb-6">

@@ -143,35 +143,11 @@ export const tours: Tour[] = [
   },
   {
     id: 3,
-    city: "Tokio",
-    country: "Japón",
-    date: "10 de Mayo, 2026",
-    venue: "Shibuya Hall",
-    spotsLeft: 15
-  },
-  {
-    id: 4,
-    city: "Nueva York",
-    country: "EE.UU.",
-    date: "5 de Junio, 2026",
-    venue: "The McKittrick Hotel",
-    spotsLeft: 6
-  },
-  {
-    id: 5,
     city: "Londres",
     country: "Reino Unido",
     date: "18 de Julio, 2026",
     venue: "The Magic Circle",
     spotsLeft: 10
-  },
-  {
-    id: 6,
-    city: "Sídney",
-    country: "Australia",
-    date: "30 de Agosto, 2026",
-    venue: "The Rocks Theatre",
-    spotsLeft: 20
   }
 ];
 
