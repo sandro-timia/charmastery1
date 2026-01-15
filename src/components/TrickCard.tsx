@@ -22,6 +22,19 @@ export default function TrickCard({ trick, index }: TrickCardProps) {
     }
   };
 
+  const getDifficultyLabel = (difficulty: string) => {
+    switch (difficulty) {
+      case 'Beginner':
+        return 'Principiante';
+      case 'Intermediate':
+        return 'Intermedio';
+      case 'Advanced':
+        return 'Avanzado';
+      default:
+        return difficulty;
+    }
+  };
+
   return (
     <div
       className={`group relative bg-[#1A1A1F] rounded-lg overflow-hidden gold-border card-lift animate-fade-in-up`}
@@ -43,7 +56,7 @@ export default function TrickCard({ trick, index }: TrickCardProps) {
       <div className="p-5">
         {/* Difficulty Badge */}
         <span className={`badge ${getDifficultyClass(trick.difficulty)} mb-3`}>
-          {trick.difficulty}
+          {getDifficultyLabel(trick.difficulty)}
         </span>
 
         {/* Title */}

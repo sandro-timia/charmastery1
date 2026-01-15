@@ -63,7 +63,7 @@ export default function Cart() {
           isCartOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
         role="dialog"
-        aria-label="Shopping cart"
+        aria-label="Carrito de compras"
         aria-modal="true"
       >
         <div className="flex flex-col h-full">
@@ -73,12 +73,12 @@ export default function Cart() {
               className="text-2xl font-serif text-[#F5F5F5]"
               style={{ fontFamily: 'var(--font-serif)' }}
             >
-              Your Cart
+              Tu Carrito
             </h2>
             <button
               onClick={closeCart}
               className="p-2 text-[#8A8A8E] hover:text-[#F5F5F5] transition-colors"
-              aria-label="Close cart"
+              aria-label="Cerrar carrito"
             >
               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -99,10 +99,10 @@ export default function Cart() {
                   className="text-xl font-serif text-[#F5F5F5] mb-2"
                   style={{ fontFamily: 'var(--font-serif)' }}
                 >
-                  Your cart is empty
+                  Tu carrito está vacío
                 </h3>
                 <p className="text-[#8A8A8E] text-sm mb-6">
-                  Discover amazing tricks to master
+                  Descubre trucos increíbles para dominar
                 </p>
                 <div className="w-full max-w-xs space-y-3">
                   <button
@@ -110,7 +110,7 @@ export default function Cart() {
                     onClick={() => addToCart(masteryProgram)}
                     className="btn-gold-filled w-full"
                   >
-                    Add All Access (${masteryProgram.price})
+                    Añadir Acceso Total (${masteryProgram.price})
                   </button>
                   <button
                     type="button"
@@ -121,7 +121,7 @@ export default function Cart() {
                     }}
                     className="btn-gold w-full"
                   >
-                    Browse Tricks
+                    Ver Trucos
                   </button>
                 </div>
               </div>
@@ -160,13 +160,13 @@ export default function Cart() {
                     }
                   }}
                 >
-                  Proceed to Checkout
+                  Proceder al Pago
                 </button>
                 <button
                   onClick={clearCart}
                   className="w-full py-2 text-[#8A8A8E] hover:text-[#ef4444] text-sm transition-colors"
                 >
-                  Clear Cart
+                  Vaciar Carrito
                 </button>
               </div>
 
@@ -176,13 +176,13 @@ export default function Cart() {
                   <svg className="w-4 h-4 text-[#C9A227]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                   </svg>
-                  Secure Checkout
+                  Pago Seguro
                 </div>
                 <div className="flex items-center gap-2 text-[#8A8A8E] text-xs">
                   <svg className="w-4 h-4 text-[#C9A227]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
-                  Instant Access
+                  Acceso Instantáneo
                 </div>
               </div>
             </div>

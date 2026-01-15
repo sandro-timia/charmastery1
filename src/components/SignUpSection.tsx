@@ -57,13 +57,13 @@ export default function SignUpSection() {
               className="text-3xl md:text-4xl lg:text-5xl font-serif text-[#F5F5F5] mb-4"
               style={{ fontFamily: 'var(--font-serif)' }}
             >
-              Join the Inner Circle
+              Únete al Círculo Interno
             </h2>
 
             {/* Subtext */}
             <p className="text-[#8A8A8E] mb-8 max-w-lg mx-auto">
-              Receive exclusive insights on social dynamics, new techniques, and private event invitations 
-              reserved for serious practitioners only.
+              Recibe información exclusiva sobre dinámica social, nuevas técnicas e invitaciones a eventos privados 
+              reservados solo para practicantes serios.
             </p>
 
             {/* Form */}
@@ -78,10 +78,10 @@ export default function SignUpSection() {
                   className="text-2xl font-serif text-[#C9A227] mb-2"
                   style={{ fontFamily: 'var(--font-serif)' }}
                 >
-                  You&apos;re In
+                  ¡Estás Dentro!
                 </h3>
                 <p className="text-[#8A8A8E]">
-                  Watch your inbox for secrets revealed.
+                  Revisa tu bandeja de entrada para secretos revelados.
                 </p>
               </div>
             ) : (
@@ -91,10 +91,10 @@ export default function SignUpSection() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email"
+                    placeholder="Ingresa tu correo"
                     required
                     className="input-dark flex-1 rounded-sm"
-                    aria-label="Email address"
+                    aria-label="Dirección de correo electrónico"
                   />
                   <button
                     type="submit"
@@ -107,15 +107,15 @@ export default function SignUpSection() {
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                         </svg>
-                        Joining...
+                        Uniéndose...
                       </span>
                     ) : (
-                      'Join Now'
+                      'Únete Ahora'
                     )}
                   </button>
                 </div>
                 <p className="text-[#5A5A5E] text-xs mt-4">
-                  We respect your privacy. Unsubscribe at any time.
+                  Respetamos tu privacidad. Cancela la suscripción en cualquier momento.
                 </p>
               </form>
             )}

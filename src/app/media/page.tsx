@@ -12,18 +12,18 @@ type CategoryTab = 'tutorials' | 'charm-tips' | 'footages';
 const categories: { id: CategoryTab; label: string; description: string }[] = [
   {
     id: 'tutorials',
-    label: 'Tutorials',
-    description: 'Step-by-step trick tutorials to master your craft',
+    label: 'Tutoriales',
+    description: 'Tutoriales paso a paso para dominar tu arte',
   },
   {
     id: 'charm-tips',
-    label: 'Charm Tips',
-    description: 'Social mastery and rapport building techniques',
+    label: 'Tips de Encanto',
+    description: 'Técnicas de maestría social y construcción de rapport',
   },
   {
     id: 'footages',
-    label: 'Footages',
-    description: 'Live performance recordings from around the world',
+    label: 'Grabaciones',
+    description: 'Grabaciones de actuaciones en vivo de todo el mundo',
   },
 ];
 
@@ -61,7 +61,7 @@ export default function MediaPage() {
   if (isLoading) {
     return (
       <main className="min-h-screen pt-28 pb-20 bg-[#0A0A0B] flex items-center justify-center">
-        <div className="text-[#C9A227] text-lg animate-pulse">Loading...</div>
+        <div className="text-[#C9A227] text-lg animate-pulse">Cargando...</div>
       </main>
     );
   }
@@ -83,16 +83,16 @@ export default function MediaPage() {
         {/* Header */}
         <div className="text-center mb-12">
           <span className="inline-block text-[#C9A227] uppercase tracking-[0.3em] text-xs mb-3">
-            Exclusive Content
+            Contenido Exclusivo
           </span>
           <h1
             className="text-3xl md:text-5xl font-serif text-[#F5F5F5] mb-4"
             style={{ fontFamily: 'var(--font-serif)' }}
           >
-            Media Library
+            Biblioteca de Medios
           </h1>
           <p className="text-[#8A8A8E] max-w-2xl mx-auto">
-            Welcome back! Explore our collection of tutorials, charm tips, and exclusive footage.
+            ¡Bienvenido de nuevo! Explora nuestra colección de tutoriales, tips de encanto y grabaciones exclusivas.
           </p>
         </div>
 
@@ -175,7 +175,7 @@ export default function MediaPage() {
         {/* Empty State */}
         {filteredItems.length === 0 && (
           <div className="text-center py-20">
-            <p className="text-[#8A8A8E] text-lg">No content available in this category yet.</p>
+            <p className="text-[#8A8A8E] text-lg">No hay contenido disponible en esta categoría todavía.</p>
           </div>
         )}
       </div>

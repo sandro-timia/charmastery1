@@ -12,11 +12,11 @@ export default function Footer() {
               CHARMASTERY
             </h2>
             <p className="text-[#8A8A8E] text-sm leading-relaxed max-w-md mb-3">
-              Master the art of human connection. We teach high-performers the social skills that 
-              transform strangers into friends and every interaction into an opportunity.
+              Domina el arte de la conexión humana. Enseñamos a personas exitosas las habilidades sociales que 
+              transforman desconocidos en amigos y cada interacción en una oportunidad.
             </p>
             <p className="text-[#C9A227] text-sm italic">
-              &quot;Get hugs from strangers.&quot;
+              &quot;Consigue abrazos de desconocidos.&quot;
             </p>
             
             {/* Social Icons */}
@@ -54,22 +54,22 @@ export default function Footer() {
           {/* Quick Links */}
           <div>
             <h3 className="text-[#F5F5F5] font-semibold uppercase tracking-wider text-sm mb-4">
-              Quick Links
+              Enlaces Rápidos
             </h3>
             <ul className="space-y-3">
               <li>
                 <a href="#tricks" className="text-[#8A8A8E] hover:text-[#C9A227] transition-colors text-sm">
-                  Browse Tricks
+                  Ver Trucos
                 </a>
               </li>
               <li>
                 <a href="#tours" className="text-[#8A8A8E] hover:text-[#C9A227] transition-colors text-sm">
-                  Upcoming Tours
+                  Próximas Giras
                 </a>
               </li>
               <li>
                 <a href="#signup" className="text-[#8A8A8E] hover:text-[#C9A227] transition-colors text-sm">
-                  Join Inner Circle
+                  Únete al Círculo
                 </a>
               </li>
             </ul>
@@ -83,17 +83,17 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <a href="#" className="text-[#8A8A8E] hover:text-[#C9A227] transition-colors text-sm">
-                  Privacy Policy
+                  Política de Privacidad
                 </a>
               </li>
               <li>
                 <a href="#" className="text-[#8A8A8E] hover:text-[#C9A227] transition-colors text-sm">
-                  Terms of Service
+                  Términos de Servicio
                 </a>
               </li>
               <li>
                 <a href="#" className="text-[#8A8A8E] hover:text-[#C9A227] transition-colors text-sm">
-                  Contact Us
+                  Contáctanos
                 </a>
               </li>
             </ul>
@@ -105,9 +105,9 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-[#5A5A5E] text-sm">
-          <p>© 2026 Charmastery. All secrets protected.</p>
+          <p>© 2026 Charmastery. Todos los secretos protegidos.</p>
           <p className="text-xs italic">
-            &quot;Connection is the ultimate currency.&quot;
+            &quot;La conexión es la moneda definitiva.&quot;
           </p>
         </div>
       </div>

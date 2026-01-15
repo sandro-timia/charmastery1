@@ -29,16 +29,16 @@ export default function TricksGrid() {
         {/* Section Header */}
         <div className="text-center mb-12">
           <span className="inline-block text-[#C9A227] uppercase tracking-[0.3em] text-sm mb-4">
-            Your Social Toolkit
+            La magia es sólo la excusa
           </span>
           <h2
             className="text-4xl md:text-5xl font-serif text-[#F5F5F5] mb-4"
             style={{ fontFamily: 'var(--font-serif)' }}
           >
-            Break the Ice Instantly
+            Rompe el Hielo al Instante
           </h2>
           <p className="text-[#8A8A8E] max-w-2xl mx-auto">
-            Each technique comes with detailed video tutorials, real-world performance tips, and live footages of genuine reactions.
+            Cada técnica incluye tutoriales en video detallados, consejos de actuación en el mundo real y grabaciones de reacciones genuinas.
           </p>
           <div className="section-divider mt-8" />
         </div>
@@ -58,21 +58,21 @@ export default function TricksGrid() {
             
             <div className="relative">
               <span className="inline-block text-[#C9A227] uppercase tracking-[0.3em] text-sm mb-3">
-                Invest in Yourself
+                Invierte en Ti Mismo
               </span>
               <h3
                 className="text-3xl md:text-4xl font-serif text-[#F5F5F5] mb-4"
                 style={{ fontFamily: 'var(--font-serif)' }}
               >
-                Complete Mastery Program
+                Programa de Maestría Completo
               </h3>
               <p className="text-[#8A8A8E] max-w-lg mx-auto mb-6">
-                Gain lifetime access to all {tricks.length} connection techniques, video tutorials, live footages, and the social frameworks that transform how people respond to you.
+                Obtén acceso de por vida a todas las técnicas de conexión, tutoriales en video, grabaciones en vivo y los frameworks sociales que transforman cómo la gente responde a ti.
               </p>
               
               <div className="flex items-center justify-center gap-2 mb-6">
-                <span className="text-4xl font-bold text-[#C9A227]">$497</span>
-                <span className="text-[#8A8A8E] text-sm">one-time investment</span>
+                <span className="text-4xl font-bold text-[#C9A227]">$39</span>
+                <span className="text-[#8A8A8E] text-sm">inversión única</span>
               </div>
               
               <button
@@ -83,11 +83,11 @@ export default function TricksGrid() {
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
-                Begin Your Transformation
+                Comienza Tu Transformación
               </button>
               
               <p className="text-[#8A8A8E] text-sm mt-4">
-                ✓ Lifetime access &nbsp;•&nbsp; ✓ All future updates &nbsp;•&nbsp; ✓ 30-day money back guarantee
+                ✓ Acceso de por vida &nbsp;•&nbsp; ✓ Todas las actualizaciones futuras &nbsp;•&nbsp; ✓ Acceso exclusivo a la comunidad
               </p>
             </div>
           </div>

@@ -106,18 +106,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const normalized = normalizeEmail(email);
 
       if (!isValidEmail(normalized)) {
-        throw new Error('Please enter a valid email address.');
+        throw new Error('Por favor ingresa un correo electrónico válido.');
       }
       if (password.length < 8) {
-        throw new Error('Password must be at least 8 characters.');
+        throw new Error('La contraseña debe tener al menos 8 caracteres.');
       }
       if (password !== confirmPassword) {
-        throw new Error('Passwords do not match.');
+        throw new Error('Las contraseñas no coinciden.');
       }
 
       const users = loadUsers();
       if (users[normalized]) {
-        throw new Error('An account with this email already exists. Please sign in.');
+        throw new Error('Ya existe una cuenta con este correo. Por favor inicia sesión.');
       }
 
       const saltBytes = new Uint8Array(16);
@@ -137,21 +137,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signIn = useCallback(async ({ email, password }: { email: string; password: string }) => {
     const normalized = normalizeEmail(email);
     if (!isValidEmail(normalized)) {
-      throw new Error('Please enter a valid email address.');
+      throw new Error('Por favor ingresa un correo electrónico válido.');
     }
     if (!password) {
-      throw new Error('Please enter your password.');
+      throw new Error('Por favor ingresa tu contraseña.');
     }
 
     const users = loadUsers();
     const existing = users[normalized];
     if (!existing) {
-      throw new Error('No account found for this email. Please sign up.');
+      throw new Error('No se encontró una cuenta con este correo. Por favor regístrate.');
     }
 
     const hash = await sha256Hex(`${existing.salt}:${password}`);
     if (hash !== existing.hash) {
-      throw new Error('Incorrect email or password.');
+      throw new Error('Correo o contraseña incorrectos.');
     }
 
     saveSession(normalized);

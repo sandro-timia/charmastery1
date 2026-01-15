@@ -56,14 +56,14 @@ export default function TourCard({ tour, index }: TourCardProps) {
             <p className="text-[#C9A227] font-medium">{tour.date}</p>
             {tour.spotsLeft && (
               <p className="text-[#8A8A8E] text-sm">
-                Only <span className="text-[#ef4444]">{tour.spotsLeft}</span> spots left
+                Solo quedan <span className="text-[#ef4444]">{tour.spotsLeft}</span> plazas
               </p>
             )}
           </div>
 
           {/* Reserve Button */}
           <button className="btn-gold whitespace-nowrap">
-            Reserve Your Spot
+            Reserva Tu Plaza
           </button>
         </div>
       </div>

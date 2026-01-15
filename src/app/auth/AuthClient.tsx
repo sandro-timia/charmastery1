@@ -18,7 +18,7 @@ export default function AuthClient() {
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const title = useMemo(() => (mode === 'signin' ? 'Sign in' : 'Create your account'), [mode]);
+  const title = useMemo(() => (mode === 'signin' ? 'Iniciar Sesión' : 'Crea tu cuenta'), [mode]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,7 +46,7 @@ export default function AuthClient() {
         router.push('/media');
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong.');
+      setError(err instanceof Error ? err.message : 'Algo salió mal.');
     } finally {
       setIsSubmitting(false);
     }
@@ -64,12 +64,12 @@ export default function AuthClient() {
           type="button"
           onClick={() => router.push('/')}
           className="mb-4 inline-flex items-center gap-2 text-sm uppercase tracking-[0.15em] text-[#8A8A8E] hover:text-[#F5F5F5] transition-colors"
-          aria-label="Back to home"
+          aria-label="Volver al inicio"
         >
           <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
-          Back to home
+          Volver al inicio
         </button>
 
         <div className="glass rounded-2xl p-8 md:p-10 gold-border relative overflow-hidden">
@@ -78,15 +78,15 @@ export default function AuthClient() {
           <div className="relative">
             <div className="text-center mb-8">
               <span className="inline-block text-[#C9A227] uppercase tracking-[0.3em] text-xs mb-3">
-                Charmastery Access
+                Acceso Charmastery
               </span>
               <h1 className="text-3xl md:text-4xl font-serif text-[#F5F5F5]" style={{ fontFamily: 'var(--font-serif)' }}>
                 {title}
               </h1>
               <p className="text-[#8A8A8E] mt-3">
                 {mode === 'signin'
-                  ? 'Welcome back. Sign in to continue.'
-                  : 'Sign up with your email and a password.'}
+                  ? 'Bienvenido de nuevo. Inicia sesión para continuar.'
+                  : 'Regístrate con tu email y una contraseña.'}
               </p>
             </div>
 
@@ -94,14 +94,14 @@ export default function AuthClient() {
             {!isLoading && user && (
               <div className="mb-6 rounded-lg border border-[rgba(201,162,39,0.2)] bg-[#0A0A0B]/50 p-4">
                 <p className="text-[#F5F5F5]">
-                  You are signed in as <span className="text-[#C9A227]">{user.email}</span>.
+                  Has iniciado sesión como <span className="text-[#C9A227]">{user.email}</span>.
                 </p>
                 <button
                   type="button"
                   onClick={() => router.push('/')}
                   className="mt-3 btn-gold-filled rounded-sm w-full"
                 >
-                  Go to homepage
+                  Ir al inicio
                 </button>
               </div>
             )}
@@ -120,7 +120,7 @@ export default function AuthClient() {
                     : 'bg-[#1A1A1F] text-[#8A8A8E] hover:text-[#F5F5F5]'
                 }`}
               >
-                Sign in
+                Iniciar Sesión
               </button>
               <button
                 type="button"
@@ -134,7 +134,7 @@ export default function AuthClient() {
                     : 'bg-[#1A1A1F] text-[#8A8A8E] hover:text-[#F5F5F5]'
                 }`}
               >
-                Sign up
+                Registrarse
               </button>
             </div>
 
@@ -142,7 +142,7 @@ export default function AuthClient() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-xs uppercase tracking-[0.2em] text-[#8A8A8E] mb-2">
-                  Email
+                  Correo Electrónico
                 </label>
                 <input
                   type="email"
@@ -150,14 +150,14 @@ export default function AuthClient() {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   className="input-dark w-full rounded-sm"
-                  placeholder="you@domain.com"
+                  placeholder="tu@dominio.com"
                   autoComplete="email"
                 />
               </div>
 
               <div>
                 <label className="block text-xs uppercase tracking-[0.2em] text-[#8A8A8E] mb-2">
-                  Password
+                  Contraseña
                 </label>
                 <input
                   type="password"
@@ -165,7 +165,7 @@ export default function AuthClient() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   className="input-dark w-full rounded-sm"
-                  placeholder="At least 8 characters"
+                  placeholder="Mínimo 8 caracteres"
                   autoComplete={mode === 'signin' ? 'current-password' : 'new-password'}
                 />
               </div>
@@ -173,7 +173,7 @@ export default function AuthClient() {
               {mode === 'signup' && (
                 <div>
                   <label className="block text-xs uppercase tracking-[0.2em] text-[#8A8A8E] mb-2">
-                    Repeat password
+                    Repetir contraseña
                   </label>
                   <input
                     type="password"
@@ -181,7 +181,7 @@ export default function AuthClient() {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
                     className="input-dark w-full rounded-sm"
-                    placeholder="Repeat your password"
+                    placeholder="Repite tu contraseña"
                     autoComplete="new-password"
                   />
                 </div>
@@ -198,11 +198,11 @@ export default function AuthClient() {
                 disabled={isSubmitting || isLoading}
                 className="btn-gold-filled rounded-sm w-full disabled:opacity-50"
               >
-                {isSubmitting ? (mode === 'signin' ? 'Signing in…' : 'Creating account…') : mode === 'signin' ? 'Sign in' : 'Sign up'}
+                {isSubmitting ? (mode === 'signin' ? 'Iniciando sesión…' : 'Creando cuenta…') : mode === 'signin' ? 'Iniciar Sesión' : 'Registrarse'}
               </button>
 
               <p className="text-[#5A5A5E] text-xs text-center pt-2">
-                No database yet — credentials are stored locally in this browser for now.
+                Sin base de datos aún — las credenciales se guardan localmente en este navegador por ahora.
               </p>
             </form>
           </div>

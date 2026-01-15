@@ -54,7 +54,7 @@ export default function VideoModal({ video, isOpen, onClose }: VideoModalProps) 
         <button
           onClick={onClose}
           className="absolute -top-12 right-0 text-white/70 hover:text-white transition-colors p-2"
-          aria-label="Close video"
+          aria-label="Cerrar video"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

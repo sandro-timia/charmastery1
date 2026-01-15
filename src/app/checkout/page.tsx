@@ -22,7 +22,7 @@ export default function CheckoutPage() {
       <main className="min-h-screen pt-28 pb-20 bg-[#0A0A0B]">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="glass rounded-2xl p-8 gold-border">
-            <p className="text-[#8A8A8E]">Redirecting to sign in…</p>
+            <p className="text-[#8A8A8E]">Redirigiendo a iniciar sesión…</p>
           </div>
         </div>
       </main>
@@ -38,12 +38,12 @@ export default function CheckoutPage() {
       <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-4 mb-6">
           <div>
-            <p className="text-[11px] uppercase tracking-[0.28em] text-[#8A8A8E]">Checkout</p>
+            <p className="text-[11px] uppercase tracking-[0.28em] text-[#8A8A8E]">Pago</p>
             <h1 className="text-3xl md:text-4xl font-serif text-[#F5F5F5]" style={{ fontFamily: 'var(--font-serif)' }}>
-              Secure your access
+              Asegura tu acceso
             </h1>
             <p className="text-[#8A8A8E] mt-2">
-              Signed in as <span className="text-[#C9A227]">{user.email}</span>
+              Sesión iniciada como <span className="text-[#C9A227]">{user.email}</span>
             </p>
           </div>
 
@@ -52,7 +52,7 @@ export default function CheckoutPage() {
             onClick={() => router.push('/')}
             className="btn-gold"
           >
-            Back home
+            Volver al inicio
           </button>
         </div>
 
@@ -60,10 +60,10 @@ export default function CheckoutPage() {
           {items.length === 0 ? (
             <div className="text-center">
               <h2 className="text-2xl font-serif text-[#F5F5F5]" style={{ fontFamily: 'var(--font-serif)' }}>
-                Your cart is empty
+                Tu carrito está vacío
               </h2>
               <p className="text-[#8A8A8E] mt-2">
-                Add the program to your cart to proceed.
+                Añade el programa a tu carrito para continuar.
               </p>
               <button
                 type="button"
@@ -73,7 +73,7 @@ export default function CheckoutPage() {
                   router.push('/');
                 }}
               >
-                Open cart
+                Abrir carrito
               </button>
             </div>
           ) : (
@@ -112,17 +112,17 @@ export default function CheckoutPage() {
                   className="btn-gold-filled w-full"
                   onClick={() => {
                     // Placeholder checkout action (no payment processor yet)
-                    alert('Checkout flow not connected yet.');
+                    alert('El flujo de pago aún no está conectado.');
                   }}
                 >
-                  Place order (demo)
+                  Realizar pedido (demo)
                 </button>
                 <button
                   type="button"
                   className="w-full py-2 text-[#8A8A8E] hover:text-[#ef4444] text-sm transition-colors"
                   onClick={clearCart}
                 >
-                  Clear cart
+                  Vaciar carrito
                 </button>
               </div>
             </>

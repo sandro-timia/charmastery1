@@ -93,21 +93,21 @@ export default function HeroCarousel() {
         {/* Hero Text */}
         <div className="text-center mb-12 animate-fade-in">
           <p className="text-[#C9A227] uppercase tracking-[0.3em] text-sm mb-4">
-            The Art of Human Connection
+            El Arte de la Conexión Humana
           </p>
           <h1
             className="text-4xl md:text-6xl lg:text-7xl font-serif text-[#F5F5F5] mb-4"
             style={{ fontFamily: 'var(--font-serif)' }}
           >
-            Get Hugs from <span className="text-[#C9A227]">Strangers</span>
+            Consigue Abrazos de <span className="text-[#C9A227]">Desconocidos</span>
           </h1>
           <p className="text-lg md:text-xl text-[#8A8A8E] max-w-2xl mx-auto">
-            Transform every interaction into a memorable connection. Master the social skills that turn strangers into friends—magic is just the icebreaker.
+            Transforma cada interacción en una conexión memorable. Domina las habilidades sociales que convierten desconocidos en amigos—la magia es solo el rompehielos.
           </p>
         </div>
 
         {/* Carousel Container */}
-        <div className="relative lg:pb-24">
+        <div className="relative lg:pb-12">
           {/* Mobile / Tablet: single card */}
           <div className="lg:hidden flex items-center justify-center">
             <div className="w-full max-w-xs md:max-w-sm transition-all duration-500 animate-fade-in-up">
@@ -175,7 +175,7 @@ export default function HeroCarousel() {
           <button
             onClick={prevSlide}
             className="absolute left-0 md:left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-[rgba(201,162,39,0.3)] bg-[#0A0A0B]/80 backdrop-blur flex items-center justify-center text-[#C9A227] hover:bg-[#C9A227] hover:text-[#0A0A0B] transition-all group"
-            aria-label="Previous video"
+            aria-label="Video anterior"
           >
             <svg
               className="w-6 h-6 transform group-hover:-translate-x-0.5 transition-transform"
@@ -189,7 +189,7 @@ export default function HeroCarousel() {
           <button
             onClick={nextSlide}
             className="absolute right-0 md:right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-[rgba(201,162,39,0.3)] bg-[#0A0A0B]/80 backdrop-blur flex items-center justify-center text-[#C9A227] hover:bg-[#C9A227] hover:text-[#0A0A0B] transition-all group"
-            aria-label="Next video"
+            aria-label="Siguiente video"
           >
             <svg
               className="w-6 h-6 transform group-hover:translate-x-0.5 transition-transform"
@@ -202,38 +202,38 @@ export default function HeroCarousel() {
           </button>
         </div>
 
-        {/* Dots Navigation */}
-        <div className="flex items-center justify-center gap-3 mt-8">
-          {heroVideos.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                index === activeIndex
-                  ? 'w-8 bg-[#C9A227]'
-                  : 'bg-[#8A8A8E]/50 hover:bg-[#8A8A8E]'
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
+        {/* Navigation Controls Container */}
+        <div className="flex flex-col items-center gap-6 mt-8">
+          {/* Dots Navigation */}
+          <div className="flex items-center justify-center gap-3">
+            {heroVideos.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  index === activeIndex
+                    ? 'w-8 bg-[#C9A227]'
+                    : 'bg-[#8A8A8E]/50 hover:bg-[#8A8A8E]'
+                }`}
+                aria-label={`Ir a diapositiva ${index + 1}`}
+              />
+            ))}
+          </div>
 
-        {/* Scroll Cue (anchored, not floating) */}
-        <div className="absolute inset-x-0 bottom-0 pb-6 flex justify-center pointer-events-none">
-          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0A0A0B]/55 to-transparent pointer-events-none" />
+          {/* Scroll Cue */}
           <button
             type="button"
             onClick={() => {
               const el = document.getElementById('tricks');
               if (el) el.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="pointer-events-auto inline-flex items-center gap-3 rounded-full border border-[rgba(201,162,39,0.22)] bg-[#0A0A0B]/60 backdrop-blur px-5 py-3 text-xs uppercase tracking-widest text-[#8A8A8E] hover:text-[#F5F5F5] hover:border-[rgba(201,162,39,0.35)] transition"
-            aria-label="Scroll to explore"
+            className="inline-flex items-center gap-3 rounded-full border border-[rgba(201,162,39,0.22)] bg-[#0A0A0B]/60 backdrop-blur px-5 py-3 text-xs uppercase tracking-widest text-[#8A8A8E] hover:text-[#F5F5F5] hover:border-[rgba(201,162,39,0.35)] transition"
+            aria-label="Desplázate para explorar"
           >
             <span className="relative inline-flex h-6 w-4 items-start justify-center rounded-full border border-[rgba(201,162,39,0.25)]">
               <span className="mt-1.5 h-1 w-1 rounded-full bg-[#C9A227]" />
             </span>
-            <span>Scroll to explore</span>
+            <span>Desplázate para explorar</span>
             <svg className="w-4 h-4 text-[#C9A227]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
@@ -247,7 +247,7 @@ export default function HeroCarousel() {
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
           role="dialog"
           aria-modal="true"
-          aria-label="Full performance video"
+          aria-label="Video de actuación completa"
           onMouseDown={(e) => {
             if (e.target === e.currentTarget) closeYoutubeModal();
           }}
@@ -257,7 +257,7 @@ export default function HeroCarousel() {
               type="button"
               onClick={closeYoutubeModal}
               className="absolute right-3 top-3 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white transition hover:bg-black/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C9A227]"
-              aria-label="Close video"
+              aria-label="Cerrar video"
             >
               <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

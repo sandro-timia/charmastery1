@@ -78,7 +78,9 @@ export default function CartItem({ item }: CartItemProps) {
         >
           {item.name}
         </h4>
-        {!isMasteryProgram && (
+        {isMasteryProgram ? (
+          <p className="text-[#8A8A8E] text-xs">Único pago - acceso de por vida</p>
+        ) : (
           <p className="text-[#8A8A8E] text-sm capitalize">{item.difficulty}</p>
         )}
         <p className="text-[#C9A227] font-semibold mt-1">${item.price}</p>
@@ -88,7 +90,7 @@ export default function CartItem({ item }: CartItemProps) {
       <button
         onClick={() => removeFromCart(item.id)}
         className="p-2 text-[#8A8A8E] hover:text-[#ef4444] transition-colors self-start"
-        aria-label={`Remove ${item.name} from cart`}
+        aria-label={`Eliminar ${item.name} del carrito`}
       >
         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

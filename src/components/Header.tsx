@@ -87,32 +87,32 @@ export default function Header() {
             <button
               onClick={() => scrollToSection('tricks')}
               className={`text-sm uppercase tracking-[0.15em] transition-colors ${
-                activeSection === 'tricks'
+                pathname === '/' && activeSection === 'tricks'
                   ? 'text-[#C9A227]'
                   : 'text-[#8A8A8E] hover:text-[#F5F5F5]'
               }`}
             >
-              Tricks
+              Trucos
             </button>
             <button
               onClick={() => scrollToSection('tours')}
               className={`text-sm uppercase tracking-[0.15em] transition-colors ${
-                activeSection === 'tours'
+                pathname === '/' && activeSection === 'tours'
                   ? 'text-[#C9A227]'
                   : 'text-[#8A8A8E] hover:text-[#F5F5F5]'
               }`}
             >
-              Tours
+              Giras
             </button>
             <button
               onClick={() => scrollToSection('about')}
               className={`text-sm uppercase tracking-[0.15em] transition-colors ${
-                activeSection === 'about'
+                pathname === '/' && activeSection === 'about'
                   ? 'text-[#C9A227]'
                   : 'text-[#8A8A8E] hover:text-[#F5F5F5]'
               }`}
             >
-              About
+              Nosotros
             </button>
           </nav>
 
@@ -125,7 +125,7 @@ export default function Header() {
                   href="/account"
                   className="inline-flex items-center justify-center rounded-full bg-[#1A1A1F] px-4 py-2 text-xs uppercase tracking-[0.18em] text-[#F5F5F5] border border-[rgba(201,162,39,0.18)] hover:border-[rgba(201,162,39,0.35)] hover:shadow-[0_0_18px_rgba(201,162,39,0.12)] transition"
                 >
-                  My Account
+                  Mi Cuenta
                 </Link>
                 <Link
                   href="/media"
@@ -135,14 +135,14 @@ export default function Header() {
                       : 'bg-[#C9A227] text-[#0A0A0B] hover:bg-[#D4AF37] hover:shadow-[0_0_22px_rgba(201,162,39,0.22)]'
                   }`}
                 >
-                  Start Learning
+                  Empezar a Aprender
                 </Link>
                 <button
                   type="button"
                   onClick={signOut}
                   className="inline-flex items-center justify-center rounded-full bg-[#1A1A1F] px-4 py-2 text-xs uppercase tracking-[0.18em] text-[#F5F5F5] border border-[rgba(201,162,39,0.18)] hover:border-[rgba(201,162,39,0.35)] hover:shadow-[0_0_18px_rgba(201,162,39,0.12)] transition"
                 >
-                  Sign Out
+                  Cerrar Sesión
                 </button>
               </div>
             ) : (
@@ -150,7 +150,7 @@ export default function Header() {
                 href="/auth"
                 className="hidden sm:inline-flex items-center justify-center rounded-full bg-[#C9A227] px-4 py-2 text-xs uppercase tracking-[0.18em] text-[#0A0A0B] font-semibold hover:bg-[#D4AF37] hover:shadow-[0_0_22px_rgba(201,162,39,0.22)] transition"
               >
-                Sign In
+                Iniciar Sesión
               </Link>
             )}
 
@@ -158,7 +158,7 @@ export default function Header() {
             <button
               onClick={toggleCart}
               className="relative p-2 text-[#F5F5F5] hover:text-[#C9A227] transition-colors group"
-              aria-label={`Shopping cart with ${itemCount} items`}
+              aria-label={`Carrito de compras con ${itemCount} artículos`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -184,7 +184,7 @@ export default function Header() {
             {/* Mobile Menu Button */}
             <button
               className="md:hidden p-2 text-[#F5F5F5]"
-              aria-label="Menu"
+              aria-label="Menú"
               onClick={toggleMobileMenu}
             >
               {isMobileMenuOpen ? (
@@ -232,32 +232,32 @@ export default function Header() {
             <button
               onClick={() => scrollToSection('tricks')}
               className={`w-full text-left py-3 text-sm uppercase tracking-[0.15em] hover:bg-[#1A1A1F] rounded-lg px-3 transition-colors ${
-                activeSection === 'tricks'
+                pathname === '/' && activeSection === 'tricks'
                   ? 'text-[#C9A227]'
                   : 'text-[#8A8A8E] hover:text-[#F5F5F5]'
               }`}
             >
-              Tricks
+              Trucos
             </button>
             <button
               onClick={() => scrollToSection('tours')}
               className={`w-full text-left py-3 text-sm uppercase tracking-[0.15em] hover:bg-[#1A1A1F] rounded-lg px-3 transition-colors ${
-                activeSection === 'tours'
+                pathname === '/' && activeSection === 'tours'
                   ? 'text-[#C9A227]'
                   : 'text-[#8A8A8E] hover:text-[#F5F5F5]'
               }`}
             >
-              Tours
+              Giras
             </button>
             <button
               onClick={() => scrollToSection('about')}
               className={`w-full text-left py-3 text-sm uppercase tracking-[0.15em] hover:bg-[#1A1A1F] rounded-lg px-3 transition-colors ${
-                activeSection === 'about'
+                pathname === '/' && activeSection === 'about'
                   ? 'text-[#C9A227]'
                   : 'text-[#8A8A8E] hover:text-[#F5F5F5]'
               }`}
             >
-              About
+              Nosotros
             </button>
 
             {/* Divider */}
@@ -269,20 +269,24 @@ export default function Header() {
                 <Link
                   href="/account"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="w-full text-left py-3 text-sm uppercase tracking-[0.15em] text-[#8A8A8E] hover:text-[#F5F5F5] hover:bg-[#1A1A1F] rounded-lg px-3 transition-colors"
+                  className={`w-full text-left py-3 text-sm uppercase tracking-[0.15em] hover:bg-[#1A1A1F] rounded-lg px-3 transition-colors ${
+                    pathname === '/account'
+                      ? 'text-[#C9A227]'
+                      : 'text-[#8A8A8E] hover:text-[#F5F5F5]'
+                  }`}
                 >
-                  My Account
+                  Mi Cuenta
                 </Link>
                 <Link
                   href="/media"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`w-full text-center py-3 text-sm uppercase tracking-[0.15em] rounded-lg px-3 font-semibold transition-all ${
+                  className={`w-full text-left py-3 text-sm uppercase tracking-[0.15em] hover:bg-[#1A1A1F] rounded-lg px-3 transition-colors ${
                     pathname === '/media'
-                      ? 'bg-[#C9A227] text-[#0A0A0B]'
-                      : 'bg-[#C9A227] text-[#0A0A0B] hover:bg-[#D4AF37]'
+                      ? 'text-[#C9A227]'
+                      : 'text-[#8A8A8E] hover:text-[#F5F5F5]'
                   }`}
                 >
-                  Start Learning
+                  Empezar a Aprender
                 </Link>
                 <button
                   type="button"
@@ -292,7 +296,7 @@ export default function Header() {
                   }}
                   className="w-full text-left py-3 text-sm uppercase tracking-[0.15em] text-[#8A8A8E] hover:text-[#F5F5F5] hover:bg-[#1A1A1F] rounded-lg px-3 transition-colors"
                 >
-                  Sign Out
+                  Cerrar Sesión
                 </button>
               </>
             ) : (
@@ -301,7 +305,7 @@ export default function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="w-full text-center py-3 text-sm uppercase tracking-[0.15em] bg-[#C9A227] text-[#0A0A0B] font-semibold hover:bg-[#D4AF37] rounded-lg px-3 transition-colors mt-2"
               >
-                Sign In
+                Iniciar Sesión
               </Link>
             )}
           </nav>

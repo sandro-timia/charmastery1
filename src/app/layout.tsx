@@ -23,32 +23,32 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Charmastery | Master the Art of Illusion",
+  title: "Charmastery | Domina el Arte de la Ilusión",
   description:
-    "Learn professional magic from world-class performers. Premium video tutorials, live workshops, and secrets from the masters. Enter a world where the impossible becomes possible.",
+    "Aprende magia profesional de artistas de clase mundial. Tutoriales en video premium, talleres en vivo y secretos de los maestros. Entra a un mundo donde lo imposible se hace posible.",
   keywords: [
-    "magic tricks",
-    "learn magic",
-    "illusion tutorials",
-    "card tricks",
-    "sleight of hand",
-    "mentalism",
-    "magic workshops",
+    "trucos de magia",
+    "aprender magia",
+    "tutoriales de ilusión",
+    "trucos de cartas",
+    "prestidigitación",
+    "mentalismo",
+    "talleres de magia",
   ],
   authors: [{ name: "Charmastery" }],
   openGraph: {
-    title: "Charmastery | Master the Art of Illusion",
+    title: "Charmastery | Domina el Arte de la Ilusión",
     description:
-      "Learn professional magic from world-class performers. Premium video tutorials and live workshops.",
+      "Aprende magia profesional de artistas de clase mundial. Tutoriales en video premium y talleres en vivo.",
     type: "website",
-    locale: "en_US",
+    locale: "es_ES",
     siteName: "Charmastery",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Charmastery | Master the Art of Illusion",
+    title: "Charmastery | Domina el Arte de la Ilusión",
     description:
-      "Learn professional magic from world-class performers. Premium video tutorials and live workshops.",
+      "Aprende magia profesional de artistas de clase mundial. Tutoriales en video premium y talleres en vivo.",
   },
   robots: {
     index: true,
@@ -62,7 +62,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="es" className="scroll-smooth">
       <body
         className={`${cormorantGaramond.variable} ${dmSans.variable} antialiased bg-[#0A0A0B] text-[#F5F5F5]`}
         style={{ fontFamily: "var(--font-sans)" }}
