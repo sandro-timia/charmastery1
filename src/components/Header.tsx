@@ -8,6 +8,7 @@ import { useAuth } from '@/context/AuthContext';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { itemCount, toggleCart } = useCart();
   const { user, isLoading, signOut } = useAuth();
   const pathname = usePathname();
@@ -22,7 +23,13 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
+
   const scrollToSection = (sectionId: string) => {
+    setIsMobileMenuOpen(false);
     if (pathname !== '/') {
       router.push(`/#${sectionId}`);
       return;
@@ -30,6 +37,10 @@ export default function Header() {
 
     const element = document.getElementById(sectionId);
     if (element) element.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   return (
@@ -129,23 +140,106 @@ export default function Header() {
             </button>
 
             {/* Mobile Menu Button */}
-            <button className="md:hidden p-2 text-[#F5F5F5]" aria-label="Menu">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={1.5}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
+            <button
+              className="md:hidden p-2 text-[#F5F5F5]"
+              aria-label="Menu"
+              onClick={toggleMobileMenu}
+            >
+              {isMobileMenuOpen ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={1.5}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={1.5}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              )}
             </button>
           </div>
+        </div>
+
+        {/* Mobile Menu Panel */}
+        <div
+          className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+            isMobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          }`}
+        >
+          <nav className="flex flex-col gap-1 px-4 pb-6 bg-[#0A0A0B]/95 backdrop-blur-md">
+            <button
+              onClick={() => scrollToSection('tricks')}
+              className="w-full text-left py-3 text-sm uppercase tracking-[0.15em] text-[#8A8A8E] hover:text-[#F5F5F5] hover:bg-[#1A1A1F] rounded-lg px-3 transition-colors"
+            >
+              Tricks
+            </button>
+            <button
+              onClick={() => scrollToSection('tours')}
+              className="w-full text-left py-3 text-sm uppercase tracking-[0.15em] text-[#8A8A8E] hover:text-[#F5F5F5] hover:bg-[#1A1A1F] rounded-lg px-3 transition-colors"
+            >
+              Tours
+            </button>
+            <button
+              onClick={() => scrollToSection('about')}
+              className="w-full text-left py-3 text-sm uppercase tracking-[0.15em] text-[#8A8A8E] hover:text-[#F5F5F5] hover:bg-[#1A1A1F] rounded-lg px-3 transition-colors"
+            >
+              About
+            </button>
+
+            {/* Divider */}
+            <div className="h-px bg-[#2A2A2F] my-2" />
+
+            {/* Auth Section */}
+            {!isLoading && user ? (
+              <>
+                <Link
+                  href="/account"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full text-left py-3 text-sm uppercase tracking-[0.15em] text-[#8A8A8E] hover:text-[#F5F5F5] hover:bg-[#1A1A1F] rounded-lg px-3 transition-colors"
+                >
+                  My Account
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => {
+                    signOut();
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="w-full text-left py-3 text-sm uppercase tracking-[0.15em] text-[#C9A227] hover:text-[#D4AF37] hover:bg-[#1A1A1F] rounded-lg px-3 transition-colors"
+                >
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <Link
+                href="/auth"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="w-full text-left py-3 text-sm uppercase tracking-[0.15em] text-[#C9A227] hover:text-[#D4AF37] hover:bg-[#1A1A1F] rounded-lg px-3 transition-colors"
+              >
+                Sign In
+              </Link>
+            )}
+          </nav>
         </div>
       </div>
     </header>
