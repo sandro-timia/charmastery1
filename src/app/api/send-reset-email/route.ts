@@ -19,8 +19,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Use verified domain or Resend's test email for development
+    const fromEmail = process.env.RESEND_FROM_EMAIL || 'Charmastery <onboarding@resend.dev>';
+    
     const { data, error } = await resend.emails.send({
-      from: 'Charmastery <mailer@charmastery.com>',
+      from: fromEmail,
       to: email,
       subject: 'Restablecer tu contraseña - Charmastery',
       html: `
@@ -118,9 +121,9 @@ export async function POST(request: NextRequest) {
     });
 
     if (error) {
-      console.error('Resend error:', error);
+      console.error('Resend error:', JSON.stringify(error, null, 2));
       return NextResponse.json(
-        { error: 'Error al enviar el correo' },
+        { error: `Error al enviar el correo: ${error.message || 'Error desconocido'}` },
         { status: 500 }
       );
     }
