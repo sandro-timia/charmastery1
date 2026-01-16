@@ -27,7 +27,7 @@ type AuthContextValue = {
   signIn: (args: { email: string; password: string }) => Promise<void>;
   signOut: () => void;
   markAsSubscribed: () => void;
-  requestPasswordReset: (email: string) => Promise<string>; // Returns reset link
+  requestPasswordReset: (email: string) => Promise<void>; // Sends reset email
   validateResetToken: (token: string) => { valid: boolean; email?: string };
   resetPassword: (args: { token: string; newPassword: string; confirmPassword: string }) => Promise<void>;
 };
@@ -220,7 +220,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser({ ...user, hasSubscription: true });
   }, [user]);
 
-  const requestPasswordReset = useCallback(async (email: string): Promise<string> => {
+  const requestPasswordReset = useCallback(async (email: string): Promise<void> => {
     const normalized = normalizeEmail(email);
     
     if (!isValidEmail(normalized)) {
@@ -241,9 +241,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     tokens.push({ email: normalized, token, expiresAt });
     saveResetTokens(tokens);
 
-    // Return the reset link (in production, this would be sent via email)
+    // Generate the reset link
     const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
-    return `${baseUrl}/auth/reset-password?token=${token}`;
+    const resetLink = `${baseUrl}/auth/reset-password?token=${token}`;
+
+    // Send the email via API
+    const response = await fetch('/api/send-reset-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: normalized, resetLink }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.error || 'Error al enviar el correo. Intenta de nuevo.');
+    }
   }, []);
 
   const validateResetToken = useCallback((token: string): { valid: boolean; email?: string } => {
