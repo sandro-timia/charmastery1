@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useCookieConsent, CookieCategory } from '@/context/CookieContext';
 
 interface CategoryInfo {
@@ -39,6 +40,7 @@ const categories: CategoryInfo[] = [
 ];
 
 export default function CookieConsent() {
+  const router = useRouter();
   const {
     preferences,
     showBanner,
@@ -49,6 +51,8 @@ export default function CookieConsent() {
     savePreferences,
     openSettings,
     closeSettings,
+    closeBanner,
+    dismissBanner,
     doNotTrack,
   } = useCookieConsent();
 
@@ -149,12 +153,24 @@ export default function CookieConsent() {
 
               {/* Links */}
               <div className="mt-4 flex flex-wrap gap-4 text-xs text-[#5A5A5E]">
-                <Link href="/cookies" className="hover:text-[#C9A227] transition-colors">
+                <button
+                  onClick={() => {
+                    dismissBanner();
+                    router.push('/cookies');
+                  }}
+                  className="hover:text-[#C9A227] transition-colors underline"
+                >
                   Política de Cookies
-                </Link>
-                <Link href="/privacidad" className="hover:text-[#C9A227] transition-colors">
+                </button>
+                <button
+                  onClick={() => {
+                    dismissBanner();
+                    router.push('/privacidad');
+                  }}
+                  className="hover:text-[#C9A227] transition-colors underline"
+                >
                   Política de Privacidad
-                </Link>
+                </button>
               </div>
             </div>
           </div>
@@ -247,14 +263,34 @@ export default function CookieConsent() {
                   Solo esenciales
                 </button>
               </div>
-              <Link 
-                href="/cookies" 
-                className="block text-center text-xs text-[#5A5A5E] hover:text-[#C9A227] transition-colors"
+              <button
+                onClick={() => {
+                  closeSettings();
+                  router.push('/cookies');
+                }}
+                className="block text-center text-xs text-[#5A5A5E] hover:text-[#C9A227] transition-colors underline"
               >
                 Ver política completa de cookies
-              </Link>
+              </button>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Permanent Cookie Settings Button */}
+      {mounted && isLoaded && !showBanner && !showSettings && (
+        <div className="fixed bottom-4 right-4 z-40">
+          <button
+            onClick={openSettings}
+            className="w-12 h-12 bg-[#1A1A1F] hover:bg-[#2A2A2F] border border-[rgba(201,162,39,0.3)] rounded-full flex items-center justify-center text-[#C9A227] hover:text-[#F5F5F5] transition-all duration-200 shadow-lg hover:shadow-xl"
+            aria-label="Configuración de cookies"
+            title="Configuración de cookies"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </button>
         </div>
       )}
 

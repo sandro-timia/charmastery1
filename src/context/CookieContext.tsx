@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
+import { usePathname } from 'next/navigation';
 
 // Cookie categories
 export type CookieCategory = 'essential' | 'analytics' | 'marketing' | 'functional';
@@ -27,6 +28,7 @@ export interface CookieContextType {
   openSettings: () => void;
   closeSettings: () => void;
   closeBanner: () => void;
+  dismissBanner: () => void; // Close without setting consent
   resetConsent: () => void;
   
   // Helpers
@@ -97,6 +99,7 @@ function detectDoNotTrack(): boolean {
 }
 
 export function CookieProvider({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
   const [preferences, setPreferences] = useState<CookiePreferences>(defaultPreferences);
   const [hasConsented, setHasConsented] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -104,12 +107,16 @@ export function CookieProvider({ children }: { children: ReactNode }) {
   const [showSettings, setShowSettings] = useState(false);
   const [isEU, setIsEU] = useState(true);
   const [doNotTrack, setDoNotTrack] = useState(false);
+  const [bannerDismissedForPolicy, setBannerDismissedForPolicy] = useState(false);
+
+  // Don't show banner on policy pages
+  const isPolicyPage = pathname === '/cookies' || pathname === '/privacidad';
 
   // Load consent from cookies on mount
   useEffect(() => {
     const consent = getCookie(CONSENT_COOKIE);
     const prefsString = getCookie(PREFERENCES_COOKIE);
-    
+
     setIsEU(detectEU());
     setDoNotTrack(detectDoNotTrack());
 
@@ -120,14 +127,36 @@ export function CookieProvider({ children }: { children: ReactNode }) {
         setHasConsented(true);
         setShowBanner(false);
       } catch {
-        setShowBanner(true);
+        setShowBanner(!isPolicyPage);
       }
     } else {
-      setShowBanner(true);
+      setShowBanner(!isPolicyPage);
     }
-    
+
     setIsLoaded(true);
   }, []);
+
+  // Hide banner on policy pages
+  useEffect(() => {
+    if (isLoaded && isPolicyPage) {
+      setShowBanner(false);
+      setShowSettings(false);
+    }
+  }, [isLoaded, isPolicyPage]);
+
+  // Show banner again after dismissing for policy reading
+  useEffect(() => {
+    if (isLoaded && bannerDismissedForPolicy && !hasConsented && !showBanner && !showSettings && !isPolicyPage) {
+      // Show banner again after a short delay to avoid immediate reappearance
+      const timer = setTimeout(() => {
+        setBannerDismissedForPolicy(false);
+        setShowBanner(true);
+      }, 1000); // 1 second delay
+
+      return () => clearTimeout(timer);
+    }
+  }, [isLoaded, bannerDismissedForPolicy, hasConsented, showBanner, showSettings, isPolicyPage]);
+
 
   // Apply consent by managing scripts
   useEffect(() => {
@@ -203,6 +232,14 @@ export function CookieProvider({ children }: { children: ReactNode }) {
     setShowBanner(false);
   }, [hasConsented, rejectNonEssential]);
 
+  const dismissBanner = useCallback(() => {
+    // Close banner temporarily for navigation to policy pages
+    setShowBanner(false);
+    if (!hasConsented) {
+      setBannerDismissedForPolicy(true);
+    }
+  }, [hasConsented]);
+
   const resetConsent = useCallback(() => {
     deleteCookie(CONSENT_COOKIE);
     deleteCookie(PREFERENCES_COOKIE);
@@ -229,6 +266,7 @@ export function CookieProvider({ children }: { children: ReactNode }) {
         openSettings,
         closeSettings,
         closeBanner,
+        dismissBanner,
         resetConsent,
         hasConsent,
         isEU,
