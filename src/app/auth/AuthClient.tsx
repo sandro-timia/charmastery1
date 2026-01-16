@@ -201,6 +201,18 @@ export default function AuthClient() {
                 {isSubmitting ? (mode === 'signin' ? 'Iniciando sesión…' : 'Creando cuenta…') : mode === 'signin' ? 'Iniciar Sesión' : 'Registrarse'}
               </button>
 
+              {mode === 'signin' && (
+                <div className="text-center pt-2">
+                  <button
+                    type="button"
+                    onClick={() => router.push('/auth/forgot-password')}
+                    className="text-[#C9A227] text-sm hover:text-[#D4AF37] hover:underline transition-colors"
+                  >
+                    ¿Olvidaste tu contraseña?
+                  </button>
+                </div>
+              )}
+
               <p className="text-[#5A5A5E] text-xs text-center pt-2">
                 Sin base de datos aún — las credenciales se guardan localmente en este navegador por ahora.
               </p>

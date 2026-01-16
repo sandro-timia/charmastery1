@@ -88,6 +88,24 @@ body {
   background: var(--accent-gold);
 }
 
+/* Custom Scrollbar for smaller elements */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--accent-gold-dark);
+  border-radius: 2px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-gold);
+}
+
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-serif);
@@ -382,9 +400,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .badge-advanced {
-  background: #2A2A2E;
-  color: #B8B8B8;
-  border: 1px solid #3A3A3E;
+  background: #000000;
+  color: #FFFFFF;
+  border: 1px solid #333333;
 }
 
 /* Video Overlay */

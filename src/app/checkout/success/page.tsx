@@ -1,21 +1,27 @@
 'use client';
 
-import { useEffect, Suspense } from 'react';
+import { useEffect, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
+import { useAuth } from '@/context/AuthContext';
 
 function CheckoutSuccessContent() {
   const searchParams = useSearchParams();
   const { clearCart } = useCart();
+  const { markAsSubscribed } = useAuth();
   const sessionId = searchParams.get('session_id');
+  const hasProcessed = useRef(false);
 
   useEffect(() => {
-    // Clear cart on successful payment
-    if (sessionId) {
+    // Clear cart and mark user as subscribed on successful payment
+    // Only run once to avoid infinite loop
+    if (sessionId && !hasProcessed.current) {
+      hasProcessed.current = true;
       clearCart();
+      markAsSubscribed();
     }
-  }, [sessionId, clearCart]);
+  }, [sessionId, clearCart, markAsSubscribed]);
 
   return (
     <main className="min-h-screen pt-28 pb-20 bg-[#0A0A0B] relative overflow-hidden">

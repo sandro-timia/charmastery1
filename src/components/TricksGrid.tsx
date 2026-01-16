@@ -35,7 +35,7 @@ export default function TricksGrid() {
             className="text-4xl md:text-5xl font-serif text-[#F5F5F5] mb-4"
             style={{ fontFamily: 'var(--font-serif)' }}
           >
-            Rompe el Hielo al Instante
+            Un repertorio de efectos impresionantes
           </h2>
           <p className="text-[#8A8A8E] max-w-2xl mx-auto">
             Cada técnica incluye tutoriales en video detallados, consejos de actuación en el mundo real y grabaciones de reacciones genuinas.

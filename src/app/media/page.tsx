@@ -4,8 +4,9 @@ import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useAuth } from '@/context/AuthContext';
-import { mediaItems, MediaItem } from '@/data/mockData';
+import { mediaItems, MediaItem, tricks } from '@/data/mockData';
 import VideoModal from '@/components/VideoModal';
+import TrickCard from '@/components/TrickCard';
 
 type CategoryTab = 'tutorials' | 'charm-tips' | 'footages';
 
@@ -118,62 +119,73 @@ export default function MediaPage() {
           {currentCategoryInfo?.description}
         </p>
 
-        {/* Video Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => handleVideoClick(item)}
-              className="group relative aspect-video rounded-xl overflow-hidden gold-border bg-[#1A1A1F] focus:outline-none focus:ring-2 focus:ring-[#C9A227] focus:ring-offset-2 focus:ring-offset-[#0A0A0B]"
-            >
-              {/* Thumbnail */}
-              <Image
-                src={item.thumbnail}
-                alt={item.title}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              />
+        {/* Tricks Grid - Only shown in Tutorials tab */}
+        {activeCategory === 'tutorials' && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {tricks.map((trick, index) => (
+              <TrickCard key={trick.id} trick={trick} index={index} />
+            ))}
+          </div>
+        )}
 
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
+        {/* Video Grid - Only for charm-tips and footages */}
+        {activeCategory !== 'tutorials' && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => handleVideoClick(item)}
+                className="group relative aspect-video rounded-xl overflow-hidden gold-border bg-[#1A1A1F] focus:outline-none focus:ring-2 focus:ring-[#C9A227] focus:ring-offset-2 focus:ring-offset-[#0A0A0B]"
+              >
+                {/* Thumbnail */}
+                <Image
+                  src={item.thumbnail}
+                  alt={item.title}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
 
-              {/* Play Icon */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#C9A227]/90 flex items-center justify-center transform scale-90 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300 shadow-lg">
-                  <svg
-                    className="w-6 h-6 sm:w-7 sm:h-7 text-[#0A0A0B] ml-1"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
+
+                {/* Play Icon */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#C9A227]/90 flex items-center justify-center transform scale-90 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300 shadow-lg">
+                    <svg
+                      className="w-6 h-6 sm:w-7 sm:h-7 text-[#0A0A0B] ml-1"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
                 </div>
-              </div>
 
-              {/* Content Overlay */}
-              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
-                <h3
-                  className="text-[#F5F5F5] text-base sm:text-lg font-serif mb-1 text-left"
-                  style={{ fontFamily: 'var(--font-serif)' }}
-                >
-                  {item.title}
-                </h3>
-                {item.category === 'charm-tips' && (
-                  <p className="text-[#8A8A8E] text-xs sm:text-sm text-left line-clamp-2">
-                    {item.description}
-                  </p>
-                )}
-              </div>
+                {/* Content Overlay */}
+                <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
+                  <h3
+                    className="text-[#F5F5F5] text-base sm:text-lg font-serif mb-1 text-left"
+                    style={{ fontFamily: 'var(--font-serif)' }}
+                  >
+                    {item.title}
+                  </h3>
+                  {item.category === 'charm-tips' && (
+                    <p className="text-[#8A8A8E] text-xs sm:text-sm text-left line-clamp-2">
+                      {item.description}
+                    </p>
+                  )}
+                </div>
 
-              {/* Hover Border Effect */}
-              <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#C9A227]/50 rounded-xl transition-colors duration-300 pointer-events-none" />
-            </button>
-          ))}
-        </div>
+                {/* Hover Border Effect */}
+                <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#C9A227]/50 rounded-xl transition-colors duration-300 pointer-events-none" />
+              </button>
+            ))}
+          </div>
+        )}
 
-        {/* Empty State */}
-        {filteredItems.length === 0 && (
+        {/* Empty State - Only for non-tutorials tabs */}
+        {activeCategory !== 'tutorials' && filteredItems.length === 0 && (
           <div className="text-center py-20">
             <p className="text-[#8A8A8E] text-lg">No hay contenido disponible en esta categoría todavía.</p>
           </div>
