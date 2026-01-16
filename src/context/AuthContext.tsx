@@ -5,6 +5,9 @@ import React, { createContext, useCallback, useContext, useEffect, useMemo, useS
 type AuthUser = {
   email: string;
   hasSubscription: boolean;
+  name?: string;
+  instagram?: string;
+  country?: string;
 };
 
 type StoredUser = {
@@ -12,6 +15,9 @@ type StoredUser = {
   hash: string;
   createdAt: number;
   hasSubscription?: boolean;
+  name?: string;
+  instagram?: string;
+  country?: string;
 };
 
 type ResetToken = {
@@ -23,7 +29,7 @@ type ResetToken = {
 type AuthContextValue = {
   user: AuthUser | null;
   isLoading: boolean;
-  signUp: (args: { email: string; password: string; confirmPassword: string }) => Promise<void>;
+  signUp: (args: { email: string; password: string; confirmPassword: string; name?: string; instagram?: string; country?: string }) => Promise<void>;
   signIn: (args: { email: string; password: string }) => Promise<void>;
   signOut: () => void;
   markAsSubscribed: () => void;
@@ -88,12 +94,15 @@ function loadSession(): AuthUser | null {
     const parsed = JSON.parse(raw) as { email?: string };
     if (!parsed?.email) return null;
     
-    // Load subscription status from stored user data
+    // Load user data from stored users
     const users = loadUsers();
     const userData = users[parsed.email];
     const hasSubscription = userData?.hasSubscription ?? false;
+    const name = userData?.name;
+    const instagram = userData?.instagram;
+    const country = userData?.country;
     
-    return { email: parsed.email, hasSubscription };
+    return { email: parsed.email, hasSubscription, name, instagram, country };
   } catch {
     return null;
   }
@@ -143,7 +152,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const signUp = useCallback(
-    async ({ email, password, confirmPassword }: { email: string; password: string; confirmPassword: string }) => {
+    async ({ email, password, confirmPassword, name, instagram, country }: { email: string; password: string; confirmPassword: string; name?: string; instagram?: string; country?: string }) => {
       const normalized = normalizeEmail(email);
 
       if (!isValidEmail(normalized)) {
@@ -161,16 +170,28 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         throw new Error('Ya existe una cuenta con este correo. Por favor inicia sesión.');
       }
 
+      // Clean instagram handle (remove @ if present)
+      const cleanInstagram = instagram?.trim().replace(/^@/, '') || undefined;
+      const cleanName = name?.trim() || undefined;
+
       const saltBytes = new Uint8Array(16);
       crypto.getRandomValues(saltBytes);
       const salt = bytesToBase64(saltBytes);
       const hash = await sha256Hex(`${salt}:${password}`);
 
-      users[normalized] = { salt, hash, createdAt: Date.now(), hasSubscription: false };
+      users[normalized] = { 
+        salt, 
+        hash, 
+        createdAt: Date.now(), 
+        hasSubscription: false,
+        name: cleanName,
+        instagram: cleanInstagram,
+        country: country || undefined,
+      };
       saveUsers(users);
 
       saveSession(normalized, false);
-      setUser({ email: normalized, hasSubscription: false });
+      setUser({ email: normalized, hasSubscription: false, name: cleanName, instagram: cleanInstagram, country });
     },
     []
   );
@@ -196,8 +217,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
 
     const hasSubscription = existing.hasSubscription ?? false;
+    const name = existing.name;
+    const instagram = existing.instagram;
+    const country = existing.country;
     saveSession(normalized, hasSubscription);
-    setUser({ email: normalized, hasSubscription });
+    setUser({ email: normalized, hasSubscription, name, instagram, country });
   }, []);
 
   const signOut = useCallback(() => {

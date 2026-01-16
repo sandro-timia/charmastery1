@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
+import { countries } from '@/data/countries';
 
 export default function AccountPage() {
   const router = useRouter();
@@ -41,6 +42,43 @@ export default function AccountPage() {
           <p className="text-[#8A8A8E] mt-3">
             Sesión iniciada como <span className="text-[#C9A227]">{user.email}</span>
           </p>
+
+          {/* User Profile Info */}
+          <div className="mt-6 p-4 rounded-xl bg-[#0A0A0B]/60 border border-[rgba(201,162,39,0.15)]">
+            <p className="text-[#8A8A8E] text-sm mb-3">Información Personal</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {user.name && (
+                <div>
+                  <p className="text-[#5A5A5E] text-xs uppercase tracking-wider mb-1">Nombre</p>
+                  <p className="text-[#F5F5F5]">{user.name}</p>
+                </div>
+              )}
+              {user.country && (
+                <div>
+                  <p className="text-[#5A5A5E] text-xs uppercase tracking-wider mb-1">País</p>
+                  <p className="text-[#F5F5F5]">
+                    {countries.find(c => c.code === user.country)?.flag} {countries.find(c => c.code === user.country)?.name}
+                  </p>
+                </div>
+              )}
+              {user.instagram && (
+                <div>
+                  <p className="text-[#5A5A5E] text-xs uppercase tracking-wider mb-1">Instagram</p>
+                  <a 
+                    href={`https://instagram.com/${user.instagram}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#C9A227] hover:text-[#D4AF37] transition-colors"
+                  >
+                    @{user.instagram}
+                  </a>
+                </div>
+              )}
+            </div>
+            {!user.name && !user.country && !user.instagram && (
+              <p className="text-[#5A5A5E] text-sm italic">No hay información personal adicional</p>
+            )}
+          </div>
 
           {/* Subscription Status */}
           <div className="mt-6 p-4 rounded-xl bg-[#0A0A0B]/60 border border-[rgba(201,162,39,0.15)]">
