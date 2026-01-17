@@ -44,7 +44,7 @@ export default function Footer() {
                 CHARMASTERY
               </h2>
               <p className="text-[#8A8A8E] text-sm leading-relaxed max-w-md mb-3">
-                Domina el arte de la conexión humana. Enseñamos a personas exitosas las habilidades sociales que 
+                Domina el arte de la conexión humana. Enseñamos a personas exitosas a través de la magia y el mentalismo las habilidades sociales que 
                 transforman desconocidos en amigos y cada interacción en una oportunidad.
               </p>
               <p className="text-[#C9A227] text-sm italic">
