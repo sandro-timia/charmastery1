@@ -65,6 +65,14 @@ export default function TermsOfServicePage() {
               <li>Comunidad exclusiva para miembros del programa de maestría.</li>
               <li>Boletín informativo con contenido exclusivo (Círculo Interno).</li>
             </ul>
+            
+            <div className="bg-[#1A1A1F] rounded-lg p-4 border border-[#C9A227]/30 mt-6">
+              <p className="text-[#F5F5F5] font-semibold mb-2">⚠️ Importante: Productos Digitales</p>
+              <p className="text-[#B8B8B8] text-sm">
+                Todos los trucos y técnicas ofrecidos en Charmastery son <strong className="text-[#F5F5F5]">productos exclusivamente digitales</strong>. Las compras incluyen únicamente acceso a contenido educativo en video y materiales descargables. <strong className="text-[#F5F5F5]">No se incluyen accesorios, props ni artículos físicos de ningún tipo</strong>. El usuario es responsable de adquirir por su cuenta cualquier material o accesorio que pueda necesitar para practicar las técnicas enseñadas.
+              </p>
+            </div>
+
             <p className="text-[#B8B8B8] leading-relaxed mt-4">
               Nos reservamos el derecho de modificar, suspender o descontinuar cualquier aspecto de los Servicios en cualquier momento sin previo aviso.
             </p>

@@ -38,7 +38,7 @@ export default function TricksGrid() {
             Un repertorio de efectos impresionantes
           </h2>
           <p className="text-[#8A8A8E] max-w-2xl mx-auto">
-            Cada técnica incluye tutoriales en video detallados, consejos de actuación en el mundo real y grabaciones de reacciones genuinas.
+            Cada truco incluye tutoriales en video detallados, una guía para construir los propios props y grabaciones de reacciones genuinas.
           </p>
           <div className="section-divider mt-8" />
         </div>
@@ -88,6 +88,9 @@ export default function TricksGrid() {
               
               <p className="text-[#8A8A8E] text-sm mt-4">
                 ✓ Acceso de por vida &nbsp;•&nbsp; ✓ Todas las actualizaciones futuras &nbsp;•&nbsp; ✓ Acceso exclusivo a la comunidad
+              </p>
+              <p className="text-[#6A6A6E] text-xs mt-3">
+                Todos los trucos son productos digitales. No incluyen accesorios ni artículos físicos.
               </p>
             </div>
           </div>

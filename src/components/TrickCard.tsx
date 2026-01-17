@@ -113,7 +113,7 @@ export default function TrickCard({ trick, index }: TrickCardProps) {
         >
           <div
             onClick={handleCardClick}
-            className="relative w-full cursor-pointer"
+            className="relative w-full h-[400px] cursor-pointer"
             style={{
               transformStyle: 'preserve-3d',
               transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -122,7 +122,7 @@ export default function TrickCard({ trick, index }: TrickCardProps) {
           >
           {/* Front of Card */}
           <div
-            className="group relative bg-[#1A1A1F] rounded-lg overflow-hidden gold-border card-lift"
+            className="group absolute inset-0 bg-[#1A1A1F] rounded-lg overflow-hidden gold-border card-lift"
             style={{
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
@@ -137,7 +137,7 @@ export default function TrickCard({ trick, index }: TrickCardProps) {
             </div>
 
             {/* Thumbnail */}
-            <div className="relative aspect-[4/3] overflow-hidden">
+            <div className="relative aspect-[4/3.5] overflow-hidden">
               <Image
                 src={trick.thumbnail}
                 alt={trick.name}
@@ -145,28 +145,25 @@ export default function TrickCard({ trick, index }: TrickCardProps) {
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
+              {/* Diagonal yellow to purple gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#C9A227]/30 via-transparent to-[#2D1B4E]/40" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1F] via-transparent to-transparent" />
             </div>
 
             {/* Content */}
             <div className="p-5">
-              {/* Difficulty Badge */}
-              <span className={`badge ${getDifficultyClass(trick.difficulty)} mb-3`}>
-                {getDifficultyLabel(trick.difficulty)}
-              </span>
-
-              {/* Title */}
-              <h3
-                className="text-xl font-serif text-[#F5F5F5] mb-2 group-hover:text-[#C9A227] transition-colors"
-                style={{ fontFamily: 'var(--font-serif)' }}
-              >
-                {trick.name}
-              </h3>
-
-              {/* Description */}
-              <p className="text-[#8A8A8E] text-sm line-clamp-2">
-                {trick.description}
-              </p>
+              {/* Title and Difficulty Badge */}
+              <div className="flex items-center justify-between">
+                <h3
+                  className="text-xl font-serif text-[#F5F5F5] group-hover:text-[#C9A227] transition-colors"
+                  style={{ fontFamily: 'var(--font-serif)' }}
+                >
+                  {trick.name}
+                </h3>
+                <span className={`badge ${getDifficultyClass(trick.difficulty)} ml-2 shrink-0`}>
+                  {getDifficultyLabel(trick.difficulty)}
+                </span>
+              </div>
             </div>
 
             {/* Hover Glow Effect */}
@@ -310,7 +307,7 @@ export default function TrickCard({ trick, index }: TrickCardProps) {
       style={{ animationDelay: `${index * 0.1}s`, opacity: 0, animationFillMode: 'forwards' }}
     >
       {/* Thumbnail */}
-      <div className="relative aspect-[4/3] overflow-hidden">
+      <div className="relative aspect-[4/3.5] overflow-hidden">
         <Image
           src={trick.thumbnail}
           alt={trick.name}
@@ -318,28 +315,25 @@ export default function TrickCard({ trick, index }: TrickCardProps) {
           className="object-cover transition-transform duration-500 group-hover:scale-110"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
+        {/* Diagonal yellow to purple gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#C9A227]/30 via-transparent to-[#2D1B4E]/40" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1F] via-transparent to-transparent" />
       </div>
 
       {/* Content */}
       <div className="p-5">
-        {/* Difficulty Badge */}
-        <span className={`badge ${getDifficultyClass(trick.difficulty)} mb-3`}>
-          {getDifficultyLabel(trick.difficulty)}
-        </span>
-
-        {/* Title */}
-        <h3
-          className="text-xl font-serif text-[#F5F5F5] mb-2 group-hover:text-[#C9A227] transition-colors"
-          style={{ fontFamily: 'var(--font-serif)' }}
-        >
-          {trick.name}
-        </h3>
-
-        {/* Description */}
-        <p className="text-[#8A8A8E] text-sm line-clamp-2">
-          {trick.description}
-        </p>
+        {/* Title and Difficulty Badge */}
+        <div className="flex items-center justify-between">
+          <h3
+            className="text-xl font-serif text-[#F5F5F5] group-hover:text-[#C9A227] transition-colors"
+            style={{ fontFamily: 'var(--font-serif)' }}
+          >
+            {trick.name}
+          </h3>
+          <span className={`badge ${getDifficultyClass(trick.difficulty)} ml-2 shrink-0`}>
+            {getDifficultyLabel(trick.difficulty)}
+          </span>
+        </div>
       </div>
 
       {/* Hover Glow Effect */}

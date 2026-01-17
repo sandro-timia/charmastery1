@@ -41,77 +41,93 @@ export interface HeroVideo {
 export const tricks: Trick[] = [
   {
     id: 1,
-    name: "Pagasus Link",
+    name: "Pegasus Link",
     description: "Dos ligas se enlazan mágicamente dentro del puño cerrado del espectador",
     backDescription: "Le entregas una liga al espectador para que la examine y cierre su puño alrededor de ella. Tú sostienes otra liga idéntica frente a él. En un instante, tu liga desaparece completamente de tu mano abierta.\n\nAquí viene lo perturbador: cuando el espectador abre su puño, descubre que las dos ligas están mágicamente enlazadas entre sí.\n\nLo que hace este truco devastador es que sucede completamente en su espacio - en su mano cerrada, bajo su control total. No hay switches, no hay distracciones, no hay \"pásame la liga\". La magia atraviesa la barrera física de su puño y manipula un objeto que nunca salió de su posesión.\n\nEs íntimo, imposible de racionalizar, y deja esa inquietante sensación de que algo sobrenatural acaba de ocurrir dentro de su propia mano.",
     youtubeId: "dQw4w9WgXcQ",
     difficulty: "Beginner",
     price: 5,
-    thumbnail: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=400&h=300&fit=crop&q=80"
+    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768607420/pegasus_link2_c8fvp7.jpg"
   },
   {
     id: 2,
-    name: "Lector de Mentes",
-    description: "Revela una carta elegida sin haberla visto nunca",
+    name: "Caido-Z Divination",
+    description: "Adivina el signo zodiacal del espectador letra por letra",
+    backDescription: "Le pides al participante que visualice su signo zodiacal - solo que lo piense, que lo sienta. Entonces comienza el ritual.\n\nCon preguntas aparentemente inocentes, comienzas a formar la palabra letra por letra. \"Veo algo... ¿una L?\" Sus ojos se abren. \"Después viene una E...\" La tensión crece. Cada letra correcta es un pequeño milagro que construye hacia algo más grande.\n\nEl ambiente se transforma con cada acierto. Las personas alrededor contienen la respiración. \"O... ahora una N...\" Cuando llegas a la última letra, toda la energía de la sala converge en ese momento.\n\n\"LEO.\"\n\nEl clímax es devastador porque no llegaste de golpe - construiste el asombro letra por letra, creando múltiples momentos memorables en una sola revelación. Cada letra correcta es imposible de explicar, y juntas forman una experiencia que el espectador recordará por años.\n\nEste efecto es puro mentalismo social: íntimo, interactivo, y absolutamente inexplicable.",
+    youtubeId: "dQw4w9WgXcQ",
     difficulty: "Intermediate",
     price: 10,
-    thumbnail: "https://images.unsplash.com/photo-1529480780361-e08c4d67a141?w=400&h=300&fit=crop&q=80"
+    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768608022/caidoz2_wvf9cg.jpg"
   },
   {
     id: 3,
-    name: "Carta al Lugar Imposible",
-    description: "Transporta una carta firmada a un lugar imposible",
+    name: "Tic Tac Toc",
+    description: "Adivina cantidad y transforma el color de tic tacs con un toque mágico",
+    backDescription: "Le ofreces al participante una caja de Tic Tacs blancos - completamente ordinaria, sellada, que pueden examinar. Le pides que lleve sus manos detrás de la espalda, saque algunos sin mirar, y cierre el puño. Nadie sabe cuántos tiene. Ni siquiera él.\n\nTú lo miras a los ojos, haces una pausa... y dices el número exacto. Imposible. Pero eso es solo el calentamiento.\n\nPara el segundo acto, le pides que repita el proceso: manos atrás, saca algunos Tic Tacs blancos, puño cerrado hacia adelante. Entonces haces algo inesperado: tocas su camisa - digamos que es azul - y \"espolvoreamos\" ese color sobre su puño cerrado.\n\nCuando abre la mano, los Tic Tacs ya no son blancos. Son azules. Del mismo tono exacto que su ropa.\n\nEste efecto es devastador porque combina dos imposibilidades: primero la adivinación que desafía la lógica, luego una transformación física que ocurre dentro de SU puño cerrado, con un color que depende de lo que ELLOS decidieron vestir esa noche. Personal, visual, y absolutamente inexplicable.",
+    youtubeId: "dQw4w9WgXcQ",
     difficulty: "Advanced",
     price: 15,
-    thumbnail: "https://images.unsplash.com/photo-1606167668584-78701c57f13d?w=400&h=300&fit=crop&q=80"
+    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768607724/tictactoc2_ewuxae.jpg"
   },
   {
     id: 4,
-    name: "El Anillo Flotante",
-    description: "Levita un anillo prestado en el aire",
+    name: "Transpo Paradigm",
+    description: "Dos cartas firmadas cambian de manos en un choque imposible",
+    backDescription: "Le pides al participante que firme una carta - su nombre, su firma única. La coloca sobre la mesa y la cubre con ambas manos. Nadie más la toca.\n\nTú haces exactamente lo mismo: firmas otra carta con tu nombre y la cubres con tus manos. Dos cartas firmadas, cada una bajo el control absoluto de su dueño.\n\nEntonces viene el momento: ambos levantan sus manos y las chocan en el aire. Un gesto simple, casi infantil. Pero cuando cada uno mira la carta que tiene debajo de sus manos...\n\nLas cartas han cambiado de lugar. Él tiene tu carta firmada. Tú tienes la suya.\n\nNo hubo intercambio. No hubo distracción. Las cartas atravesaron el espacio - o el tiempo - en el instante del choque. Las firmas lo prueban: no hay duplicados, no hay trucos.\n\nTranspo Paradigm es el tipo de magia que rompe la realidad de forma colaborativa. El participante no solo observa - es parte activa del imposible. Y eso lo hace inolvidable.",
+    youtubeId: "dQw4w9WgXcQ",
     difficulty: "Intermediate",
     price: 10,
-    thumbnail: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop&q=80"
+    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768608729/transpoparadigm2_bffstu.jpg"
   },
   {
     id: 5,
-    name: "Baraja Sombra",
-    description: "Controla cualquier carta elegida de una baraja mezclada",
+    name: "Voltarum",
+    description: "Adivina palabras escritas en secreto mientras estás volteado y a metros de distancia",
+    backDescription: "Le entregas un papel y un bolígrafo al espectador. Te volteas y te alejas varios metros - lo suficiente para que sea físicamente imposible ver o escuchar nada. Le pides que escriba cualquier cosa: una palabra, un número, el nombre de alguien, una fecha... lo que quiera. Libertad absoluta.\n\nCuando termina, le pides que rompa el papel en pedazos pequeños. Puede guardarlos en su puño cerrado o tirarlos - no importa. Tú nunca tocas esos pedazos.\n\nTe das la vuelta. Te acercas lentamente. Lo miras a los ojos, y después de unos segundos de concentración... dices exactamente lo que escribió.\n\nNo hubo cómplices. No hubo espejos. No hubo contacto con el papel destruido. El espectador tuvo control total desde el principio hasta el final.\n\nVoltarum es mentalismo en su forma más pura: una demostración de lo imposible que no depende de cartas, objetos trucados ni preparación visible. Solo tú, el espectador, y un pensamiento que de alguna manera lograste extraer de la nada.",
+    youtubeId: "dQw4w9WgXcQ",
     difficulty: "Beginner",
     price: 5,
-    thumbnail: "https://images.unsplash.com/photo-1541278107931-e006523892df?w=400&h=300&fit=crop&q=80"
+    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768608446/voltarum2_hldczb.jpg"
   },
   {
     id: 6,
-    name: "El Secreto del Mentalista",
-    description: "Lee pensamientos y predice elecciones",
+    name: "Invisible X",
+    description: "Adivina una carta elegida sin tocar jamás la baraja",
+    backDescription: "Le entregas la baraja al espectador - pueden examinarla, verificar que es normal. Les muestras las cartas para que vean que están mezcladas, todas diferentes.\n\nAhora le pides que corte la baraja. Y que vuelva a cortar. Y otra vez. Las veces que quiera, hasta que se sienta completamente satisfecho de que nadie podría saber dónde quedó cada carta.\n\nCuando termina, le pides que mire la carta que quedó encima de todas. Que la memorice. Puede guardarla en su bolsillo o perderla en medio del mazo - su elección.\n\nTe acercas. No tocas las cartas. No haces preguntas sospechosas. Solo lo miras, y después de un momento de tensión... nombras su carta exacta.\n\nInvisible X elimina toda posibilidad de explicación racional. El espectador controló cada corte. Tú nunca tocaste la baraja después de entregársela. Y sin embargo, de alguna manera, sabías exactamente qué carta eligió el destino - o él - en ese momento único e irrepetible.",
+    youtubeId: "dQw4w9WgXcQ",
     difficulty: "Advanced",
     price: 15,
-    thumbnail: "https://images.unsplash.com/photo-1515405295579-ba7b45403062?w=400&h=300&fit=crop&q=80"
+    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768607096/invisiblex2_the1ai.jpg"
   },
   {
     id: 7,
-    name: "Seda Fantasma",
-    description: "Haz que la seda desaparezca y aparezca en cualquier lugar",
+    name: "Dynamic Monte",
+    description: "El clásico juego de las tres cartas donde el espectador siempre pierde",
+    backDescription: "Muestras solo tres cartas: dos nueves - uno de trébol, uno de picas - y la reina de corazones. Simple. Le pides al espectador que no pierda de vista a la reina. Que la siga con los ojos. Que se concentre.\n\nComienzas a mover las cartas lentamente. Muy lentamente. El espectador está seguro de que sabe dónde está la reina. Es imposible que lo engañen a esta velocidad.\n\nSeñala. Se equivoca.\n\nLo intentan de nuevo. Esta vez aún más lento. El espectador jura que esta vez no hay forma de fallar. Señala con total confianza.\n\nSe equivoca otra vez.\n\nY entonces las cosas se ponen extrañas. Volteas las cartas y... ¿dónde está la reina? De pronto parece que nunca hubo una reina. O que las tres cartas son nueves. La realidad se distorsiona frente a sus ojos.\n\nDynamic Monte no es solo un juego de habilidad - es una demostración de que la percepción humana es increíblemente fácil de manipular. Y eso, en el contexto correcto, es absolutamente fascinante de presenciar.",
+    youtubeId: "dQw4w9WgXcQ",
     difficulty: "Beginner",
     price: 5,
-    thumbnail: "https://images.unsplash.com/photo-1563396983906-b3795482a59a?w=400&h=300&fit=crop&q=80"
+    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768608975/dynamicmonte2_tynkcs.jpg"
   },
   {
     id: 8,
-    name: "La Carta Ambiciosa",
-    description: "Una carta firmada sube repetidamente a la cima",
+    name: "Sugar Trap",
+    description: "Predice pensamientos libres con una historia de Instagram publicada hace horas",
+    backDescription: "Le pides a ella que piense en un lugar al que le gustaría ir de vacaciones. Cualquier lugar del mundo. Luego le pides que piense en una marca de ropa - pero debe usar una letra de la palabra anterior para empezar. Finalmente, un instrumento musical.\n\nEs un proceso aparentemente libre, con decisiones encadenadas que ella misma construye. Nadie podría predecir esa combinación específica.\n\nTú intentas adivinar. La mitad de las veces aciertas - y es impresionante. Y cuando fallas, le pides que revise tu Instagram. Específicamente, una historia que publicaste hace horas. Antes de conocerla. Antes de saber que existía.\n\nAhí está. La respuesta correcta. Publicada horas antes del encuentro.\n\n¿Cómo es posible? No importa si aciertas en vivo o no - la historia de Instagram siempre tiene la respuesta. Sugar Trap mezcla mentalismo con redes sociales de una manera que hace que el efecto sea verificable, compartible, y absolutamente moderno. Es el tipo de magia que genera conversación... y seguidores.",
+    youtubeId: "dQw4w9WgXcQ",
     difficulty: "Intermediate",
     price: 10,
-    thumbnail: "https://images.unsplash.com/photo-1571757767119-68b8dbed8c97?w=400&h=300&fit=crop&q=80"
+    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768605425/sugartrap_c9fafl.jpg"
   },
   {
     id: 9,
-    name: "Baraja Invisible",
-    description: "El efecto definitivo de revelación de cartas",
+    name: "FlaMarte",
+    description: "Un cerillo quemado vuelve a encenderse en las manos del espectador",
+    backDescription: "Extraes un cerillo de una caja ordinaria. Lo enciendes, dejas que la llama dance por un momento, y luego lo soplas. El cerillo está quemado, usado, muerto. Se lo entregas al espectador para que lo sostenga.\n\nEntonces le dices algo: \"El amor a primera vista genera calor\". Señalas el cerillo quemado en su mano y le pides que piense en la persona que más le gusta. Que visualice su rostro. Que sienta esa emoción.\n\nLo miras fijamente a los ojos. Sonríes de manera pícara. Y en ese instante...\n\nEl cerillo se enciende. En sus manos. Un cerillo que ya fue usado. Un cerillo que debería ser imposible de encender.\n\nFlaMarte es magia con carga emocional. No es solo un efecto visual impresionante - es un momento íntimo que conecta lo imposible con algo profundamente personal. La persona que imaginaron, el calor que sintieron, y una llama que no debería existir. Todo ocurriendo literalmente en sus propias manos.\n\nEs el tipo de magia que no se olvida. Porque no solo lo vieron - lo sintieron.",
+    youtubeId: "dQw4w9WgXcQ",
     difficulty: "Advanced",
     price: 15,
-    thumbnail: "https://images.unsplash.com/photo-1612404730960-5c71577fca11?w=400&h=300&fit=crop&q=80"
+    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768609367/flamarte2_c4oyti.jpg"
   }
 ];
 
