@@ -114,7 +114,10 @@ export default function HeroCarousel() {
               <VideoCard
                 video={heroVideos[activeIndex]}
                 isActive={true}
-                onWatchFullPerformance={() => openYoutubeModal(heroVideos[activeIndex].youtubeId)}
+                onWatchFullPerformance={() => {
+                  const el = document.getElementById('mastery-program');
+                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }}
               />
             </div>
           </div>
@@ -161,7 +164,10 @@ export default function HeroCarousel() {
                         video={video}
                         isActive={isCenter}
                         onWatchFullPerformance={
-                          isCenter ? () => openYoutubeModal(video.youtubeId) : undefined
+                          isCenter ? () => {
+                            const el = document.getElementById('mastery-program');
+                            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                          } : undefined
                         }
                       />
                     </div>
