@@ -151,7 +151,7 @@ export const tours: Tour[] = [
     country: "Perú",
     date: "15 de Marzo, 2026",
     venue: "Teatro Municipal",
-    spotsLeft: 12
+    spotsLeft: 0
   },
   {
     id: 2,
@@ -159,7 +159,7 @@ export const tours: Tour[] = [
     country: "España",
     date: "22 de Abril, 2026",
     venue: "Círculo de Bellas Artes",
-    spotsLeft: 8
+    spotsLeft: 0
   },
   {
     id: 3,
@@ -167,7 +167,7 @@ export const tours: Tour[] = [
     country: "Reino Unido",
     date: "18 de Julio, 2026",
     venue: "The Magic Circle",
-    spotsLeft: 10
+    spotsLeft: 0
   }
 ];
 
@@ -176,8 +176,8 @@ export const heroVideos: HeroVideo[] = [
   {
     id: 1,
     title: "Conexión Instantánea",
-    gifUrl: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZzQzcWtsZ205dmE4dGNwNzg0MmE2dG9ycXBnMmljeWw5YWk0dGZ1OSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/POFJCzW5GXtWFRMJ1C/giphy.gif",
-    posterUrl: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZzQzcWtsZ205dmE4dGNwNzg0MmE2dG9ycXBnMmljeWw5YWk0dGZ1OSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/POFJCzW5GXtWFRMJ1C/giphy.gif",
+    gifUrl: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768623679/Pi7_GIF_CMP_4_x6eoes.gif",
+    posterUrl: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768623679/Pi7_GIF_CMP_4_x6eoes.gif",
     duration: 1000,
     // TODO: replace with your real full-performance YouTube video ID
     youtubeId: "dQw4w9WgXcQ"
@@ -185,32 +185,32 @@ export const heroVideos: HeroVideo[] = [
   {
     id: 2,
     title: "Rompe el Hielo",
-    gifUrl: "https://chumley.barstoolsports.com/union/2026/01/11/hot-girl-gif-819.35b52617.gif",
-    posterUrl: "https://chumley.barstoolsports.com/union/2026/01/11/hot-girl-gif-819.35b52617.gif",
+    gifUrl: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768623687/Pi7_GIF_CMP_2_sk6njd.gif",
+    posterUrl: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768623687/Pi7_GIF_CMP_2_sk6njd.gif",
     duration: 1000,
     youtubeId: "dQw4w9WgXcQ"
   },
   {
     id: 3,
     title: "Crea Asombro",
-    gifUrl: "https://chumley.barstoolsports.com/union/2026/01/11/hot-girl-gif-825.785bafb6.gif",
-    posterUrl: "https://chumley.barstoolsports.com/union/2026/01/11/hot-girl-gif-825.785bafb6.gif",
+    gifUrl: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768623688/Pi7_GIF_CMP_3_zocwgi.gif",
+    posterUrl: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768623688/Pi7_GIF_CMP_3_zocwgi.gif",
     duration: 1000,
     youtubeId: "dQw4w9WgXcQ"
   },
   {
     id: 4,
     title: "Momentos Inolvidables",
-    gifUrl: "https://media1.tenor.com/m/iFVXlWJ-sPoAAAAd/pose-mini-dress.gif",
-    posterUrl: "https://media1.tenor.com/m/iFVXlWJ-sPoAAAAd/pose-mini-dress.gif",
+    gifUrl: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768623687/Pi7_GIF_CMP_jsokqo.gif",
+    posterUrl: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768623687/Pi7_GIF_CMP_jsokqo.gif",
     duration: 1000,
     youtubeId: "dQw4w9WgXcQ"
   },
   {
     id: 5,
     title: "Maestría Social",
-    gifUrl: "https://chumley.barstoolsports.com/union/2024/01/01/hot-girl-gif-46.5e54689e.jpg?fit=bounds&format=pjpg&auto=webp&quality=85%2C75&width=1200",
-    posterUrl: "https://chumley.barstoolsports.com/union/2024/01/01/hot-girl-gif-46.5e54689e.jpg?fit=bounds&format=pjpg&auto=webp&quality=85%2C75&width=1200",
+    gifUrl: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768623693/Pi7_GIF_CMP_1_txupav.gif",
+    posterUrl: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768623693/Pi7_GIF_CMP_1_txupav.gif",
     duration: 1000,
     youtubeId: "dQw4w9WgXcQ"
   }

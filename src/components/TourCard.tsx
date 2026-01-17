@@ -54,9 +54,9 @@ export default function TourCard({ tour, index }: TourCardProps) {
           {/* Date */}
           <div className="text-left sm:text-right">
             <p className="text-[#C9A227] font-medium">{tour.date}</p>
-            {tour.spotsLeft && (
+            {typeof tour.spotsLeft === 'number' && (
               <p className="text-[#8A8A8E] text-sm">
-                Solo quedan <span className="text-[#ef4444]">{tour.spotsLeft}</span> plazas
+                Quedan <span className="text-[#ef4444]">{tour.spotsLeft}</span> plazas disponibles
               </p>
             )}
           </div>
