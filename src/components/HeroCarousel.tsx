@@ -94,6 +94,7 @@ export default function HeroCarousel() {
         <div className="text-center mb-12 animate-fade-in">
           <p className="text-[#C9A227] uppercase tracking-[0.3em] text-sm mb-4">
             El Arte de la Conexión Humana
+            <span className="block text-[#C4C4CC] text-xs tracking-[0.15em] mt-1 normal-case">Mago y Mentalista Sandro Calzada</span>
           </p>
           <h1
             className="text-4xl md:text-6xl lg:text-7xl font-serif text-[#F5F5F5] mb-4"

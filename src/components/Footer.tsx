@@ -15,6 +15,7 @@ export default function Footer() {
 
   const whatsappNumber = '+51 970668921';
   const supportEmail = 'support@charmastery.com';
+  const personalEmail = 'sandro.calzada@gmail.com';
 
   const handleSubmitToWhatsApp = (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,6 +63,15 @@ export default function Footer() {
                   {supportEmail}
                 </a>
                 <a
+                  href={`mailto:${personalEmail}`}
+                  className="flex items-center gap-2 text-[#8A8A8E] hover:text-[#C9A227] transition-colors text-sm"
+                >
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  {personalEmail}
+                </a>
+                <a
                   href={`https://wa.me/${whatsappNumber.replace('+', '')}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -86,7 +96,9 @@ export default function Footer() {
                   </svg>
                 </a>
                 <a
-                  href="#"
+                  href="https://www.youtube.com/@charmastery1"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full border border-[rgba(201,162,39,0.3)] flex items-center justify-center text-[#8A8A8E] hover:text-[#C9A227] hover:border-[#C9A227] transition-all"
                   aria-label="YouTube"
                 >
@@ -183,8 +195,9 @@ export default function Footer() {
           {/* Copyright */}
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-[#5A5A5E] text-sm">
             <p>© 2026 Charmastery. Lima, Perú. Todos los secretos protegidos.</p>
-            <p className="text-xs italic">
-              &quot;Conectar es la moneda de cambio definitiva.&quot;
+            <p className="text-xs">
+              <span className="italic">&quot;Conectar es la moneda de cambio definitiva.&quot;</span>
+              <span className="mx-2 text-[#4A4A4E]">·</span>
             </p>
           </div>
         </div>
