@@ -13,7 +13,7 @@ export default function Footer() {
   });
   const { openSettings: openCookieSettings } = useCookieConsent();
 
-  const whatsappNumber = '+51979330221';
+  const whatsappNumber = '+51 970668921';
   const supportEmail = 'support@charmastery.com';
 
   const handleSubmitToWhatsApp = (e: React.FormEvent) => {
@@ -184,7 +184,7 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-[#5A5A5E] text-sm">
             <p>© 2026 Charmastery. Lima, Perú. Todos los secretos protegidos.</p>
             <p className="text-xs italic">
-              &quot;La conexión es la moneda definitiva.&quot;
+              &quot;Conectar es la moneda de cambio definitiva.&quot;
             </p>
           </div>
         </div>
