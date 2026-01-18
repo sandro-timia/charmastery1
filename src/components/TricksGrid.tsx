@@ -71,7 +71,7 @@ export default function TricksGrid() {
               </p>
               
               <div className="flex items-center justify-center gap-2 mb-6">
-                <span className="text-4xl font-bold text-[#C9A227]">$39</span>
+                <span className="text-4xl font-bold text-[#C9A227]">$5</span>
                 <span className="text-[#8A8A8E] text-sm">inversión única</span>
               </div>
               
