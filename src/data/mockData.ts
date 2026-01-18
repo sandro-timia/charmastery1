@@ -138,7 +138,7 @@ export const masteryProgram: Trick = {
   description:
     'Acceso de por vida a todas las técnicas de conexión, tutoriales en video y frameworks sociales.',
   difficulty: 'Advanced',
-  price: 6,
+  price: 5,
   thumbnail:
     'https://images.unsplash.com/photo-1520975693411-6a7b017ed5c3?w=400&h=300&fit=crop&q=80',
 };
