@@ -1,29 +1,45 @@
 'use client';
 
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut as firebaseSignOut,
+  sendPasswordResetEmail,
+  onAuthStateChanged,
+  deleteUser,
+  User as FirebaseUser,
+} from 'firebase/auth';
+import {
+  doc,
+  setDoc,
+  getDoc,
+  updateDoc,
+  deleteDoc,
+  serverTimestamp,
+  Timestamp,
+} from 'firebase/firestore';
+import { auth, db } from '@/lib/firebase';
 
 type AuthUser = {
+  email: string;
+  uid: string;
+  hasSubscription: boolean;
+  name?: string;
+  instagram?: string;
+  country?: string;
+  createdAt?: Date;
+  subscriptionDate?: Date;
+};
+
+type UserProfile = {
   email: string;
   hasSubscription: boolean;
   name?: string;
   instagram?: string;
   country?: string;
-};
-
-type StoredUser = {
-  salt: string;
-  hash: string;
-  createdAt: number;
-  hasSubscription?: boolean;
-  name?: string;
-  instagram?: string;
-  country?: string;
-};
-
-type ResetToken = {
-  email: string;
-  token: string;
-  expiresAt: number;
+  createdAt: Timestamp | null;
+  subscriptionDate?: Timestamp | null;
 };
 
 type AuthContextValue = {
@@ -31,133 +47,118 @@ type AuthContextValue = {
   isLoading: boolean;
   signUp: (args: { email: string; password: string; confirmPassword: string; name?: string; instagram?: string; country?: string }) => Promise<void>;
   signIn: (args: { email: string; password: string }) => Promise<void>;
-  signOut: () => void;
-  markAsSubscribed: () => void;
-  requestPasswordReset: (email: string) => Promise<void>; // Sends reset email
-  validateResetToken: (token: string) => { valid: boolean; email?: string };
-  resetPassword: (args: { token: string; newPassword: string; confirmPassword: string }) => Promise<void>;
+  signOut: () => Promise<void>;
+  markAsSubscribed: () => Promise<void>;
+  requestPasswordReset: (email: string) => Promise<void>;
+  deleteAccount: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
-
-const USERS_KEY = 'charmastery_users_v1';
-const SESSION_KEY = 'charmastery_session_v1';
-const RESET_TOKENS_KEY = 'charmastery_reset_tokens_v1';
 
 function normalizeEmail(email: string) {
   return email.trim().toLowerCase();
 }
 
-function isValidEmail(email: string) {
-  // simple + pragmatic email check (no DB/server)
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-function bytesToBase64(bytes: Uint8Array) {
-  let binary = '';
-  for (let i = 0; i < bytes.length; i += 1) binary += String.fromCharCode(bytes[i]);
-  return btoa(binary);
-}
-
-function bufferToHex(buffer: ArrayBuffer) {
-  return Array.from(new Uint8Array(buffer))
-    .map((b) => b.toString(16).padStart(2, '0'))
-    .join('');
-}
-
-async function sha256Hex(input: string) {
-  const data = new TextEncoder().encode(input);
-  const digest = await crypto.subtle.digest('SHA-256', data);
-  return bufferToHex(digest);
-}
-
-function loadUsers(): Record<string, StoredUser> {
-  if (typeof window === 'undefined') return {};
+// Get user profile from Firestore
+async function getUserProfileFromFirestore(uid: string): Promise<UserProfile | null> {
   try {
-    const raw = window.localStorage.getItem(USERS_KEY);
-    if (!raw) return {};
-    const parsed = JSON.parse(raw) as Record<string, StoredUser>;
-    return parsed && typeof parsed === 'object' ? parsed : {};
-  } catch {
-    return {};
-  }
-}
-
-function saveUsers(users: Record<string, StoredUser>) {
-  window.localStorage.setItem(USERS_KEY, JSON.stringify(users));
-}
-
-function loadSession(): AuthUser | null {
-  try {
-    const raw = window.localStorage.getItem(SESSION_KEY);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw) as { email?: string };
-    if (!parsed?.email) return null;
-    
-    // Load user data from stored users
-    const users = loadUsers();
-    const userData = users[parsed.email];
-    const hasSubscription = userData?.hasSubscription ?? false;
-    const name = userData?.name;
-    const instagram = userData?.instagram;
-    const country = userData?.country;
-    
-    return { email: parsed.email, hasSubscription, name, instagram, country };
-  } catch {
+    const userDoc = await getDoc(doc(db, 'users', uid));
+    if (userDoc.exists()) {
+      return userDoc.data() as UserProfile;
+    }
+    return null;
+  } catch (error) {
+    console.error('Error getting user profile:', error);
     return null;
   }
 }
 
-function saveSession(email: string, hasSubscription: boolean = false) {
-  window.localStorage.setItem(
-    SESSION_KEY,
-    JSON.stringify({ email, signedInAt: Date.now(), hasSubscription })
-  );
-}
-
-function clearSession() {
-  window.localStorage.removeItem(SESSION_KEY);
-}
-
-function loadResetTokens(): ResetToken[] {
-  if (typeof window === 'undefined') return [];
+// Save user profile to Firestore
+async function saveUserProfileToFirestore(uid: string, profile: Partial<UserProfile>): Promise<void> {
   try {
-    const raw = window.localStorage.getItem(RESET_TOKENS_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw) as ResetToken[];
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
+    const userRef = doc(db, 'users', uid);
+    const userDoc = await getDoc(userRef);
+    
+    if (userDoc.exists()) {
+      // Update existing document
+      await updateDoc(userRef, profile);
+    } else {
+      // Create new document
+      await setDoc(userRef, {
+        ...profile,
+        createdAt: serverTimestamp(),
+      });
+    }
+  } catch (error) {
+    console.error('Error saving user profile:', error);
+    throw error;
   }
 }
 
-function saveResetTokens(tokens: ResetToken[]) {
-  window.localStorage.setItem(RESET_TOKENS_KEY, JSON.stringify(tokens));
+// Map Firebase error codes to user-friendly Spanish messages
+function getFirebaseErrorMessage(errorCode: string): string {
+  const errorMessages: Record<string, string> = {
+    'auth/email-already-in-use': 'Ya existe una cuenta con este correo. Por favor inicia sesión.',
+    'auth/invalid-email': 'Por favor ingresa un correo electrónico válido.',
+    'auth/operation-not-allowed': 'El registro está deshabilitado temporalmente.',
+    'auth/weak-password': 'La contraseña debe tener al menos 6 caracteres.',
+    'auth/user-disabled': 'Esta cuenta ha sido deshabilitada.',
+    'auth/user-not-found': 'No se encontró una cuenta con este correo.',
+    'auth/wrong-password': 'Correo o contraseña incorrectos.',
+    'auth/invalid-credential': 'Correo o contraseña incorrectos.',
+    'auth/too-many-requests': 'Demasiados intentos fallidos. Intenta de nuevo más tarde.',
+    'auth/network-request-failed': 'Error de conexión. Verifica tu conexión a internet.',
+  };
+  return errorMessages[errorCode] || 'Algo salió mal. Intenta de nuevo.';
 }
 
-function generateResetToken(): string {
-  const bytes = new Uint8Array(32);
-  crypto.getRandomValues(bytes);
-  return Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
+// Convert Firestore Timestamp to Date
+function timestampToDate(timestamp: Timestamp | null | undefined): Date | undefined {
+  if (!timestamp) return undefined;
+  return timestamp.toDate();
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Listen for Firebase auth state changes
   useEffect(() => {
-    const sessionUser = loadSession();
-    setUser(sessionUser);
-    setIsLoading(false);
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser: FirebaseUser | null) => {
+      if (firebaseUser && firebaseUser.email) {
+        // Get user profile from Firestore
+        const profile = await getUserProfileFromFirestore(firebaseUser.uid);
+        
+        setUser({
+          email: firebaseUser.email,
+          uid: firebaseUser.uid,
+          hasSubscription: profile?.hasSubscription ?? false,
+          name: profile?.name,
+          instagram: profile?.instagram,
+          country: profile?.country,
+          createdAt: timestampToDate(profile?.createdAt),
+          subscriptionDate: timestampToDate(profile?.subscriptionDate),
+        });
+      } else {
+        setUser(null);
+      }
+      setIsLoading(false);
+    });
+
+    return () => unsubscribe();
   }, []);
 
   const signUp = useCallback(
-    async ({ email, password, confirmPassword, name, instagram, country }: { email: string; password: string; confirmPassword: string; name?: string; instagram?: string; country?: string }) => {
+    async ({ email, password, confirmPassword, name, instagram, country }: { 
+      email: string; 
+      password: string; 
+      confirmPassword: string; 
+      name?: string; 
+      instagram?: string; 
+      country?: string 
+    }) => {
       const normalized = normalizeEmail(email);
 
-      if (!isValidEmail(normalized)) {
-        throw new Error('Por favor ingresa un correo electrónico válido.');
-      }
       if (password.length < 8) {
         throw new Error('La contraseña debe tener al menos 8 caracteres.');
       }
@@ -165,172 +166,122 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         throw new Error('Las contraseñas no coinciden.');
       }
 
-      const users = loadUsers();
-      if (users[normalized]) {
-        throw new Error('Ya existe una cuenta con este correo. Por favor inicia sesión.');
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, normalized, password);
+        const firebaseUser = userCredential.user;
+
+        // Clean profile data - only include defined values (Firestore doesn't accept undefined)
+        const cleanInstagram = instagram?.trim().replace(/^@/, '');
+        const cleanName = name?.trim();
+        const cleanCountry = country?.trim();
+
+        // Build profile object without undefined values
+        const profileData: Record<string, unknown> = {
+          email: normalized,
+          hasSubscription: false,
+        };
+        
+        if (cleanName) profileData.name = cleanName;
+        if (cleanInstagram) profileData.instagram = cleanInstagram;
+        if (cleanCountry) profileData.country = cleanCountry;
+
+        // Save user profile to Firestore
+        await saveUserProfileToFirestore(firebaseUser.uid, profileData as Partial<UserProfile>);
+
+        // User state will be set by onAuthStateChanged listener
+      } catch (error: unknown) {
+        const firebaseError = error as { code?: string; message?: string };
+        throw new Error(getFirebaseErrorMessage(firebaseError.code || ''));
       }
-
-      // Clean instagram handle (remove @ if present)
-      const cleanInstagram = instagram?.trim().replace(/^@/, '') || undefined;
-      const cleanName = name?.trim() || undefined;
-
-      const saltBytes = new Uint8Array(16);
-      crypto.getRandomValues(saltBytes);
-      const salt = bytesToBase64(saltBytes);
-      const hash = await sha256Hex(`${salt}:${password}`);
-
-      users[normalized] = { 
-        salt, 
-        hash, 
-        createdAt: Date.now(), 
-        hasSubscription: false,
-        name: cleanName,
-        instagram: cleanInstagram,
-        country: country || undefined,
-      };
-      saveUsers(users);
-
-      saveSession(normalized, false);
-      setUser({ email: normalized, hasSubscription: false, name: cleanName, instagram: cleanInstagram, country });
     },
     []
   );
 
   const signIn = useCallback(async ({ email, password }: { email: string; password: string }) => {
     const normalized = normalizeEmail(email);
-    if (!isValidEmail(normalized)) {
-      throw new Error('Por favor ingresa un correo electrónico válido.');
-    }
+
     if (!password) {
       throw new Error('Por favor ingresa tu contraseña.');
     }
 
-    const users = loadUsers();
-    const existing = users[normalized];
-    if (!existing) {
-      throw new Error('No se encontró una cuenta con este correo. Por favor regístrate.');
+    try {
+      await signInWithEmailAndPassword(auth, normalized, password);
+      // User state will be set by onAuthStateChanged listener
+    } catch (error: unknown) {
+      const firebaseError = error as { code?: string; message?: string };
+      throw new Error(getFirebaseErrorMessage(firebaseError.code || ''));
     }
-
-    const hash = await sha256Hex(`${existing.salt}:${password}`);
-    if (hash !== existing.hash) {
-      throw new Error('Correo o contraseña incorrectos.');
-    }
-
-    const hasSubscription = existing.hasSubscription ?? false;
-    const name = existing.name;
-    const instagram = existing.instagram;
-    const country = existing.country;
-    saveSession(normalized, hasSubscription);
-    setUser({ email: normalized, hasSubscription, name, instagram, country });
   }, []);
 
-  const signOut = useCallback(() => {
-    clearSession();
-    setUser(null);
+  const signOut = useCallback(async () => {
+    try {
+      await firebaseSignOut(auth);
+      setUser(null);
+    } catch (error) {
+      console.error('Sign out error:', error);
+    }
   }, []);
 
-  const markAsSubscribed = useCallback(() => {
+  const markAsSubscribed = useCallback(async () => {
     if (!user) return;
     
-    // Update stored user data
-    const users = loadUsers();
-    if (users[user.email]) {
-      users[user.email].hasSubscription = true;
-      saveUsers(users);
+    try {
+      // Update Firestore
+      await saveUserProfileToFirestore(user.uid, { 
+        hasSubscription: true,
+        subscriptionDate: serverTimestamp() as unknown as Timestamp,
+      });
+      
+      // Update local state
+      setUser({ ...user, hasSubscription: true, subscriptionDate: new Date() });
+    } catch (error) {
+      console.error('Error marking as subscribed:', error);
     }
-    
-    // Update session and state
-    saveSession(user.email, true);
-    setUser({ ...user, hasSubscription: true });
   }, [user]);
 
   const requestPasswordReset = useCallback(async (email: string): Promise<void> => {
     const normalized = normalizeEmail(email);
-    
-    if (!isValidEmail(normalized)) {
-      throw new Error('Por favor ingresa un correo electrónico válido.');
-    }
 
-    const users = loadUsers();
-    if (!users[normalized]) {
-      throw new Error('No se encontró una cuenta con este correo.');
-    }
-
-    // Generate reset token
-    const token = generateResetToken();
-    const expiresAt = Date.now() + 60 * 60 * 1000; // 1 hour expiry
-
-    // Clean up expired tokens and add new one
-    const tokens = loadResetTokens().filter(t => t.expiresAt > Date.now() && t.email !== normalized);
-    tokens.push({ email: normalized, token, expiresAt });
-    saveResetTokens(tokens);
-
-    // Generate the reset link
-    const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
-    const resetLink = `${baseUrl}/auth/reset-password?token=${token}`;
-
-    // Send the email via API
-    const response = await fetch('/api/send-reset-email', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: normalized, resetLink }),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.error || 'Error al enviar el correo. Intenta de nuevo.');
+    try {
+      await sendPasswordResetEmail(auth, normalized);
+      // Firebase sends the email automatically
+    } catch (error: unknown) {
+      const firebaseError = error as { code?: string; message?: string };
+      // Don't reveal if email exists or not for security
+      if (firebaseError.code === 'auth/user-not-found') {
+        // Still show success to prevent email enumeration
+        return;
+      }
+      throw new Error(getFirebaseErrorMessage(firebaseError.code || ''));
     }
   }, []);
 
-  const validateResetToken = useCallback((token: string): { valid: boolean; email?: string } => {
-    const tokens = loadResetTokens();
-    const found = tokens.find(t => t.token === token && t.expiresAt > Date.now());
-    
-    if (found) {
-      return { valid: true, email: found.email };
-    }
-    return { valid: false };
-  }, []);
-
-  const resetPassword = useCallback(async ({ token, newPassword, confirmPassword }: { token: string; newPassword: string; confirmPassword: string }) => {
-    if (newPassword.length < 8) {
-      throw new Error('La contraseña debe tener al menos 8 caracteres.');
-    }
-    if (newPassword !== confirmPassword) {
-      throw new Error('Las contraseñas no coinciden.');
+  const deleteAccount = useCallback(async (): Promise<void> => {
+    const currentUser = auth.currentUser;
+    if (!currentUser) {
+      throw new Error('No hay usuario autenticado.');
     }
 
-    const tokens = loadResetTokens();
-    const tokenData = tokens.find(t => t.token === token && t.expiresAt > Date.now());
-    
-    if (!tokenData) {
-      throw new Error('El enlace de restablecimiento es inválido o ha expirado.');
+    try {
+      // Delete user data from Firestore first
+      await deleteDoc(doc(db, 'users', currentUser.uid));
+      
+      // Then delete the Firebase Auth account
+      await deleteUser(currentUser);
+      
+      // Clear local state
+      setUser(null);
+    } catch (error: unknown) {
+      const firebaseError = error as { code?: string; message?: string };
+      
+      // If the user needs to re-authenticate
+      if (firebaseError.code === 'auth/requires-recent-login') {
+        throw new Error('Por seguridad, necesitas volver a iniciar sesión antes de eliminar tu cuenta.');
+      }
+      
+      console.error('Error deleting account:', error);
+      throw new Error('Error al eliminar la cuenta. Intenta de nuevo.');
     }
-
-    const users = loadUsers();
-    const userData = users[tokenData.email];
-    
-    if (!userData) {
-      throw new Error('Usuario no encontrado.');
-    }
-
-    // Generate new salt and hash for the new password
-    const saltBytes = new Uint8Array(16);
-    crypto.getRandomValues(saltBytes);
-    const newSalt = bytesToBase64(saltBytes);
-    const newHash = await sha256Hex(`${newSalt}:${newPassword}`);
-
-    // Update user password
-    users[tokenData.email] = {
-      ...userData,
-      salt: newSalt,
-      hash: newHash,
-    };
-    saveUsers(users);
-
-    // Remove used token
-    const remainingTokens = tokens.filter(t => t.token !== token);
-    saveResetTokens(remainingTokens);
   }, []);
 
   const value = useMemo<AuthContextValue>(
@@ -342,10 +293,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       signOut,
       markAsSubscribed,
       requestPasswordReset,
-      validateResetToken,
-      resetPassword,
+      deleteAccount,
     }),
-    [user, isLoading, signUp, signIn, signOut, markAsSubscribed, requestPasswordReset, validateResetToken, resetPassword]
+    [user, isLoading, signUp, signIn, signOut, markAsSubscribed, requestPasswordReset, deleteAccount]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
@@ -356,4 +306,3 @@ export function useAuth() {
   if (!ctx) throw new Error('useAuth must be used within an AuthProvider');
   return ctx;
 }
-

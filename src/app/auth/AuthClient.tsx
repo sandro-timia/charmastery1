@@ -342,7 +342,7 @@ export default function AuthClient() {
               )}
 
               <p className="text-[#5A5A5E] text-xs text-center pt-2">
-                Sin base de datos aún — las credenciales se guardan localmente en este navegador por ahora.
+                Tus datos están protegidos con Firebase Authentication.
               </p>
             </form>
           </div>

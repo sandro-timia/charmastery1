@@ -30,6 +30,9 @@ export default function ForgotPasswordPage() {
     }
   };
 
+  // Note: Firebase handles password reset via its own hosted page.
+  // Users will receive an email with a link to reset their password.
+
   return (
     <main className="min-h-screen pt-28 pb-20 bg-[#0A0A0B] relative overflow-hidden">
       {/* Background glow */}
@@ -76,10 +79,10 @@ export default function ForgotPasswordPage() {
 
                 <div className="bg-[#0A0A0B]/60 rounded-lg p-4 mb-6 border border-[rgba(201,162,39,0.15)]">
                   <p className="text-[#8A8A8E] text-sm mb-2">
-                    📧 Revisa tu bandeja de entrada y sigue las instrucciones del correo.
+                    📧 Revisa tu bandeja de entrada y haz clic en el enlace para restablecer tu contraseña.
                   </p>
                   <p className="text-[#5A5A5E] text-xs">
-                    El enlace expirará en 1 hora. Si no encuentras el correo, revisa tu carpeta de spam.
+                    Si no encuentras el correo, revisa tu carpeta de spam. El remitente será noreply@charmastery-aa589.firebaseapp.com
                   </p>
                 </div>
 
