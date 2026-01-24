@@ -36,7 +36,7 @@ export default function AccountPage() {
       <main className="min-h-screen pt-28 pb-20 bg-[#0A0A0B]">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="glass rounded-2xl p-8 gold-border">
-            <p className="text-[#8A8A8E]">Cargando…</p>
+            <p className="text-[#8A8A8E]">Cargando..</p>
           </div>
         </div>
       </main>
