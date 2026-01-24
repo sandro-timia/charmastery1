@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { Suspense } from "react";
 import { CartProvider } from "@/context/CartContext";
@@ -82,6 +83,15 @@ export default function RootLayout({
             </CartProvider>
           </CookieProvider>
         </AuthProvider>
+
+        {/* Microsoft Clarity - heatmaps, session recordings, analytics (en <head> según recomendación de Clarity) */}
+        <Script id="microsoft-clarity" strategy="beforeInteractive">
+          {`(function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "v6kfk7rm64");`}
+        </Script>
       </body>
     </html>
   );
