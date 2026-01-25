@@ -3,16 +3,11 @@ import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { Suspense } from "react";
-import dynamic from "next/dynamic";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Cart from "@/components/Cart";
 import CookieConsent from "@/components/CookieConsent";
-
-// Cargar providers de forma diferida para no bloquear el render inicial
-const ClientProviders = dynamic(() => import("@/components/ClientProviders"), {
-  ssr: false,
-});
+import ClientProviders from "@/components/ClientProviders";
 
 const cormorantGaramond = Cormorant_Garamond({
   variable: "--font-serif",
