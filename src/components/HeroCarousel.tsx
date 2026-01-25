@@ -1,8 +1,11 @@
 'use client';
 
 import { useEffect, useRef, useState, useCallback } from 'react';
+import dynamic from 'next/dynamic';
 import { heroVideos } from '@/data/mockData';
-import VideoCard from './VideoCard';
+
+// Dynamic import with ssr: false to prevent hydration mismatches with video elements
+const VideoCard = dynamic(() => import('./VideoCard'), { ssr: false });
 
 export default function HeroCarousel() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -31,25 +34,6 @@ export default function HeroCarousel() {
     };
   }, [startAutoAdvance]);
 
-  // Preload hero media (GIFs and videos) so side cards animate immediately
-  useEffect(() => {
-    heroVideos.forEach((v) => {
-      const isVideo = /\.(mp4|webm|ogg|mov)(\?|$)/i.test(v.gifUrl);
-      if (isVideo) {
-        // Preload video
-        const video = document.createElement('video');
-        video.preload = 'auto';
-        video.src = v.gifUrl;
-      } else {
-        // Preload image/GIF
-        const img = new Image();
-        img.src = v.gifUrl;
-      }
-      // Always preload poster
-      const poster = new Image();
-      poster.src = v.posterUrl;
-    });
-  }, []);
 
   const nextSlide = useCallback(() => {
     setActiveIndex((prev) => (prev + 1) % totalSlides);

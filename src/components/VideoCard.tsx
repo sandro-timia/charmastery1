@@ -57,8 +57,7 @@ export default function VideoCard({ video, isActive, onWatchFullPerformance }: V
           <video
             ref={videoRef}
             key={mediaKey}
-            src={hasError ? undefined : video.gifUrl}
-            poster={video.posterUrl}
+            src={video.gifUrl}
             autoPlay
             loop
             muted
@@ -68,10 +67,8 @@ export default function VideoCard({ video, isActive, onWatchFullPerformance }: V
               setHasError(true);
               setIsLoaded(true);
             }}
-            className={[
-              'absolute inset-0 w-full h-full object-cover',
-              isActive ? '' : 'opacity-80',
-            ].join(' ')}
+            className={`absolute inset-0 w-full h-full object-cover ${isActive ? '' : 'opacity-80'}`}
+            suppressHydrationWarning
           />
         ) : (
           <img
