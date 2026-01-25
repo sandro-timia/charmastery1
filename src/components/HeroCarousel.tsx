@@ -138,6 +138,8 @@ export default function HeroCarousel() {
                         ? 'translate3d(275px, 10px, 0px) scale(0.82) rotateY(-40deg)'
                         : 'translate3d(0px, 0px, -600px) scale(0.7) rotateY(0deg)';
 
+                // Siempre renderizar los 5 para evitar hydration mismatch (return null cambia el árbol).
+                // Los no visibles usan opacity-0; VideoCard solo asigna src cuando isActive/hasBeenActive.
                 return (
                   <div
                     key={video.id}

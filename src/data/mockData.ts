@@ -172,6 +172,8 @@ export const tours: Tour[] = [
 ];
 
 // Hero GIFs for carousel
+// NOTA: posterUrl debería ser una imagen JPG/WebP ligera (thumb); usar el mismo MP4 duplica carga.
+// VideoCard solo carga el MP4 cuando la slide está activa para reducir el payload de red.
 export const heroVideos: HeroVideo[] = [
   {
     id: 1,

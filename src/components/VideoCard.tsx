@@ -18,16 +18,21 @@ export default function VideoCard({ video, isActive, onWatchFullPerformance }: V
   const [isLoaded, setIsLoaded] = useState(false);
   const [mediaKey, setMediaKey] = useState(0);
   const [hasError, setHasError] = useState(false);
+  const [hasBeenActive, setHasBeenActive] = useState(isActive); // Solo cargar video cuando esté o haya estado activo
   const imgRef = useRef<HTMLImageElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   const isVideo = isVideoUrl(video.gifUrl);
 
+  // Marcar como "ha estado activo" para no recargar al volver a la slide; evita descargar MP4 en slides laterales
+  useEffect(() => {
+    if (isActive) setHasBeenActive(true);
+  }, [isActive]);
+
   // Reset media when card becomes active
   useEffect(() => {
     if (isActive) {
       setMediaKey((prev) => prev + 1);
-      // Restart video playback when becoming active
       if (videoRef.current) {
         videoRef.current.currentTime = 0;
         videoRef.current.play().catch(() => {});
@@ -48,28 +53,39 @@ export default function VideoCard({ video, isActive, onWatchFullPerformance }: V
     }
   }, [mediaKey, video.gifUrl, video.posterUrl, isVideo]);
 
+  // Para video: no mostrar spinner si aún no cargamos (placeholder); sí si estamos cargando el MP4
+  const showSpinner = isVideo ? (hasBeenActive && !isLoaded) : !isLoaded;
+
   return (
     <div className="relative w-full">
       {/* Media Frame */}
       <div className="relative w-full aspect-[4/5] sm:aspect-[3/4] rounded-lg overflow-hidden gold-border gold-glow-hover card-lift group">
         {/* Video or GIF */}
         {isVideo ? (
-          <video
-            ref={videoRef}
-            key={mediaKey}
-            src={video.gifUrl}
-            autoPlay
-            loop
-            muted
-            playsInline
-            onLoadedData={() => setIsLoaded(true)}
-            onError={() => {
-              setHasError(true);
-              setIsLoaded(true);
-            }}
-            className={`absolute inset-0 w-full h-full object-cover ${isActive ? '' : 'opacity-80'}`}
-            suppressHydrationWarning
-          />
+          hasBeenActive ? (
+            <video
+              ref={videoRef}
+              key={mediaKey}
+              src={video.gifUrl}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              onLoadedData={() => setIsLoaded(true)}
+              onError={() => {
+                setHasError(true);
+                setIsLoaded(true);
+              }}
+              className={`absolute inset-0 w-full h-full object-cover ${isActive ? '' : 'opacity-80'}`}
+              suppressHydrationWarning
+            />
+          ) : (
+            <div
+              className={`absolute inset-0 w-full h-full object-cover bg-[#1A1A1F] ${isActive ? '' : 'opacity-80'}`}
+              aria-hidden
+            />
+          )
         ) : (
           <img
             ref={imgRef}
@@ -90,8 +106,8 @@ export default function VideoCard({ video, isActive, onWatchFullPerformance }: V
           />
         )}
 
-        {/* Loading State */}
-        {!isLoaded && (
+        {/* Loading State — no spinner en placeholder de video (hasBeenActive=false) */}
+        {showSpinner && (
           <div className="absolute inset-0 bg-[#1A1A1F] flex items-center justify-center">
             <div className="w-8 h-8 border-2 border-[#C9A227] border-t-transparent rounded-full animate-spin" />
           </div>
