@@ -2,15 +2,21 @@
   "name": "charmastery",
   "version": "0.1.0",
   "private": true,
-  "browserslist": [
-    "Chrome >= 90",
-    "Firefox >= 90",
-    "Safari >= 15",
-    "Edge >= 90",
-    "iOS >= 15",
-    "not dead",
-    "not op_mini all"
-  ],
+  "browserslist": {
+    "production": [
+      "Chrome >= 105",
+      "Firefox >= 104",
+      "Safari >= 16.4",
+      "Edge >= 105",
+      "iOS >= 16.4",
+      "not dead"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",

@@ -29,11 +29,11 @@ export default function TrickCard({ trick, index }: TrickCardProps) {
   useEffect(() => {
     if (isVideoModalOpen) {
       document.addEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = 'hidden';
+      document.body.classList.add('modal-open');
     }
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = 'unset';
+      document.body.classList.remove('modal-open');
     };
   }, [isVideoModalOpen, handleKeyDown]);
 

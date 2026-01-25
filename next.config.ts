@@ -33,7 +33,7 @@ const nextConfig: NextConfig = {
     formats: ['image/avif', 'image/webp'],
   },
 
-  // Compilador SWC optimizado
+  // Compilador SWC optimizado para navegadores modernos
   compiler: {
     // Eliminar console.log en producción
     removeConsole: process.env.NODE_ENV === 'production',
@@ -44,6 +44,10 @@ const nextConfig: NextConfig = {
     // Tree shaking optimizado para paquetes grandes
     optimizePackageImports: ['firebase', 'firebase/app', 'firebase/auth', 'firebase/firestore', '@stripe/stripe-js'],
   },
+
+  // Transpilar solo lo necesario para navegadores modernos (ES2022+)
+  // Next.js 16+ usa SWC por defecto, respetando browserslist
+  transpilePackages: [],
 
   // Compresión habilitada
   compress: true,

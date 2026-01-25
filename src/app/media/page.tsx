@@ -3,10 +3,15 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { useAuth } from '@/context/AuthContext';
 import { mediaItems, MediaItem, tricks } from '@/data/mockData';
-import VideoModal from '@/components/VideoModal';
 import TrickCard from '@/components/TrickCard';
+
+// Lazy load VideoModal - only loaded when user clicks a video
+const VideoModal = dynamic(() => import('@/components/VideoModal'), {
+  ssr: false,
+});
 
 type CategoryTab = 'tutorials' | 'charm-tips' | 'footages';
 

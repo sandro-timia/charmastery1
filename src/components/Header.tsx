@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
@@ -15,32 +15,80 @@ export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
 
+  // Ref to track the latest scroll position without causing re-renders
+  const ticking = useRef(false);
+
+  // Throttled scroll handler for isScrolled state only (no layout reads)
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-
-      // Track active section on homepage
-      if (pathname === '/') {
-        const sections = ['tricks', 'tours', 'about'];
-        let currentSection: string | null = null;
-
-        for (const sectionId of sections) {
-          const element = document.getElementById(sectionId);
-          if (element) {
-            const rect = element.getBoundingClientRect();
-            // Check if section is in viewport (with some offset for header)
-            if (rect.top <= 150 && rect.bottom >= 150) {
-              currentSection = sectionId;
-              break;
-            }
-          }
-        }
-        setActiveSection(currentSection);
+      if (!ticking.current) {
+        // Use requestAnimationFrame for throttling - batches with browser repaint
+        requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 50);
+          ticking.current = false;
+        });
+        ticking.current = true;
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Use Intersection Observer for section tracking (no forced reflows)
+  useEffect(() => {
+    if (pathname !== '/') {
+      setActiveSection(null);
+      return;
+    }
+
+    const sections = ['tricks', 'tours', 'about'];
+    const sectionElements = sections
+      .map(id => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    if (sectionElements.length === 0) return;
+
+    // Track which sections are visible and their intersection ratios
+    const visibleSections = new Map<string, number>();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          const id = entry.target.id;
+          if (entry.isIntersecting) {
+            visibleSections.set(id, entry.intersectionRatio);
+          } else {
+            visibleSections.delete(id);
+          }
+        });
+
+        // Find the section with highest visibility that's near the top
+        let bestSection: string | null = null;
+        let bestScore = -Infinity;
+
+        visibleSections.forEach((ratio, id) => {
+          // Prioritize sections in order (tricks > tours > about) when similarly visible
+          const orderBonus = sections.indexOf(id) === 0 ? 0.1 : 0;
+          const score = ratio + orderBonus;
+          if (score > bestScore) {
+            bestScore = score;
+            bestSection = id;
+          }
+        });
+
+        setActiveSection(bestSection);
+      },
+      {
+        // Trigger when section enters the viewport area below the header
+        rootMargin: '-150px 0px -50% 0px',
+        threshold: [0, 0.25, 0.5, 0.75, 1],
+      }
+    );
+
+    sectionElements.forEach(el => observer.observe(el));
+
+    return () => observer.disconnect();
   }, [pathname]);
 
   // Close mobile menu when route changes

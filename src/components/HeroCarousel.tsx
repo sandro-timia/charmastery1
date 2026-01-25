@@ -82,12 +82,11 @@ export default function HeroCarousel() {
     };
 
     document.addEventListener('keydown', onKeyDown);
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    document.body.classList.add('modal-open');
 
     return () => {
       document.removeEventListener('keydown', onKeyDown);
-      document.body.style.overflow = prevOverflow;
+      document.body.classList.remove('modal-open');
     };
   }, [youtubeModalId, closeYoutubeModal]);
 
