@@ -176,8 +176,8 @@ export const heroVideos: HeroVideo[] = [
   {
     id: 1,
     title: "Conexión Instantánea",
-    gifUrl: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768623679/Pi7_GIF_CMP_4_x6eoes.gif",
-    posterUrl: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768623679/Pi7_GIF_CMP_4_x6eoes.gif",
+    gifUrl: "https://res.cloudinary.com/dh5mrkh5q/video/upload/v1769352663/Pi7_GIF_CMP_1_txupav_kwlt1n.mp4",
+    posterUrl: "https://res.cloudinary.com/dh5mrkh5q/video/upload/v1769352663/Pi7_GIF_CMP_1_txupav_kwlt1n.mp4",
     duration: 1000,
     // TODO: replace with your real full-performance YouTube video ID
     youtubeId: "dQw4w9WgXcQ"
@@ -185,32 +185,32 @@ export const heroVideos: HeroVideo[] = [
   {
     id: 2,
     title: "Rompe el Hielo",
-    gifUrl: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768623687/Pi7_GIF_CMP_2_sk6njd.gif",
-    posterUrl: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768623687/Pi7_GIF_CMP_2_sk6njd.gif",
+    gifUrl: "https://res.cloudinary.com/dh5mrkh5q/video/upload/v1769351700/Pi7_GIF_CMP_3_zocwgi_ffnlhb.mp4",
+    posterUrl: "https://res.cloudinary.com/dh5mrkh5q/video/upload/v1769351700/Pi7_GIF_CMP_3_zocwgi_ffnlhb.mp4",
     duration: 1000,
     youtubeId: "dQw4w9WgXcQ"
   },
   {
     id: 3,
     title: "Crea Asombro",
-    gifUrl: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768623688/Pi7_GIF_CMP_3_zocwgi.gif",
-    posterUrl: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768623688/Pi7_GIF_CMP_3_zocwgi.gif",
+    gifUrl: "https://res.cloudinary.com/dh5mrkh5q/video/upload/v1769352406/Pi7_GIF_CMP_jsokqo_x0ezjl.mp4",
+    posterUrl: "https://res.cloudinary.com/dh5mrkh5q/video/upload/v1769352406/Pi7_GIF_CMP_jsokqo_x0ezjl.mp4",
     duration: 1000,
     youtubeId: "dQw4w9WgXcQ"
   },
   {
     id: 4,
     title: "Momentos Inolvidables",
-    gifUrl: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768623687/Pi7_GIF_CMP_jsokqo.gif",
-    posterUrl: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768623687/Pi7_GIF_CMP_jsokqo.gif",
+    gifUrl: "https://res.cloudinary.com/dh5mrkh5q/video/upload/v1769352813/Pi7_GIF_CMP_2_sk6njd_abw8g4.mp4",
+    posterUrl: "https://res.cloudinary.com/dh5mrkh5q/video/upload/v1769352813/Pi7_GIF_CMP_2_sk6njd_abw8g4.mp4",
     duration: 1000,
     youtubeId: "dQw4w9WgXcQ"
   },
   {
     id: 5,
     title: "Maestría Social",
-    gifUrl: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768623693/Pi7_GIF_CMP_1_txupav.gif",
-    posterUrl: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768623693/Pi7_GIF_CMP_1_txupav.gif",
+    gifUrl: "https://res.cloudinary.com/dh5mrkh5q/video/upload/v1769353272/Pi7_GIF_CMP_4_x6eoes_vszudp.mp4",
+    posterUrl: "https://res.cloudinary.com/dh5mrkh5q/video/upload/v1769353272/Pi7_GIF_CMP_4_x6eoes_vszudp.mp4",
     duration: 1000,
     youtubeId: "dQw4w9WgXcQ"
   }

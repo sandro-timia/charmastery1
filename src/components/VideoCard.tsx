@@ -9,55 +9,89 @@ interface VideoCardProps {
   onWatchFullPerformance?: () => void;
 }
 
+// Detectar si la URL es un video (mp4, webm, etc.)
+function isVideoUrl(url: string): boolean {
+  return /\.(mp4|webm|ogg|mov)(\?|$)/i.test(url);
+}
+
 export default function VideoCard({ video, isActive, onWatchFullPerformance }: VideoCardProps) {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [gifKey, setGifKey] = useState(0);
+  const [mediaKey, setMediaKey] = useState(0);
   const [hasError, setHasError] = useState(false);
   const imgRef = useRef<HTMLImageElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  // Reset GIF when card becomes active
+  const isVideo = isVideoUrl(video.gifUrl);
+
+  // Reset media when card becomes active
   useEffect(() => {
     if (isActive) {
-      // Reset GIF by changing key (forces reload)
-      setGifKey((prev) => prev + 1);
+      setMediaKey((prev) => prev + 1);
+      // Restart video playback when becoming active
+      if (videoRef.current) {
+        videoRef.current.currentTime = 0;
+        videoRef.current.play().catch(() => {});
+      }
     }
   }, [isActive]);
 
-  // Ensure loading state resolves even if image is already cached
+  // Ensure loading state resolves even if media is already cached
   useEffect(() => {
-    // when the src changes, show loader until we confirm it's complete
     setIsLoaded(false);
+    setHasError(false);
 
-    const img = imgRef.current;
-    if (img && img.complete) {
-      setIsLoaded(true);
+    if (!isVideo) {
+      const img = imgRef.current;
+      if (img && img.complete) {
+        setIsLoaded(true);
+      }
     }
-  }, [gifKey, hasError, video.gifUrl, video.posterUrl]);
+  }, [mediaKey, video.gifUrl, video.posterUrl, isVideo]);
 
   return (
     <div className="relative w-full">
       {/* Media Frame */}
       <div className="relative w-full aspect-[4/5] sm:aspect-[3/4] rounded-lg overflow-hidden gold-border gold-glow-hover card-lift group">
-        {/* GIF */}
-        <img
-          ref={imgRef}
-          key={gifKey}
-          src={hasError ? video.posterUrl : video.gifUrl}
-          alt={video.title}
-          onLoad={() => setIsLoaded(true)}
-          onError={() => {
-            // Avoid infinite spinner if a 3rd-party GIF host blocks requests
-            setHasError(true);
-            setIsLoaded(true);
-          }}
-          loading="eager"
-          decoding="async"
-          className={[
-            'absolute inset-0 w-full h-full object-cover',
-            // Subtle dim for side cards without CSS filters (keeps GIF animation reliable)
-            isActive ? '' : 'opacity-80',
-          ].join(' ')}
-        />
+        {/* Video or GIF */}
+        {isVideo ? (
+          <video
+            ref={videoRef}
+            key={mediaKey}
+            src={hasError ? undefined : video.gifUrl}
+            poster={video.posterUrl}
+            autoPlay
+            loop
+            muted
+            playsInline
+            onLoadedData={() => setIsLoaded(true)}
+            onError={() => {
+              setHasError(true);
+              setIsLoaded(true);
+            }}
+            className={[
+              'absolute inset-0 w-full h-full object-cover',
+              isActive ? '' : 'opacity-80',
+            ].join(' ')}
+          />
+        ) : (
+          <img
+            ref={imgRef}
+            key={mediaKey}
+            src={hasError ? video.posterUrl : video.gifUrl}
+            alt={video.title}
+            onLoad={() => setIsLoaded(true)}
+            onError={() => {
+              setHasError(true);
+              setIsLoaded(true);
+            }}
+            loading="eager"
+            decoding="async"
+            className={[
+              'absolute inset-0 w-full h-full object-cover',
+              isActive ? '' : 'opacity-80',
+            ].join(' ')}
+          />
+        )}
 
         {/* Loading State */}
         {!isLoaded && (

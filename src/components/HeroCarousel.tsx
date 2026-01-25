@@ -31,11 +31,21 @@ export default function HeroCarousel() {
     };
   }, [startAutoAdvance]);
 
-  // Preload hero GIFs so side cards animate immediately
+  // Preload hero media (GIFs and videos) so side cards animate immediately
   useEffect(() => {
     heroVideos.forEach((v) => {
-      const img = new Image();
-      img.src = v.gifUrl;
+      const isVideo = /\.(mp4|webm|ogg|mov)(\?|$)/i.test(v.gifUrl);
+      if (isVideo) {
+        // Preload video
+        const video = document.createElement('video');
+        video.preload = 'auto';
+        video.src = v.gifUrl;
+      } else {
+        // Preload image/GIF
+        const img = new Image();
+        img.src = v.gifUrl;
+      }
+      // Always preload poster
       const poster = new Image();
       poster.src = v.posterUrl;
     });
