@@ -143,7 +143,7 @@ export default function TrickCard({ trick, index }: TrickCardProps) {
                 alt={trick.name}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
               />
               {/* Diagonal yellow to purple gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-br from-[#C9A227]/30 via-transparent to-[#2D1B4E]/40" />
@@ -313,7 +313,7 @@ export default function TrickCard({ trick, index }: TrickCardProps) {
           alt={trick.name}
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-110"
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
         />
         {/* Diagonal yellow to purple gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#C9A227]/30 via-transparent to-[#2D1B4E]/40" />

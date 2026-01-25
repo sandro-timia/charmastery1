@@ -3,13 +3,16 @@ import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { Suspense } from "react";
-import { CartProvider } from "@/context/CartContext";
-import { AuthProvider } from "@/context/AuthContext";
-import { CookieProvider } from "@/context/CookieContext";
+import dynamic from "next/dynamic";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Cart from "@/components/Cart";
 import CookieConsent from "@/components/CookieConsent";
+
+// Cargar providers de forma diferida para no bloquear el render inicial
+const ClientProviders = dynamic(() => import("@/components/ClientProviders"), {
+  ssr: false,
+});
 
 const cormorantGaramond = Cormorant_Garamond({
   variable: "--font-serif",
@@ -67,31 +70,27 @@ export default function RootLayout({
   return (
     <html lang="es" className="scroll-smooth">
       <head>
-        {/* Preconnect a orígenes externos críticos para mejorar LCP */}
-        <link rel="preconnect" href="https://charmastery-aa589.firebaseapp.com" />
-        <link rel="preconnect" href="https://res.cloudinary.com" />
-        <link rel="preconnect" href="https://apis.google.com" />
+        {/* Preconnect a orígenes externos críticos para mejorar LCP - crossorigin requerido para CORS */}
+        <link rel="preconnect" href="https://charmastery-aa589.firebaseapp.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://apis.google.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://www.googleapis.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://res.cloudinary.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://www.clarity.ms" />
         <link rel="dns-prefetch" href="https://scripts.clarity.ms" />
-        <link rel="dns-prefetch" href="https://www.googleapis.com" />
       </head>
       <body
         className={`${cormorantGaramond.variable} ${dmSans.variable} antialiased bg-[#0A0A0B] text-[#F5F5F5]`}
         style={{ fontFamily: "var(--font-sans)" }}
       >
-        <AuthProvider>
-          <CookieProvider>
-            <CartProvider>
-              <Header />
-              {children}
-              <Footer />
-              <Suspense fallback={null}>
-                <Cart />
-              </Suspense>
-              <CookieConsent />
-            </CartProvider>
-          </CookieProvider>
-        </AuthProvider>
+        <ClientProviders>
+          <Header />
+          {children}
+          <Footer />
+          <Suspense fallback={null}>
+            <Cart />
+          </Suspense>
+          <CookieConsent />
+        </ClientProviders>
 
         {/* Microsoft Clarity - carga diferida para no bloquear renderizado inicial */}
         <Script id="microsoft-clarity" strategy="afterInteractive">

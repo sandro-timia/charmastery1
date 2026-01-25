@@ -53,6 +53,52 @@ const nextConfig: NextConfig = {
 
   // Modo estricto de React para detectar problemas
   reactStrictMode: true,
+
+  // Headers de caché optimizados para recursos propios
+  async headers() {
+    return [
+      {
+        // Archivos estáticos con hash (inmutables) - caché de 1 año
+        source: '/_next/static/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        // Imágenes optimizadas por Next.js - caché de 1 año
+        source: '/_next/image/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        // Fuentes - caché de 1 año
+        source: '/fonts/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        // Imágenes estáticas en public - caché de 1 semana con revalidación
+        source: '/:all*(svg|jpg|jpeg|png|gif|ico|webp|avif)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=604800, stale-while-revalidate=86400',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
