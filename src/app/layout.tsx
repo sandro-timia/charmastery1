@@ -66,6 +66,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="scroll-smooth">
+      <head>
+        {/* Preconnect a orígenes externos críticos para mejorar LCP */}
+        <link rel="preconnect" href="https://charmastery-aa589.firebaseapp.com" />
+        <link rel="preconnect" href="https://res.cloudinary.com" />
+        <link rel="preconnect" href="https://apis.google.com" />
+        <link rel="dns-prefetch" href="https://www.clarity.ms" />
+        <link rel="dns-prefetch" href="https://scripts.clarity.ms" />
+        <link rel="dns-prefetch" href="https://www.googleapis.com" />
+      </head>
       <body
         className={`${cormorantGaramond.variable} ${dmSans.variable} antialiased bg-[#0A0A0B] text-[#F5F5F5]`}
         style={{ fontFamily: "var(--font-sans)" }}
@@ -84,8 +93,8 @@ export default function RootLayout({
           </CookieProvider>
         </AuthProvider>
 
-        {/* Microsoft Clarity - heatmaps, session recordings, analytics (en <head> según recomendación de Clarity) */}
-        <Script id="microsoft-clarity" strategy="beforeInteractive">
+        {/* Microsoft Clarity - carga diferida para no bloquear renderizado inicial */}
+        <Script id="microsoft-clarity" strategy="afterInteractive">
           {`(function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;

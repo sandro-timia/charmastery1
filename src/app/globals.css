@@ -290,10 +290,10 @@ h1, h2, h3, h4, h5, h6 {
 
 @keyframes pulse-gold {
   0%, 100% {
-    box-shadow: 0 0 15px var(--glow-gold);
+    opacity: 0.6;
   }
   50% {
-    box-shadow: 0 0 30px var(--glow-gold), 0 0 45px rgba(201, 162, 39, 0.2);
+    opacity: 1;
   }
 }
 
@@ -348,7 +348,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .animate-pulse-gold {
+  position: relative;
+}
+
+.animate-pulse-gold::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 30px var(--glow-gold), 0 0 45px rgba(201, 162, 39, 0.2);
   animation: pulse-gold 2s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .animate-flicker-glow {
