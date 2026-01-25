@@ -45,9 +45,17 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['firebase', 'firebase/app', 'firebase/auth', 'firebase/firestore', '@stripe/stripe-js'],
   },
 
-  // Transpilar solo lo necesario para navegadores modernos (ES2022+)
-  // Next.js 16+ usa SWC por defecto, respetando browserslist
-  transpilePackages: [],
+  // Modularize imports para tree-shaking de Firebase
+  modularizeImports: {
+    'firebase/auth': {
+      transform: 'firebase/auth',
+      skipDefaultConversion: true,
+    },
+    'firebase/firestore': {
+      transform: 'firebase/firestore',
+      skipDefaultConversion: true,
+    },
+  },
 
   // Compresión habilitada
   compress: true,
