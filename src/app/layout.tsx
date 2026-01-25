@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import Script from "next/script";
+import dynamic from "next/dynamic";
 import "./globals.css";
 import { Suspense } from "react";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import Cart from "@/components/Cart";
-import CookieConsent from "@/components/CookieConsent";
 import ClientProviders from "@/components/ClientProviders";
+
+const Footer = dynamic(() => import("@/components/Footer"), { ssr: true });
+const CookieConsent = dynamic(() => import("@/components/CookieConsent"), { ssr: true });
 
 const cormorantGaramond = Cormorant_Garamond({
   variable: "--font-serif",
@@ -70,8 +72,9 @@ export default function RootLayout({
         <link rel="preconnect" href="https://apis.google.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://www.googleapis.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://res.cloudinary.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://www.clarity.ms" />
-        <link rel="dns-prefetch" href="https://scripts.clarity.ms" />
+        <link rel="preconnect" href="https://www.clarity.ms" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://q.clarity.ms" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://scripts.clarity.ms" crossOrigin="anonymous" />
       </head>
       <body
         className={`${cormorantGaramond.variable} ${dmSans.variable} antialiased bg-[#0A0A0B] text-[#F5F5F5]`}
@@ -87,8 +90,8 @@ export default function RootLayout({
           <CookieConsent />
         </ClientProviders>
 
-        {/* Microsoft Clarity - carga diferida para no bloquear renderizado inicial */}
-        <Script id="microsoft-clarity" strategy="afterInteractive">
+        {/* Microsoft Clarity - lazyOnload reduce main-thread y reflows en carga inicial */}
+        <Script id="microsoft-clarity" strategy="lazyOnload">
           {`(function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;

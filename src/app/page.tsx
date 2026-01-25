@@ -1,7 +1,9 @@
+import dynamic from 'next/dynamic';
 import HeroCarousel from '@/components/HeroCarousel';
 import TricksGrid from '@/components/TricksGrid';
-import ToursSection from '@/components/ToursSection';
-import SignUpSection from '@/components/SignUpSection';
+
+const ToursSection = dynamic(() => import('@/components/ToursSection'), { ssr: true });
+const SignUpSection = dynamic(() => import('@/components/SignUpSection'), { ssr: true });
 
 export default function Home() {
   return (
@@ -12,10 +14,10 @@ export default function Home() {
       {/* Individual Tricks Section */}
       <TricksGrid />
 
-      {/* Upcoming Tours Section */}
+      {/* Upcoming Tours Section — dynamic para reducir JS inicial */}
       <ToursSection />
 
-      {/* Sign Up / Newsletter Section */}
+      {/* Sign Up / Newsletter Section — dynamic para reducir JS inicial */}
       <SignUpSection />
 
       {/* About Section */}

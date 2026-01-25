@@ -139,7 +139,7 @@ export default function OurWorkPage() {
                         src={trick.thumbnail}
                         alt={trick.name}
                         fill
-                        sizes="(max-width: 768px) 100vw, 50vw"
+                        sizes="(max-width: 768px) 100vw, 560px"
                         className="object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />

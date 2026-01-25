@@ -102,8 +102,8 @@ export default function HeroCarousel() {
 
         {/* Carousel Container */}
         <div className="relative lg:pb-12">
-          {/* Mobile / Tablet: single card */}
-          <div className="lg:hidden flex items-center justify-center">
+          {/* Mobile / Tablet: single card — min-h evita CLS cuando VideoCard (ssr:false) monta */}
+          <div className="lg:hidden flex items-center justify-center min-h-[400px]">
             <div className="w-full max-w-xs md:max-w-sm transition-all duration-500 animate-fade-in-up">
               <VideoCard
                 video={heroVideos[activeIndex]}
