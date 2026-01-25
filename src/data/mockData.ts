@@ -47,7 +47,7 @@ export const tricks: Trick[] = [
     youtubeId: "dQw4w9WgXcQ",
     difficulty: "Beginner",
     price: 5,
-    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768607420/pegasus_link2_c8fvp7.jpg"
+    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/q_auto:low,f_auto/v1768607420/pegasus_link2_c8fvp7.jpg"
   },
   {
     id: 2,
@@ -57,7 +57,7 @@ export const tricks: Trick[] = [
     youtubeId: "dQw4w9WgXcQ",
     difficulty: "Intermediate",
     price: 10,
-    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768608022/caidoz2_wvf9cg.jpg"
+    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/q_auto:good,f_auto/v1768608022/caidoz2_wvf9cg.jpg"
   },
   {
     id: 3,
@@ -67,7 +67,7 @@ export const tricks: Trick[] = [
     youtubeId: "dQw4w9WgXcQ",
     difficulty: "Advanced",
     price: 15,
-    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768607724/tictactoc2_ewuxae.jpg"
+    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/q_auto:good,f_auto/v1768607724/tictactoc2_ewuxae.jpg"
   },
   {
     id: 4,
@@ -77,7 +77,7 @@ export const tricks: Trick[] = [
     youtubeId: "dQw4w9WgXcQ",
     difficulty: "Intermediate",
     price: 10,
-    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768608729/transpoparadigm2_bffstu.jpg"
+    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/q_auto:good,f_auto/v1768608729/transpoparadigm2_bffstu.jpg"
   },
   {
     id: 5,
@@ -87,7 +87,7 @@ export const tricks: Trick[] = [
     youtubeId: "dQw4w9WgXcQ",
     difficulty: "Beginner",
     price: 5,
-    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768608446/voltarum2_hldczb.jpg"
+    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/q_auto:good,f_auto/v1768608446/voltarum2_hldczb.jpg"
   },
   {
     id: 6,
@@ -97,7 +97,7 @@ export const tricks: Trick[] = [
     youtubeId: "dQw4w9WgXcQ",
     difficulty: "Advanced",
     price: 15,
-    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768607096/invisiblex2_the1ai.jpg"
+    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/q_auto:good,f_auto/v1768607096/invisiblex2_the1ai.jpg"
   },
   {
     id: 7,
@@ -107,7 +107,7 @@ export const tricks: Trick[] = [
     youtubeId: "dQw4w9WgXcQ",
     difficulty: "Beginner",
     price: 5,
-    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768608975/dynamicmonte2_tynkcs.jpg"
+    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/q_auto:good,f_auto/v1768608975/dynamicmonte2_tynkcs.jpg"
   },
   {
     id: 8,
@@ -117,7 +117,7 @@ export const tricks: Trick[] = [
     youtubeId: "dQw4w9WgXcQ",
     difficulty: "Intermediate",
     price: 10,
-    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768605425/sugartrap_c9fafl.jpg"
+    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/q_auto:good,f_auto/v1768605425/sugartrap_c9fafl.jpg"
   },
   {
     id: 9,
@@ -127,7 +127,7 @@ export const tricks: Trick[] = [
     youtubeId: "dQw4w9WgXcQ",
     difficulty: "Advanced",
     price: 15,
-    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/v1768609367/flamarte2_c4oyti.jpg"
+    thumbnail: "https://res.cloudinary.com/dh5mrkh5q/image/upload/q_auto:good,f_auto/v1768609367/flamarte2_c4oyti.jpg"
   }
 ];
 
