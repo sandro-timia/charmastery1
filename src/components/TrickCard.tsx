@@ -122,7 +122,7 @@ export default function TrickCard({ trick, index }: TrickCardProps) {
           >
           {/* Front of Card */}
           <div
-            className="group absolute inset-0 bg-[#1A1A1F] rounded-lg overflow-hidden gold-border card-lift"
+            className="group absolute inset-0 flex flex-col bg-[#1A1A1F] rounded-lg overflow-hidden gold-border card-lift"
             style={{
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
@@ -136,8 +136,8 @@ export default function TrickCard({ trick, index }: TrickCardProps) {
               Click para ver más
             </div>
 
-            {/* Thumbnail */}
-            <div className="relative aspect-[4/3.5] overflow-hidden">
+            {/* Thumbnail - flex-1 so it fills space, no gray gap below */}
+            <div className="relative flex-1 min-h-0 overflow-hidden">
               <Image
                 src={trick.thumbnail}
                 alt={trick.name}
@@ -151,8 +151,8 @@ export default function TrickCard({ trick, index }: TrickCardProps) {
               <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1F] via-transparent to-transparent" />
             </div>
 
-            {/* Content */}
-            <div className="p-5">
+            {/* Content - shrink-0 so it only takes needed space */}
+            <div className="shrink-0 px-5 pt-2 pb-2">
               {/* Title and Difficulty Badge */}
               <div className="flex items-center justify-between">
                 <h3
@@ -323,7 +323,7 @@ export default function TrickCard({ trick, index }: TrickCardProps) {
       </div>
 
       {/* Content */}
-      <div className="p-5">
+      <div className="px-5 pt-2 pb-2">
         {/* Title and Difficulty Badge */}
         <div className="flex items-center justify-between">
           <h3
